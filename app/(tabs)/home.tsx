@@ -72,7 +72,7 @@ export default function HomeScreen() {
       contentContainerStyle={{
         padding: space.lg,
         paddingBottom: space.xxxl,
-        gap: space.xl,
+        gap: space.xxl,
       }}
       style={{ flex: 1, backgroundColor: theme.background }}>
       <View style={{ gap: space.xs }}>
@@ -86,13 +86,15 @@ export default function HomeScreen() {
 
       <View
         style={{
-          minHeight: 176,
+          minHeight: 196,
           overflow: 'hidden',
           flexDirection: 'row',
           alignItems: 'center',
           borderRadius: radius.lg,
           borderCurve: 'continuous',
           backgroundColor: theme.primarySoft,
+          borderWidth: 1,
+          borderColor: 'rgba(81, 37, 184, 0.08)',
         }}>
         <View style={{ flex: 1, padding: space.lg, gap: space.sm }}>
           <Text
@@ -100,28 +102,43 @@ export default function HomeScreen() {
               color: theme.primary,
               fontSize: typeScale.caption,
               fontWeight: '800',
-              letterSpacing: 0.8,
+              letterSpacing: 1,
             }}>
             {t('YOUR PREGNANCY')}
           </Text>
           {week ? (
             <>
-              <Text style={{ color: theme.text, fontSize: typeScale.heading, fontWeight: '800' }}>
+              <Text
+                style={{
+                  color: theme.text,
+                  fontSize: typeScale.title,
+                  fontWeight: '800',
+                  lineHeight: 32,
+                }}>
                 {t('Week {week} of 40', { week })}
               </Text>
-              <Text style={{ color: theme.muted, fontSize: typeScale.small, fontWeight: '700' }}>
-                {t(trimester ?? '')}
-              </Text>
+              <View
+                style={{
+                  alignSelf: 'flex-start',
+                  paddingHorizontal: space.sm,
+                  paddingVertical: space.xs,
+                  borderRadius: radius.full,
+                  backgroundColor: theme.surface,
+                }}>
+                <Text style={{ color: theme.primary, fontSize: typeScale.caption, fontWeight: '800' }}>
+                    {t(trimester ?? '')}
+                </Text>
+              </View>
               <View
                 accessibilityRole="progressbar"
                 accessibilityLabel={t('Pregnancy progress')}
                 accessibilityValue={{ min: 1, max: 40, now: Math.min(week, 40) }}
                 style={{
-                  height: 7,
-                  marginTop: space.xs,
+                  height: 8,
+                  marginTop: space.sm,
                   overflow: 'hidden',
                   borderRadius: radius.full,
-                  backgroundColor: 'rgba(81, 37, 184, 0.14)',
+                  backgroundColor: 'rgba(81, 37, 184, 0.16)',
                 }}>
                 <View
                   style={{
@@ -132,13 +149,19 @@ export default function HomeScreen() {
                   }}
                 />
               </View>
-              <Text style={{ color: theme.muted, fontSize: typeScale.caption, lineHeight: 17 }}>
+              <Text style={{ color: theme.muted, fontSize: typeScale.caption, lineHeight: 18 }}>
                 {t('Your ANC provider can confirm your dates.')}
               </Text>
             </>
           ) : (
             <>
-              <Text style={{ color: theme.text, fontSize: typeScale.heading, fontWeight: '800' }}>
+              <Text
+                style={{
+                  color: theme.text,
+                  fontSize: typeScale.heading,
+                  fontWeight: '800',
+                  lineHeight: 26,
+                }}>
                 {t('Make your guidance personal')}
               </Text>
               <Text style={{ color: theme.muted, fontSize: typeScale.small, lineHeight: 19 }}>
@@ -151,11 +174,14 @@ export default function HomeScreen() {
                   onPressIn={() => setActivePress('add-dates')}
                   onPressOut={() => setActivePress(null)}
                   style={{
-                    minHeight: 40,
+                    minHeight: 44,
                     alignSelf: 'flex-start',
                     flexDirection: 'row',
                     alignItems: 'center',
                     gap: space.xs,
+                    paddingHorizontal: space.md,
+                    borderRadius: radius.full,
+                    backgroundColor: theme.surface,
                     opacity: activePress === 'add-dates' ? 0.7 : 1,
                   }}>
                   <Text style={{ color: theme.primary, fontSize: typeScale.small, fontWeight: '800' }}>
@@ -172,10 +198,10 @@ export default function HomeScreen() {
           contentFit="contain"
           accessibilityLabel={t('A midwife supporting an expectant mother')}
           style={{
-            width: '34%',
-            height: 156,
+            width: '38%',
+            height: 178,
             alignSelf: 'flex-end',
-            marginRight: -space.sm,
+            marginRight: -space.xs,
           }}
         />
       </View>
@@ -204,14 +230,16 @@ export default function HomeScreen() {
             onPressIn={() => setActivePress('reminder')}
             onPressOut={() => setActivePress(null)}
             style={{
-              minHeight: 88,
-              padding: space.md,
+              minHeight: 98,
+              padding: space.lg,
               flexDirection: 'row',
               alignItems: 'center',
               gap: space.md,
               borderRadius: radius.lg,
               borderCurve: 'continuous',
-              backgroundColor: theme.primary,
+              backgroundColor: theme.surface,
+              borderWidth: 1,
+              borderColor: theme.line,
               opacity: activePress === 'reminder' ? 0.88 : 1,
             }}>
             <View
@@ -221,26 +249,26 @@ export default function HomeScreen() {
                 flexShrink: 0,
                 alignItems: 'center',
                 justifyContent: 'center',
-                borderRadius: radius.md,
-                backgroundColor: 'rgba(255,255,255,0.16)',
+                borderRadius: radius.lg,
+                backgroundColor: theme.primarySoft,
               }}>
-              <AppIcon name="calendar" color={theme.white} size={24} />
+              <AppIcon name="calendar" color={theme.primary} size={23} />
             </View>
             <View style={{ flex: 1, gap: space.xs }}>
-              <Text style={{ color: theme.white, fontSize: typeScale.small, fontWeight: '700' }}>
+              <Text style={{ color: theme.primary, fontSize: typeScale.caption, fontWeight: '800' }}>
                 {nextReminder ? t('Your next ANC reminder') : t('Next ANC appointment')}
               </Text>
               <Text
                 numberOfLines={2}
                 style={{
-                  color: theme.white,
+                  color: theme.text,
                   fontSize: typeScale.subheading,
                   fontWeight: '800',
                   lineHeight: 22,
                 }}>
                 {nextReminder ? nextReminder.title : t('Plan your next visit')}
               </Text>
-              <Text style={{ color: theme.white, fontSize: typeScale.small, lineHeight: 19 }}>
+              <Text style={{ color: theme.muted, fontSize: typeScale.small, lineHeight: 19 }}>
                 {nextReminder
                   ? formatDate(
                       nextReminder.scheduledAt,
@@ -250,7 +278,7 @@ export default function HomeScreen() {
                   : t('Add a reminder to keep your care on track.')}
               </Text>
             </View>
-            <AppIcon name="arrow" color={theme.white} size={20} />
+            <AppIcon name="arrow" color={theme.primary} size={20} />
           </Pressable>
         </Link>
       </View>
@@ -266,7 +294,7 @@ export default function HomeScreen() {
         </View>
 
         {[shortcuts.slice(0, 2), shortcuts.slice(2, 4)].map((row) => (
-          <View key={row[0].title} style={{ flexDirection: 'row', gap: space.md }}>
+          <View key={row[0].title} style={{ flexDirection: 'row', gap: space.sm }}>
             {row.map((shortcut) => {
               const isUrgent = shortcut.icon === 'warning';
 
@@ -279,15 +307,15 @@ export default function HomeScreen() {
                       onPressIn={() => setActivePress(shortcut.title)}
                       onPressOut={() => setActivePress(null)}
                       style={{
-                        minHeight: 112,
+                        minHeight: 126,
                         padding: space.md,
                         alignItems: 'flex-start',
-                        justifyContent: 'center',
+                        justifyContent: 'flex-start',
                         gap: space.sm,
                         borderRadius: radius.lg,
                         borderCurve: 'continuous',
-                        backgroundColor: isUrgent ? theme.dangerSoft : theme.surface,
-                        borderWidth: isUrgent ? 0 : 1,
+                        backgroundColor: theme.surface,
+                        borderWidth: 1,
                         borderColor: theme.line,
                         opacity: activePress === shortcut.title ? 0.82 : 1,
                       }}>
@@ -298,7 +326,7 @@ export default function HomeScreen() {
                           alignItems: 'center',
                           justifyContent: 'center',
                           borderRadius: radius.full,
-                          backgroundColor: isUrgent ? 'rgba(185, 54, 47, 0.12)' : theme.primarySoft,
+                          backgroundColor: isUrgent ? theme.dangerSoft : theme.primarySoft,
                         }}>
                         <AppIcon
                           name={shortcut.icon}
@@ -308,14 +336,19 @@ export default function HomeScreen() {
                       </View>
                       <Text
                         style={{
-                          color: isUrgent ? theme.danger : theme.text,
+                          color: theme.text,
                           fontSize: typeScale.body,
                           fontWeight: '800',
                           lineHeight: 20,
                         }}>
                         {t(shortcut.title)}
                       </Text>
-                      <Text style={{ color: theme.muted, fontSize: typeScale.small, lineHeight: 17 }}>
+                      <Text
+                        style={{
+                          color: isUrgent ? theme.danger : theme.muted,
+                          fontSize: typeScale.small,
+                          lineHeight: 17,
+                        }}>
                         {t(shortcut.subtitle)}
                       </Text>
                     </Pressable>
