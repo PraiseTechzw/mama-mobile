@@ -58,6 +58,7 @@ export default function WelcomeScreen() {
   const [draft, setDraft] = useState('');
   const [error, setError] = useState('');
   const [activePress, setActivePress] = useState<string | null>(null);
+  const parsedDueDate = parseDateInput(dueDate);
   const t = (message: string, values?: Record<string, string | number>) =>
     translate(language, message, values);
 
@@ -153,7 +154,8 @@ export default function WelcomeScreen() {
 
   const submitAnswer = () => {
     setError('');
-    const answer = questionIndex === 3 ? dueDate : draft.trim();
+    const answer =
+      questionIndex === 3 && Platform.OS !== 'web' ? dueDate : draft.trim();
 
     if (!answer) {
       setError(t('Please answer before continuing.'));
@@ -451,9 +453,9 @@ export default function WelcomeScreen() {
                         }}>
                         <AppIcon name="calendar" color={theme.primary} size={18} />
                         <Text style={{ color: theme.text, fontSize: typeScale.body, fontWeight: '700' }}>
-                          {parseDateInput(dueDate)
+                          {parsedDueDate
                             ? formatDate(
-                                parseDateInput(dueDate)!.toISOString(),
+                                parsedDueDate.toISOString(),
                                 undefined,
                                 localeForLanguage(language),
                               )
@@ -463,7 +465,7 @@ export default function WelcomeScreen() {
                       {showDatePicker ? (
                         <Host matchContents>
                           <DateTimePicker
-                            value={parseDateInput(dueDate) ?? new Date()}
+                            value={parsedDueDate ?? new Date()}
                             mode="date"
                             display={Platform.OS === 'ios' ? 'inline' : 'default'}
                             presentation={Platform.OS === 'android' ? 'dialog' : 'inline'}
