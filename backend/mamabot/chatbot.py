@@ -133,14 +133,19 @@ def answer_question_with_mode(
     message: str,
     preferred_language: str = "en",
     classifier: IntentClassifier | None = None,
+    force_language: bool = False,
 ) -> tuple[str, str]:
     local_intent, local_language = classify_question(message, preferred_language)
+    if force_language and preferred_language in LANGUAGES:
+        local_language = preferred_language
     if local_intent in {"urgent_symptoms", "danger_signs"}:
         return _render_response(local_intent, local_language), "safety"
 
     online_classification = classifier(message) if classifier else None
     if online_classification is not None:
         intent_id, language = online_classification
+        if force_language:
+            language = preferred_language
         valid_intents = {intent.id for intent in INTENTS}
         if intent_id == "clarify" and language in LANGUAGES:
             if local_intent != "fallback":

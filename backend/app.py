@@ -1,17 +1,27 @@
+import logging
 import os
 from collections.abc import Mapping
 from pathlib import Path
 
 from dotenv import load_dotenv
 from flask import Flask, Response, abort, jsonify, request
+import psycopg
 from twilio.request_validator import RequestValidator
 from twilio.twiml.messaging_response import MessagingResponse
 
 from backend.mamabot.chatbot import IntentClassifier, answer_question_with_mode
+from backend.mamabot.language_sessions import (
+    LanguageSessionStore,
+    is_change_language_request,
+    language_confirmation,
+    language_prompt,
+    parse_language_selection,
+)
 from backend.mamabot.openrouter import DEFAULT_FREE_MODEL, classify_with_openrouter
 
 
 load_dotenv(Path(__file__).resolve().parent / ".env")
+LOGGER = logging.getLogger(__name__)
 
 
 def create_app(test_config: Mapping[str, object] | None = None) -> Flask:
@@ -26,9 +36,28 @@ def create_app(test_config: Mapping[str, object] | None = None) -> Flask:
         OPENROUTER_MESSAGING_ENABLED=(
             os.environ.get("OPENROUTER_MESSAGING_ENABLED", "true").strip().lower() == "true"
         ),
+        DATABASE_URL=os.environ.get("DATABASE_URL", ""),
+        LANGUAGE_SESSION_HASH_KEY=os.environ.get("LANGUAGE_SESSION_HASH_KEY", ""),
+        LANGUAGE_SESSION_STORE=None,
     )
     if test_config:
         app.config.update(test_config)
+
+    if app.config["LANGUAGE_SESSION_STORE"] is None:
+        database_url = str(app.config["DATABASE_URL"]).strip()
+        hash_key = str(app.config["LANGUAGE_SESSION_HASH_KEY"]).strip()
+        if database_url and hash_key:
+            store = LanguageSessionStore(database_url, hash_key)
+            store.initialize()
+            app.config["LANGUAGE_SESSION_STORE"] = store
+        elif database_url or hash_key:
+            raise RuntimeError(
+                "Both DATABASE_URL and LANGUAGE_SESSION_HASH_KEY must be configured."
+            )
+        else:
+            LOGGER.warning(
+                "PostgreSQL language sessions are disabled; messaging replies will use automatic language detection."
+            )
 
     @app.get("/healthz")
     def healthcheck() -> Response:
@@ -101,13 +130,63 @@ def create_app(test_config: Mapping[str, object] | None = None) -> Flask:
                 abort(403)
 
         message = request.form.get("Body", "")[:500]
+        sender = request.form.get("From", "").strip()
         response = MessagingResponse()
-        reply, _mode = answer_question_with_mode(
-            message,
-            classifier=chatbot_classifier(
-                enabled=bool(app.config["OPENROUTER_MESSAGING_ENABLED"])
-            ),
-        )
+        store = app.config["LANGUAGE_SESSION_STORE"]
+        if store is None:
+            reply, _mode = answer_question_with_mode(
+                message,
+                classifier=chatbot_classifier(
+                    enabled=bool(app.config["OPENROUTER_MESSAGING_ENABLED"])
+                ),
+            )
+        else:
+            if not sender:
+                abort(400)
+            try:
+                session = store.get(channel, sender)
+                if session is None:
+                    selected_language = parse_language_selection(message, allow_number=True)
+                    if selected_language:
+                        store.set_language(channel, sender, selected_language)
+                        reply = language_confirmation(selected_language)
+                    else:
+                        store.await_selection(channel, sender)
+                        reply = language_prompt(
+                            bool(app.config["OPENROUTER_MESSAGING_ENABLED"])
+                        )
+                elif session.awaiting_selection:
+                    selected_language = parse_language_selection(message, allow_number=True)
+                    if selected_language:
+                        store.set_language(channel, sender, selected_language)
+                        reply = language_confirmation(selected_language)
+                    else:
+                        reply = language_prompt(
+                            bool(app.config["OPENROUTER_MESSAGING_ENABLED"])
+                        )
+                elif is_change_language_request(message):
+                    store.await_selection(channel, sender)
+                    reply = language_prompt(
+                        bool(app.config["OPENROUTER_MESSAGING_ENABLED"])
+                    )
+                else:
+                    selected_language = parse_language_selection(message)
+                    if selected_language:
+                        store.set_language(channel, sender, selected_language)
+                        reply = language_confirmation(selected_language)
+                    else:
+                        reply, _mode = answer_question_with_mode(
+                            message,
+                            preferred_language=session.language or "en",
+                            classifier=chatbot_classifier(
+                                enabled=bool(app.config["OPENROUTER_MESSAGING_ENABLED"]),
+                                preferred_language=session.language or "en",
+                            ),
+                            force_language=True,
+                        )
+            except psycopg.Error:
+                LOGGER.exception("PostgreSQL language-session request failed.")
+                abort(503)
         response.message(reply)
         return Response(str(response), status=200, mimetype="application/xml")
 

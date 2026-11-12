@@ -1,9 +1,41 @@
 import unittest
+from datetime import datetime, timedelta, timezone
 from unittest.mock import patch
+
+import psycopg
 
 from backend.app import create_app
 from backend.mamabot.openrouter import DEFAULT_FREE_MODEL
+from backend.mamabot.language_sessions import LanguageSession
 from twilio.request_validator import RequestValidator
+
+
+class FakeLanguageSessionStore:
+    def __init__(self) -> None:
+        self.sessions: dict[tuple[str, str], tuple[LanguageSession, datetime]] = {}
+        self.now = datetime.now(timezone.utc)
+
+    def get(self, channel: str, sender: str) -> LanguageSession | None:
+        key = (channel, sender)
+        stored = self.sessions.get(key)
+        if stored is None or stored[1] <= self.now:
+            self.sessions.pop(key, None)
+            return None
+        session = stored[0]
+        self.sessions[key] = (session, self.now + timedelta(hours=24))
+        return session
+
+    def await_selection(self, channel: str, sender: str) -> None:
+        self.sessions[(channel, sender)] = (
+            LanguageSession(None, True),
+            self.now + timedelta(hours=24),
+        )
+
+    def set_language(self, channel: str, sender: str, language: str) -> None:
+        self.sessions[(channel, sender)] = (
+            LanguageSession(language, False),
+            self.now + timedelta(hours=24),
+        )
 
 
 class WebhookTests(unittest.TestCase):
@@ -165,6 +197,138 @@ class WebhookTests(unittest.TestCase):
         self.assertEqual(classifier_calls, ["ndikuzwa Musoro"])
         self.assertIn("zviratidzo", response.text)
         self.assertNotIn("EN:", response.text)
+
+    def test_first_messaging_contact_is_asked_to_choose_a_language(self) -> None:
+        store = FakeLanguageSessionStore()
+        app = create_app(
+            {
+                "TESTING": True,
+                "TWILIO_AUTH_TOKEN": "test-auth-token",
+                "TWILIO_WEBHOOK_BASE_URL": "https://mamabot.example",
+                "LANGUAGE_SESSION_STORE": store,
+                "OPENROUTER_MESSAGING_ENABLED": False,
+            }
+        )
+
+        response = app.test_client().post(
+            "/twilio/whatsapp",
+            data={"From": "whatsapp:+263700000001", "Body": "hello"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("1 English, 2 Shona, 3 Ndebele", response.text)
+        self.assertIn("saved for 24h", response.text)
+        self.assertIn(("whatsapp", "whatsapp:+263700000001"), store.sessions)
+        self.assertTrue(store.sessions[("whatsapp", "whatsapp:+263700000001")][0].awaiting_selection)
+
+    def test_language_selection_is_confirmed_and_used_for_replies(self) -> None:
+        store = FakeLanguageSessionStore()
+        classifier_calls: list[str] = []
+        app = create_app(
+            {
+                "TESTING": True,
+                "TWILIO_AUTH_TOKEN": "test-auth-token",
+                "TWILIO_WEBHOOK_BASE_URL": "https://mamabot.example",
+                "LANGUAGE_SESSION_STORE": store,
+                "OPENROUTER_MESSAGING_ENABLED": True,
+                "CHATBOT_CLASSIFIER": lambda message: (
+                    classifier_calls.append(message) or ("nutrition", "en")
+                ),
+            }
+        )
+        client = app.test_client()
+        client.post(
+            "/twilio/whatsapp",
+            data={"From": "whatsapp:+263700000002", "Body": "hello"},
+        )
+        selection = client.post(
+            "/twilio/whatsapp",
+            data={"From": "whatsapp:+263700000002", "Body": "2"},
+        )
+        answer = client.post(
+            "/twilio/whatsapp",
+            data={"From": "whatsapp:+263700000002", "Body": "What foods should I eat?"},
+        )
+
+        self.assertEqual(selection.status_code, 200)
+        self.assertIn("Ndichapindura neChiShona", selection.text)
+        self.assertIn("Edza kudya", answer.text)
+        self.assertEqual(classifier_calls, ["What foods should I eat?"])
+        self.assertEqual(
+            store.sessions[("whatsapp", "whatsapp:+263700000002")][0],
+            LanguageSession("sn", False),
+        )
+
+    def test_user_can_change_the_language_during_a_conversation(self) -> None:
+        store = FakeLanguageSessionStore()
+        store.set_language("sms", "+263700000003", "sn")
+        app = create_app(
+            {
+                "TESTING": True,
+                "TWILIO_AUTH_TOKEN": "test-auth-token",
+                "TWILIO_WEBHOOK_BASE_URL": "https://mamabot.example",
+                "LANGUAGE_SESSION_STORE": store,
+            }
+        )
+
+        prompt = app.test_client().post(
+            "/twilio/sms",
+            data={"From": "+263700000003", "Body": "change language"},
+        )
+        changed = app.test_client().post(
+            "/twilio/sms",
+            data={"From": "+263700000003", "Body": "Ndebele"},
+        )
+
+        self.assertIn("1 English, 2 Shona, 3 Ndebele", prompt.text)
+        self.assertIn("Ngizaphendula ngesiNdebele", changed.text)
+        self.assertEqual(
+            store.sessions[("sms", "+263700000003")][0],
+            LanguageSession("nd", False),
+        )
+
+    def test_language_choice_expires_after_24_hours_of_inactivity(self) -> None:
+        store = FakeLanguageSessionStore()
+        store.set_language("sms", "+263700000004", "en")
+        store.now += timedelta(hours=24, seconds=1)
+        app = create_app(
+            {
+                "TESTING": True,
+                "TWILIO_AUTH_TOKEN": "test-auth-token",
+                "TWILIO_WEBHOOK_BASE_URL": "https://mamabot.example",
+                "LANGUAGE_SESSION_STORE": store,
+                "OPENROUTER_MESSAGING_ENABLED": False,
+            }
+        )
+
+        response = app.test_client().post(
+            "/twilio/sms",
+            data={"From": "+263700000004", "Body": "hello"},
+        )
+
+        self.assertIn("1 English, 2 Shona, 3 Ndebele", response.text)
+        self.assertTrue(store.sessions[("sms", "+263700000004")][0].awaiting_selection)
+
+    def test_language_database_failure_returns_service_unavailable(self) -> None:
+        class FailingStore(FakeLanguageSessionStore):
+            def get(self, channel: str, sender: str) -> LanguageSession | None:
+                raise psycopg.OperationalError("database unavailable")
+
+        app = create_app(
+            {
+                "TESTING": True,
+                "TWILIO_AUTH_TOKEN": "test-auth-token",
+                "TWILIO_WEBHOOK_BASE_URL": "https://mamabot.example",
+                "LANGUAGE_SESSION_STORE": FailingStore(),
+            }
+        )
+
+        response = app.test_client().post(
+            "/twilio/sms",
+            data={"From": "+263700000005", "Body": "hello"},
+        )
+
+        self.assertEqual(response.status_code, 503)
 
     def test_webhook_rejects_invalid_twilio_signature(self) -> None:
         app = create_app(
