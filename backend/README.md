@@ -30,7 +30,7 @@ For Twilio webhook testing, expose the local port through a public HTTPS tunnel.
 
 The backend does not make outbound Twilio REST API calls. For replies to inbound messages, it returns TwiML and Twilio sends the reply on the same channel. An Account SID is not required for this flow, but the Auth Token is required to validate webhook signatures. Hosting platforms provide `PORT` to Gunicorn; it is not an application environment variable.
 
-For deployment, install `backend/requirements.txt`, start the web process with `gunicorn --bind 0.0.0.0:$PORT backend.app:app`, and configure the environment variables in the hosting service rather than uploading a local `.env` file.
+For deployment, install `requirements.txt` from the repository root (it includes `backend/requirements.txt`), start the web process with `gunicorn --bind 0.0.0.0:$PORT backend.app:app`, and configure the environment variables in the hosting service rather than uploading a local `.env` file.
 
 ## Deploy to Render
 
@@ -46,7 +46,7 @@ To deploy:
 6. To enable the in-app online toggle, set `EXPO_PUBLIC_MAMABOT_API_URL` in the repository-root `.env` to the Render origin, restart Expo, and rebuild the app when making a release build. This URL is public; do not put credentials in it.
 7. Test the app and Twilio Sandbox with non-sensitive sample questions. Leave `OPENROUTER_MESSAGING_ENABLED=false` until messaging users are informed that their message will also be classified by OpenRouter and applicable consent is in place.
 
-If an existing Render service still fails with `ModuleNotFoundError: No module named 'backend'`, open **Settings → Build & Deploy → Root Directory**, clear the `backend` value (or set it to `.`), and save. Confirm the build command is `pip install -r backend/requirements.txt` and the start command is `gunicorn --bind 0.0.0.0:$PORT backend.app:app`, then redeploy the latest commit.
+If an existing Render service still fails, open **Settings → Build & Deploy** and set **Root Directory** to the repository root (clear the field or use `.`), **Build Command** to `pip install -r requirements.txt`, and **Start Command** to `gunicorn --bind 0.0.0.0:$PORT backend.app:app`, then redeploy the latest commit. The root `requirements.txt` includes the backend's pinned dependencies, so it also works with Render's existing `pip install -r requirements.txt` setting.
 
 The Blueprint uses Render's Free plan for academic testing. Free web services spin down after 15 minutes without traffic and can take about a minute to start again; this can cause delayed or missed Twilio webhook responses. Render documents Free instances as unsuitable for production. Use an always-on paid service before any dependable field trial. The service does not store user state, and its filesystem is not used for persistence.
 
