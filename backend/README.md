@@ -21,7 +21,14 @@ In another terminal, run the focused tests:
 python -m unittest discover -s backend/tests
 ```
 
-For Twilio webhook testing, expose the local port through a public HTTPS tunnel. Create `backend/.env` from `backend/.env.example`, set `TWILIO_AUTH_TOKEN`, and set `TWILIO_WEBHOOK_BASE_URL` to the tunnel's public origin, without a trailing slash. Keep the token secret and out of source control.
+For Twilio webhook testing, expose the local port through a public HTTPS tunnel. Set these backend environment variables in `backend/.env`:
+
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `TWILIO_AUTH_TOKEN` | Yes | Validates Twilio's `X-Twilio-Signature`; keep it secret. |
+| `TWILIO_WEBHOOK_BASE_URL` | Yes | Exact public HTTPS origin used for signature validation, without a trailing slash. |
+
+No Twilio Account SID or Auth Token is needed for outbound API calls: this prototype returns replies in the webhook response using TwiML. Hosting platforms provide `PORT` to Gunicorn; it is not an application environment variable.
 
 For deployment, install `backend/requirements.txt`, start the web process with `gunicorn --bind 0.0.0.0:$PORT backend.app:app`, and configure the environment variables in the hosting service rather than uploading a local `.env` file.
 
@@ -38,7 +45,7 @@ For WhatsApp, a Twilio Sandbox can be used for a prototype; each test participan
 
 Twilio signs webhook requests. The backend validates `X-Twilio-Signature` against the exact configured public URL and rejects invalid requests. Do not disable this check outside automated tests. Keep HTTPS enabled.
 
-The app's optional channel buttons are configured at build time with `EXPO_PUBLIC_MAMABOT_WHATSAPP_NUMBER` and `EXPO_PUBLIC_MAMABOT_SMS_NUMBER` in the repository-root `.env` file. Use the international number digits, including Zimbabwe's `263` country code and without `+`. These are public contact numbers, not credentials. The app does not show the buttons until a valid number is configured.
+The app's optional channel buttons are configured at build time with `EXPO_PUBLIC_MAMABOT_WHATSAPP_NUMBER` and `EXPO_PUBLIC_MAMABOT_SMS_NUMBER` in the repository-root `.env` file. Both are optional. Use international number digits, including Zimbabwe's `263` country code and without `+`. These are public contact numbers, not credentials. The app does not show a button until its number is configured.
 
 ## Prototype limitations and safety
 

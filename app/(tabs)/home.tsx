@@ -269,7 +269,6 @@ export default function HomeScreen() {
           <View key={row[0].title} style={{ flexDirection: 'row', gap: space.md }}>
             {row.map((shortcut) => {
               const isUrgent = shortcut.icon === 'warning';
-              const isChat = shortcut.icon === 'chat';
 
               return (
                 <View key={shortcut.title} style={{ flex: 1, minWidth: 0 }}>

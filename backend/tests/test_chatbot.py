@@ -6,6 +6,10 @@ from backend.mamabot.chatbot import answer_question, classify_question
 class ChatbotTests(unittest.TestCase):
     def test_english_danger_sign_question(self) -> None:
         self.assertEqual(classify_question("Which warning signs need urgent care?"), ("danger_signs", "en"))
+        reply = answer_question("Which warning signs need urgent care?")
+        self.assertIn("Do not wait for another message", reply)
+        self.assertNotIn("app", reply.casefold())
+        self.assertNotIn("offline", reply.casefold())
 
     def test_shona_urgent_symptom_is_prioritized(self) -> None:
         intent, language = classify_question("Ndiri kubuda ropa rakawanda")
@@ -39,6 +43,19 @@ class ChatbotTests(unittest.TestCase):
         self.assertIn("umhlanzi wakho", reply)
         self.assertNotIn("intanethi", reply)
         self.assertNotIn("app", reply)
+
+    def test_channel_replies_do_not_reference_offline_app_features(self) -> None:
+        for question in (
+            "I have heavy bleeding",
+            "Ndiri kubuda ropa rakawanda",
+            "Ngiyopha kakhulu",
+            "How many weeks pregnant am I?",
+            "Can you tell me a story?",
+        ):
+            with self.subTest(question=question):
+                reply = answer_question(question).casefold()
+                self.assertNotIn("offline", reply)
+                self.assertNotIn("app", reply)
 
 
 if __name__ == "__main__":
