@@ -179,7 +179,13 @@ class WebhookTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_webhook_fails_closed_when_configuration_is_missing(self) -> None:
-        response = create_app({"TESTING": True}).test_client().post(
+        response = create_app(
+            {
+                "TESTING": True,
+                "TWILIO_AUTH_TOKEN": "",
+                "TWILIO_WEBHOOK_BASE_URL": "",
+            }
+        ).test_client().post(
             "/twilio/sms",
             data={"Body": "hello"},
         )
