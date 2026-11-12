@@ -22,6 +22,17 @@ class ChatbotTests(unittest.TestCase):
         self.assertEqual((intent, language), ("nutrition", "sn"))
         self.assertIn("Edza kudya", answer_question("SN: what foods are helpful?"))
 
+    def test_suggested_language_prompts_match_their_intents(self) -> None:
+        self.assertEqual(
+            classify_question("Ndezvipi zviratidzo zvinoda rubatsiro rwechimbichimbi?")[0],
+            "danger_signs",
+        )
+        self.assertEqual(
+            classify_question("Yiluphi utshintsho engingalubona emzimbeni wami?")[0],
+            "body_changes",
+        )
+        self.assertEqual(classify_question("Hello MamaBot")[0], "greeting")
+
     def test_unknown_question_uses_safe_localized_fallback(self) -> None:
         self.assertEqual(classify_question("Can you tell me a story?"), ("fallback", "en"))
         self.assertIn("umhlanzi wakho", answer_question("ND: random question"))

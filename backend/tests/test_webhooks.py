@@ -1,6 +1,7 @@
 import unittest
 
 from backend.app import create_app
+from twilio.request_validator import RequestValidator
 
 
 class WebhookTests(unittest.TestCase):
@@ -50,6 +51,27 @@ class WebhookTests(unittest.TestCase):
             headers={"X-Twilio-Signature": "invalid"},
         )
         self.assertEqual(response.status_code, 403)
+
+    def test_webhook_accepts_valid_twilio_signature(self) -> None:
+        body = "Which warning signs need urgent care?"
+        params = {"Body": body}
+        signature = RequestValidator("test-auth-token").compute_signature(
+            "https://mamabot.example/twilio/sms",
+            params,
+        )
+        app = create_app(
+            {
+                "TESTING": False,
+                "TWILIO_AUTH_TOKEN": "test-auth-token",
+                "TWILIO_WEBHOOK_BASE_URL": "https://mamabot.example",
+            }
+        )
+        response = app.test_client().post(
+            "/twilio/sms",
+            data=params,
+            headers={"X-Twilio-Signature": signature},
+        )
+        self.assertEqual(response.status_code, 200)
 
     def test_webhook_fails_closed_when_configuration_is_missing(self) -> None:
         response = create_app({"TESTING": True}).test_client().post(

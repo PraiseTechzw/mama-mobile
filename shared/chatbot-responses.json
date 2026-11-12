@@ -118,5 +118,10 @@
     "en": "I’m an offline information guide and don’t have a specific answer for that. Please ask your ANC provider for advice about your situation. If you have severe pain, heavy bleeding, trouble breathing, or another urgent concern, seek in-person care now.",
     "sn": "Ndiri nhungamiro yeruzivo isingashandisi internet uye handina mhinduro chaiyo yeizvozvo. Bvunza mupi wako weANC nezvemamiriro ako. Kana uchirwadziwa zvikuru, uchibuda ropa rakawanda, uchitadza kufema, kana uine rimwe dambudziko rechimbichimbi, tsvaga rubatsiro rwechiso nechiso izvozvi.",
     "nd": "Ngingumhlahlandlela wolwazi ongadingi intanethi njalo angilampendulo eqondileyo yalokho. Buza umhlanzi wakho we-ANC ngesimo sakho. Nxa usizwa ubuhlungu obukhulu, wopha kakhulu, uphefumula nzima kumbe ulolunye uhlupho oluphuthumayo, dinga usizo lwangempela khathesi."
+  },
+  "greeting": {
+    "en": "Hello, I’m MamaBot. I can share general pregnancy information in English, Shona, or Ndebele. Ask about antenatal visits, food, medicines, pregnancy changes, or warning signs. Prefix a question with EN:, SN:, or ND: to choose the reply language. I’m not a clinician. For urgent concerns, contact a health facility now.",
+    "sn": "Mhoro, ndini MamaBot. Ndinogona kupa ruzivo rwakajairika rwepamuviri muChirungu, Shona kana Ndebele. Bvunza nezvekushanya kuANC, kudya, mishonga, shanduko dzepamuviri kana zviratidzo zvengozi. Nyora EN:, SN: kana ND: usati wabvunza kuti usarudze mutauro wemhinduro. Handisi chiremba. Kana dambudziko richikurumidzira, enda kuchipatara izvozvi.",
+    "nd": "Salibonani, nginguMamaBot. Ngingabelana ngolwazi olujayelekileyo ngokukhulelwa ngesiNgisi, iShona kumbe isiNdebele. Buza ngokuvakatshela i-ANC, ukudla, imithi, izinguquko zokukhulelwa kumbe izibonakaliso zengozi. Bhala u-EN:, SN: kumbe ND: phambi kombuzo ukuze ukhethe ulimi lwempendulo. Angisiyo ingcitshi yezempilakahle. Nxa kulohlupho oluphuthumayo, yana esibhedlela khathesi."
   }
 }

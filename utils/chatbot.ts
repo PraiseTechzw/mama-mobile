@@ -2,18 +2,21 @@ import chatbotIntents from '@/shared/chatbot-intents.json';
 import chatbotResponses from '@/shared/chatbot-responses.json';
 import type { AppLanguage, Reminder } from '@/contexts/app-state';
 import { formatDate } from '@/utils/pregnancy';
-import { localeForLanguage } from '@/utils/i18n';
 
 const languages: AppLanguage[] = ['en', 'sn', 'nd'];
 
 type ResponseId = keyof typeof chatbotResponses;
+
+function localeForLanguage(language: AppLanguage) {
+  return language === 'sn' ? 'sn-ZW' : language === 'nd' ? 'nd-ZW' : 'en-ZW';
+}
 
 function isResponseId(value: string): value is ResponseId {
   return Object.prototype.hasOwnProperty.call(chatbotResponses, value);
 }
 
 function normalizeMessage(message: string) {
-  return message.trim().toLocaleLowerCase();
+  return message.trim().toLowerCase();
 }
 
 function findLanguagePrefix(message: string) {

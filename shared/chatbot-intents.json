@@ -13,8 +13,8 @@
       "id": "danger_signs",
       "patterns": {
         "en": ["warning signs", "danger signs", "urgent care", "when should i seek help", "when to seek help"],
-        "sn": ["zviratidzo zvengozi", "rubatsiro rwechimbichimbi", "nditsvage rubatsiro", "ndinofanira kutsvaga rubatsiro"],
-        "nd": ["izibonakaliso zengozi", "usizo oluphuthumayo", "dinga usizo", "ngidinge usizo"]
+        "sn": ["zviratidzo zvengozi", "zviratidzo zvinoda rubatsiro", "rubatsiro rwechimbichimbi", "nditsvage rubatsiro", "ndinofanira kutsvaga rubatsiro"],
+        "nd": ["izibonakaliso zengozi", "izibonakaliso ezidinga usizo", "usizo oluphuthumayo", "dinga usizo", "ngidinge usizo"]
       },
       "response": "danger_signs"
     },
@@ -22,8 +22,8 @@
       "id": "pregnancy_week",
       "patterns": {
         "en": ["pregnancy week", "how far along", "estimate my week", "estimate pregnancy week", "due date", "pregnancy stage", "trimester", "week "],
-        "sn": ["vhiki repamuviri", "ndine vhiki", "ndine mavhiki", "mazuva epamuviri", "ndiri pamuviri"],
-        "nd": ["iviki lokukhulelwa", "amaviki amangaki", "iviki lami", "ususevikweni", "ngikhulelwe"]
+        "sn": ["vhiki repamuviri", "ndine vhiki", "ndine mavhiki", "pavhiki", "mazuva epamuviri", "ndiri pamuviri"],
+        "nd": ["iviki lokukhulelwa", "amaviki amangaki", "iviki lami", "ngeviki", "ususevikweni", "ngikhulelwe"]
       },
       "response": "pregnancy_week_missing"
     },
@@ -57,9 +57,9 @@
     {
       "id": "body_changes",
       "patterns": {
-        "en": ["body changes", "nausea", "morning sickness", "heartburn", "back pain", "tiredness", "fatigue", "swelling", "discomfort"],
-        "sn": ["kusvotwa", "kuneta", "chirungurira", "kurwadziwa musana", "kuzvimba"],
-        "nd": ["ukuhlanza", "ukukhathala", "ukutshisa esifubeni", "ubuhlungu bomhlane", "ukuvuvukala"]
+        "en": ["body changes", "changes might i notice", "changes in my body", "nausea", "morning sickness", "heartburn", "back pain", "tiredness", "fatigue", "swelling", "discomfort"],
+        "sn": ["kusvotwa", "kuneta", "chirungurira", "kurwadziwa musana", "kuzvimba", "shanduko dzemuviri"],
+        "nd": ["ukuhlanza", "ukukhathala", "ukutshisa esifubeni", "ubuhlungu bomhlane", "ukuvuvukala", "inguquko emzimbeni", "utshintsho"]
       },
       "response": "body_changes"
     },
@@ -67,8 +67,8 @@
       "id": "anc_visit",
       "patterns": {
         "en": ["antenatal", "anc visit", "clinic visit", "health worker", "appointment"],
-        "sn": ["kushanya kuanc", "kiriniki", "mushandi wezveutano", "kushanya kukiriniki"],
-        "nd": ["uvakatshele i-anc", "ikilinika", "isisebenzi sezempilakahle"]
+        "sn": [" anc", "kushanya kuanc", "kiriniki", "mushandi wezveutano", "kushanya kukiriniki"],
+        "nd": ["i-anc", "uvakatshele i-anc", "ikilinika", "isisebenzi sezempilakahle"]
       },
       "response": "anc_visit"
     },
@@ -152,6 +152,15 @@
         "nd": ["imibuzo yomhlanzi", "ngingabuza", "imibuzo engingayibuza"]
       },
       "response": "provider_questions"
+    },
+    {
+      "id": "greeting",
+      "patterns": {
+        "en": ["hello", "good morning", "good afternoon"],
+        "sn": ["mhoro", "mangwanani", "masikati"],
+        "nd": ["salibonani", "sawubona", "ngiyabingelela"]
+      },
+      "response": "greeting"
     }
   ],
   "languagePrefixes": {
