@@ -195,6 +195,8 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
       'Nzvimbo yako haina kukwanisa kuzivikanwa',
     'Your location could not be determined. Search by name, district or province instead.':
       'Nzvimbo yako haina kukwanisa kuzivikanwa. Tsvaga nezita, dunhu kana purovhinzi.',
+    'Location is not included in this installed app build. Rebuild and reinstall the development app to use nearby sorting. You can still search by name, district or province.':
+      'Nzvimbo yefoni haina kuiswa mushanduro yeapp ino. Vakazve woisa development app patsva kuti uronge nzvimbo dzehutano nedyo. Unogona kuramba uchitsvaga nezita, dunhu kana purovhinzi.',
     'Finding nearby facilities…': 'Kutsvaga nzvimbo dzehutano dziri pedyo…',
     'Use my location to find nearby facilities':
       'Shandisa nzvimbo yangu kutsvaga nzvimbo dzehutano dziri pedyo',
@@ -617,6 +619,8 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     'Your location could not be determined': 'Indawo yakho yehlulekile ukutholakala',
     'Your location could not be determined. Search by name, district or province instead.':
       'Indawo yakho yehlulekile ukutholakala. Dinga ngebizo, isabelo kumbe isifundazwe.',
+    'Location is not included in this installed app build. Rebuild and reinstall the development app to use nearby sorting. You can still search by name, district or province.':
+      'Ukuthola indawo yakho akukahlanganiswa kulolu hlelo olufakiweyo. Yakha njalo ufake i-development app kutsha ukuze uhlele izindawo eziseduze. Usengadinga ngebizo, isabelo kumbe isifundazwe.',
     'Finding nearby facilities…': 'Kudingwa izindawo zezempilakahle eziseduze…',
     'Use my location to find nearby facilities':
       'Sebenzisa indawo yami ukudinga ezempilakahle eziseduze',

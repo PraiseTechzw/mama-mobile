@@ -1,4 +1,3 @@
-import * as Location from 'expo-location';
 import { useMemo, useState } from 'react';
 import {
   FlatList,
@@ -105,6 +104,7 @@ export function FacilityPicker({
     setIsLocating(true);
     setLocationMessage('');
     try {
+      const Location = await import('expo-location');
       const permission = await Location.requestForegroundPermissionsAsync();
       if (permission.status !== 'granted') {
         setCoordinates(null);
@@ -121,10 +121,14 @@ export function FacilityPicker({
       });
     } catch (locationError) {
       setCoordinates(null);
+      const message =
+        locationError instanceof Error ? locationError.message : '';
       setLocationMessage(
-        locationError instanceof Error
-          ? `${t('Your location could not be determined')}: ${locationError.message}`
-          : t('Your location could not be determined. Search by name, district or province instead.'),
+        message.includes("Cannot find native module 'ExpoLocation'")
+          ? t('Location is not included in this installed app build. Rebuild and reinstall the development app to use nearby sorting. You can still search by name, district or province.')
+          : message
+            ? `${t('Your location could not be determined')}: ${message}`
+            : t('Your location could not be determined. Search by name, district or province instead.'),
       );
     } finally {
       setIsLocating(false);

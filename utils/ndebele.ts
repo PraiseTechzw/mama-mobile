@@ -175,6 +175,8 @@ export const ndebeleTranslations: Record<string, string> = {
   'Your location could not be determined': 'Indawo yakho yehlulekile ukutholakala',
   'Your location could not be determined. Search by name, district or province instead.':
     'Indawo yakho yehlulekile ukutholakala. Dinga ngebizo, isabelo kumbe isifundazwe.',
+  'Location is not included in this installed app build. Rebuild and reinstall the development app to use nearby sorting. You can still search by name, district or province.':
+    'Ukuthola indawo yakho akukahlanganiswa kulolu hlelo olufakiweyo. Yakha njalo ufake i-development app kutsha ukuze uhlele izindawo eziseduze. Usengadinga ngebizo, isabelo kumbe isifundazwe.',
   'Finding nearby facilities…': 'Kudingwa izindawo zezempilakahle eziseduze…',
   'Use my location to find nearby facilities':
     'Sebenzisa indawo yami ukudinga ezempilakahle eziseduze',
