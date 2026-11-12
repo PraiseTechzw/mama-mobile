@@ -1,0 +1,59 @@
+{
+  "expo": {
+    "name": "MamaBot",
+    "slug": "mamabot",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/app-icons/app-icon.png",
+    "scheme": "mamabot",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "CADisableMinimumFrameDurationOnPhone": true
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#FBF8FF",
+        "foregroundImage": "./assets/app-icons/android-foreground.png",
+        "monochromeImage": "./assets/app-icons/android-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "com.praisetechzw.mamabot"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/app-icons/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/app-icons/splash-image.png",
+          "imageWidth": 300,
+          "resizeMode": "contain",
+          "backgroundColor": "#FBF8FF"
+        }
+      ],
+      "expo-image",
+      "expo-sqlite",
+      "expo-notifications"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "c5a3543b-ce26-40d1-b50a-2e5e73ea4599"
+      }
+    }
+  }
+}
