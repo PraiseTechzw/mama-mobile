@@ -14,6 +14,7 @@ import {
 import { ActionButton } from '@/components/action-button';
 import { AppText as Text } from '@/components/app-text';
 import { SurfaceCard } from '@/components/surface-card';
+import { FacilityPicker } from '@/components/facility-picker';
 import { useAppState } from '@/contexts/app-state';
 import { localeForLanguage, useTranslation } from '@/utils/i18n';
 import {
@@ -21,6 +22,7 @@ import {
   scheduleReminderNotification,
 } from '@/services/reminder-notifications';
 import { dateInputValue, formatDate, parseDateInput } from '@/utils/pregnancy';
+import { getHealthcareFacility } from '@/utils/facilities';
 import { radius, space, typeScale, useAppTheme } from '@/theme';
 
 type PickerMode = 'date' | 'time' | null;
@@ -38,6 +40,7 @@ export default function ReminderFormScreen() {
   const { data, addReminder } = useAppState();
   const [title, setTitle] = useState(() => t('ANC appointment'));
   const [notes, setNotes] = useState('');
+  const [facilityId, setFacilityId] = useState<string | null>(null);
   const [date, setDate] = useState(() => addTomorrow(new Date()));
   const [webDate, setWebDate] = useState(() => dateInputValue(addTomorrow(new Date())));
   const [webTime, setWebTime] = useState(() => {
@@ -95,10 +98,17 @@ export default function ReminderFormScreen() {
     try {
       if (data.profile.notificationsEnabled && !withoutNotification) {
         try {
+          const facility = getHealthcareFacility(facilityId);
+          const notificationNotes = [
+            notes.trim(),
+            facility ? `${t('Health facility')}: ${facility.name}` : '',
+          ]
+            .filter(Boolean)
+            .join(' · ');
           notificationId = await scheduleReminderNotification(
             scheduledAt,
             title.trim(),
-            notes.trim() || t('You have a reminder from MamaBot.'),
+            notificationNotes || t('You have a reminder from MamaBot.'),
           );
         } catch (notificationError) {
           setCanSaveWithoutNotification(true);
@@ -126,6 +136,7 @@ export default function ReminderFormScreen() {
           title: title.trim(),
           notes: notes.trim(),
           scheduledAt,
+          facilityId,
         },
         notificationId,
       );
@@ -178,6 +189,13 @@ export default function ReminderFormScreen() {
         </View>
 
         <SurfaceCard>
+          <FacilityPicker
+            facilityId={facilityId}
+            label={t('Clinic or health facility (optional)')}
+            description={t('Choose the actual clinic for this visit, or search by name, district or province.')}
+            onSelect={(facility) => setFacilityId(facility?.id ?? null)}
+          />
+
           <View style={{ gap: space.sm }}>
             <Text style={{ color: theme.text, fontSize: typeScale.small, fontWeight: '700' }}>
               {t('Reminder title')}

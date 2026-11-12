@@ -7,6 +7,7 @@ import { AppIcon } from '@/components/app-icon';
 import { ActionButton } from '@/components/action-button';
 import { AppText as Text } from '@/components/app-text';
 import { SurfaceCard } from '@/components/surface-card';
+import { FacilityPicker } from '@/components/facility-picker';
 import { useAppState } from '@/contexts/app-state';
 import { useTranslation } from '@/utils/i18n';
 import prenatalCareImage from '@/assets/illustrations/prenatal-care-consultation.png';
@@ -64,6 +65,7 @@ export default function PregnancyInfoScreen() {
     defaultStage.title,
   );
   const [openTopic, setOpenTopic] = useState<string | null>(topics[0].title);
+  const [facilityId, setFacilityId] = useState<string | null>(null);
   const stageIndex = stages.findIndex((stage) => stage.title === selectedStage);
   const selectedStageData = stages[stageIndex];
   const selectedStageIsCurrent =
@@ -274,6 +276,21 @@ export default function PregnancyInfoScreen() {
           );
         })}
       </View>
+
+      <SurfaceCard tone="soft">
+        <Text style={{ color: theme.text, fontSize: typeScale.heading, fontWeight: '800' }}>
+          {t('Clinics and health facilities')}
+        </Text>
+        <Text style={{ color: theme.muted, fontSize: typeScale.small, lineHeight: 20 }}>
+          {t('Browse the supplied Zimbabwe health facilities dataset. Records date from 1998 to 2013 and have not been verified for current operating status.')}
+        </Text>
+        <FacilityPicker
+          facilityId={facilityId}
+          label={t('Find a nearby clinic or health facility')}
+          description={t('Allow location access to sort by distance, or search by facility, district or province.')}
+          onSelect={(facility) => setFacilityId(facility?.id ?? null)}
+        />
+      </SurfaceCard>
 
       <SurfaceCard tone="tint">
         <Text style={{ color: theme.text, fontSize: typeScale.body, fontWeight: '800' }}>
