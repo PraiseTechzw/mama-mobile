@@ -1,11 +1,16 @@
 import os
 from collections.abc import Mapping
+from pathlib import Path
 
+from dotenv import load_dotenv
 from flask import Flask, Response, abort, request
 from twilio.request_validator import RequestValidator
 from twilio.twiml.messaging_response import MessagingResponse
 
 from backend.mamabot.chatbot import answer_question
+
+
+load_dotenv(Path(__file__).resolve().parent / ".env")
 
 
 def create_app(test_config: Mapping[str, object] | None = None) -> Flask:

@@ -4,10 +4,20 @@
     "sn": "Izvi zvinogona kuda rubatsiro rwechimbichimbi. Bata rubatsiro rwechimbichimbi kana enda kuchipatara chiri pedyo izvozvi. Usamirire mhinduro muapp ino. Kana uchikwanisa, kumbira munhu ari pedyo akubatsire kuwana rubatsiro.",
     "nd": "Lokhu kungadinga usizo lwezempilakahle ngokuphangisa. Thinta usizo oluphuthumayo kumbe uye esibhedlela esiseduze khathesi. Ungalindi impendulo ku-app le. Nxa usenelisa, cela umuntu oseduze lawe akuncedise uthole usizo."
   },
+  "urgent_symptoms_channel": {
+    "en": "This could need urgent medical attention. Contact your local emergency service or go to the nearest health facility now. Do not wait for another message. If possible, ask someone nearby to help you get care.",
+    "sn": "Izvi zvinogona kuda rubatsiro rwechimbichimbi. Bata rubatsiro rwechimbichimbi kana enda kuchipatara chiri pedyo izvozvi. Usamirire imwe meseji. Kana uchikwanisa, kumbira munhu ari pedyo akubatsire kuwana rubatsiro.",
+    "nd": "Lokhu kungadinga usizo lwezempilakahle ngokuphangisa. Thinta usizo oluphuthumayo kumbe uye esibhedlela esiseduze khathesi. Ungalindi omunye umlayezo. Nxa usenelisa, cela umuntu oseduze lawe akuncedise uthole usizo."
+  },
   "danger_signs": {
     "en": "Seek urgent in-person care for heavy bleeding, severe abdominal pain, a severe headache or blurred vision, difficulty breathing, fainting or seizures, high fever, fluid leaking, or reduced baby movement. Contact your local emergency service or nearest health facility now; do not wait for a reply in this app.",
     "sn": "Tsvaga rubatsiro rwechimbichimbi kuchipatara kana uchibuda ropa rakawanda, uchirwadziwa zvikuru mudumbu, uchirwadziwa musoro kana kusaona zvakanaka, uchitadza kufema, kufenda kana kubatwa nepfari, kupisa muviri zvakanyanya, kubuda mvura, kana mwana asingachafambi sezvaajaira. Bata rubatsiro rwechimbichimbi kana chipatara chiri pedyo izvozvi; usamirire mhinduro muapp ino.",
     "nd": "Dinga usizo ngokuphangisa nxa wopha kakhulu, usizwa ubuhlungu obukhulu besisu, ikhanda elibuhlungu kumbe ungaboni kuhle, uphefumula nzima, uwa isithuli kumbe uhlaselwa yikugula okubangela ukuqhaqhazela, ulomkhuhlane ophezulu, kuphuma amanzi, kumbe usane lungasanyakazi njengensuku zonke. Thinta usizo oluphuthumayo kumbe isibhedlela esiseduze khathesi; ungalindi impendulo ku-app le."
+  },
+  "danger_signs_channel": {
+    "en": "Seek urgent in-person care for heavy bleeding, severe abdominal pain, a severe headache or blurred vision, difficulty breathing, fainting or seizures, high fever, fluid leaking, or reduced baby movement. Contact your local emergency service or nearest health facility now. Do not wait for another message.",
+    "sn": "Tsvaga rubatsiro rwechimbichimbi kuchipatara kana uchibuda ropa rakawanda, uchirwadziwa zvikuru mudumbu, uchirwadziwa musoro kana kusaona zvakanaka, uchitadza kufema, kufenda kana kubatwa nepfari, kupisa muviri zvakanyanya, kubuda mvura, kana mwana asingachafambi sezvaajaira. Bata rubatsiro rwechimbichimbi kana chipatara chiri pedyo izvozvi. Usamirire imwe meseji.",
+    "nd": "Dinga usizo ngokuphangisa nxa wopha kakhulu, usizwa ubuhlungu obukhulu besisu, ikhanda elibuhlungu kumbe ungaboni kuhle, uphefumula nzima, uwa isithuli kumbe uhlaselwa yikugula okubangela ukuqhaqhazela, ulomkhuhlane ophezulu, kuphuma amanzi, kumbe usane lungasanyakazi njengensuku zonke. Thinta usizo oluphuthumayo kumbe isibhedlela esiseduze khathesi. Ungalindi omunye umlayezo."
   },
   "pregnancy_week_saved": {
     "en": "Your saved profile puts you at around week {week}, in the {trimester} trimester. Pregnancy dates can be adjusted by your provider, so use your ANC visits to confirm your dates and ask which care is right for this stage.",
@@ -33,6 +43,11 @@
     "en": "I don’t have your pregnancy dates yet. Your ANC provider can help estimate how far along you are. You can also add your due date or pregnancy week in your profile for more tailored suggestions.",
     "sn": "Handisati ndine mazuva ako epamuviri. Mupi wako weANC anogona kukubatsira kuziva nguva yepamuviri. Unogonawo kuisa zuva rako rekusununguka kana vhiki repamuviri mumashoko ako kuti uwane mazano akakukodzera.",
     "nd": "Angilalo usuku lwakho lokukhulelwa okwamanje. Umhlanzi wakho we-ANC angakunceda ubone ukuthi usukhulelwe okwesikhathi esinganani. Ungangeza usuku olulindele ukuzala kumbe iviki lokukhulelwa emininingwaneni yakho ukuze uthole izeluleko ezikufaneleyo."
+  },
+  "pregnancy_week_missing_channel": {
+    "en": "I can’t see a pregnancy week or due date in this message. Your ANC provider can help estimate how far along you are.",
+    "sn": "Handikwanisi kuona vhiki repamuviri kana zuva rekusununguka mumeseji iyi. Mupi wako weANC anogona kukubatsira kuziva nguva yepamuviri.",
+    "nd": "Angiboni iviki lokukhulelwa kumbe usuku lokuzala emlayezweni lo. Umhlanzi wakho we-ANC angakunceda ubone ukuthi usukhulelwe okwesikhathi esinganani."
   },
   "pregnancy_basics": {
     "en": "Pregnancy is commonly described in three trimesters: weeks 1–13, 14–27, and 28 onward. Bodies and pregnancies differ, so use regular ANC visits to discuss changes, check-ups, nutrition, medicines, and questions for your stage.{savedWeek} Your provider can confirm your dates and give advice for your situation.",
@@ -118,6 +133,11 @@
     "en": "I’m an offline information guide and don’t have a specific answer for that. Please ask your ANC provider for advice about your situation. If you have severe pain, heavy bleeding, trouble breathing, or another urgent concern, seek in-person care now.",
     "sn": "Ndiri nhungamiro yeruzivo isingashandisi internet uye handina mhinduro chaiyo yeizvozvo. Bvunza mupi wako weANC nezvemamiriro ako. Kana uchirwadziwa zvikuru, uchibuda ropa rakawanda, uchitadza kufema, kana uine rimwe dambudziko rechimbichimbi, tsvaga rubatsiro rwechiso nechiso izvozvi.",
     "nd": "Ngingumhlahlandlela wolwazi ongadingi intanethi njalo angilampendulo eqondileyo yalokho. Buza umhlanzi wakho we-ANC ngesimo sakho. Nxa usizwa ubuhlungu obukhulu, wopha kakhulu, uphefumula nzima kumbe ulolunye uhlupho oluphuthumayo, dinga usizo lwangempela khathesi."
+  },
+  "fallback_channel": {
+    "en": "I don’t have a specific answer to that. Please ask your ANC provider for advice about your situation. If you have severe pain, heavy bleeding, trouble breathing, or another urgent concern, seek in-person care now.",
+    "sn": "Handina mhinduro chaiyo yeizvozvo. Bvunza mupi wako weANC nezvemamiriro ako. Kana uchirwadziwa zvikuru, uchibuda ropa rakawanda, uchitadza kufema, kana uine rimwe dambudziko rechimbichimbi, tsvaga rubatsiro rwechiso nechiso izvozvi.",
+    "nd": "Angilampendulo eqondileyo yalokho. Buza umhlanzi wakho we-ANC ngesimo sakho. Nxa usizwa ubuhlungu obukhulu, wopha kakhulu, uphefumula nzima kumbe ulolunye uhlupho oluphuthumayo, dinga usizo lwangempela khathesi."
   },
   "greeting": {
     "en": "Hello, I’m MamaBot. I can share general pregnancy information in English, Shona, or Ndebele. Ask about antenatal visits, food, medicines, pregnancy changes, or warning signs. Prefix a question with EN:, SN:, or ND: to choose the reply language. I’m not a clinician. For urgent concerns, contact a health facility now.",

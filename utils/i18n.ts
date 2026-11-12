@@ -86,6 +86,21 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     Settings: 'Zvirongwa',
     More: 'Zvimwe',
     Home: 'Kumba',
+    'A little support for you and your baby, every day.':
+      'Rutsigiro rudiki rwako nemwana wako, zuva rega rega.',
+    'YOUR PREGNANCY': 'MAPAMVIRIRO AKO',
+    'Week {week} of 40': 'Vhiki {week} pamavhiki 40',
+    'Pregnancy progress': 'Kufambira mberi kwepamuviri',
+    'Your ANC provider can confirm your dates.':
+      'Mupi wako weANC anogona kusimbisa mazuva ako.',
+    'Make your guidance personal': 'Wana mazano anoenderana newe',
+    'Add your pregnancy week or due date to see guidance for your stage.':
+      'Isa vhiki repamuviri kana zuva rekusununguka kuti uone mazano echikamu chako.',
+    'Add pregnancy dates': 'Isa mazuva epamuviri',
+    'A midwife supporting an expectant mother': 'Nyamukuta achibatsira amai vane pamuviri',
+    'Your next step': 'Danho rako rinotevera',
+    'Keep your antenatal care close at hand.':
+      'Ramba uchitevera rubatsiro rwako rweANC.',
     Info: 'Ruzivo',
     Chat: 'Nhaurirano',
     Reminders: 'Zviyeuchidzo',

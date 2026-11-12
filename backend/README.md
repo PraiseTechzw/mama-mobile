@@ -23,6 +23,8 @@ python -m unittest discover -s backend/tests
 
 For Twilio webhook testing, expose the local port through a public HTTPS tunnel. Create `backend/.env` from `backend/.env.example`, set `TWILIO_AUTH_TOKEN`, and set `TWILIO_WEBHOOK_BASE_URL` to the tunnel's public origin, without a trailing slash. Keep the token secret and out of source control.
 
+For deployment, install `backend/requirements.txt`, start the web process with `gunicorn --bind 0.0.0.0:$PORT backend.app:app`, and configure the environment variables in the hosting service rather than uploading a local `.env` file.
+
 ## Configure Twilio
 
 Deploy this service to a public HTTPS host, set the two backend environment variables above, and configure the inbound-message webhook URLs:

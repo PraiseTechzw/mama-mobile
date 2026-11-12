@@ -28,6 +28,8 @@ class WebhookTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn("application/xml", response.content_type)
         self.assertIn("usizo lwezempilakahle ngokuphangisa", response.text)
+        self.assertIn("Ungalindi omunye umlayezo", response.text)
+        self.assertNotIn("app le", response.text)
 
     def test_whatsapp_webhook_returns_a_twiml_reply(self) -> None:
         response = self.client.post(

@@ -105,9 +105,11 @@ def answer_question(message: str) -> str:
     response_id = intent.response if intent else "fallback"
 
     if intent_id == "pregnancy_week":
-        response_id = "pregnancy_week_missing"
+        response_id = "pregnancy_week_missing_channel"
     elif intent_id == "visit_preparation":
         response_id = "anc_visit"
+    elif intent_id in {"urgent_symptoms", "danger_signs", "fallback"}:
+        response_id = f"{response_id}_channel"
 
     template = RESPONSES.get(response_id, RESPONSES["fallback"])[language]
     return re.sub(r"\{[^{}]*\}", "", template).strip()

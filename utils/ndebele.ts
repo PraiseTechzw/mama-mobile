@@ -72,6 +72,21 @@ export const ndebeleTranslations: Record<string, string> = {
   Settings: 'Izilungiselelo',
   More: 'Okunye',
   Home: 'Ekhaya',
+  'A little support for you and your baby, every day.':
+    'Usizo oluncane lwakho lomntwana wakho, nsuku zonke.',
+  'YOUR PREGNANCY': 'UKUKHULELWA KWAKHO',
+  'Week {week} of 40': 'Iviki {week} kwangu-40',
+  'Pregnancy progress': 'Ukuqhubeka kokukhulelwa',
+  'Your ANC provider can confirm your dates.':
+    'Umhlanzi wakho we-ANC angaqinisekisa izinsuku zakho.',
+  'Make your guidance personal': 'Thola izeluleko ezikufaneleyo',
+  'Add your pregnancy week or due date to see guidance for your stage.':
+    'Faka iviki lokukhulelwa kumbe usuku lokubeletha ukuze ubone izeluleko zesigaba sakho.',
+  'Add pregnancy dates': 'Faka izinsuku zokukhulelwa',
+  'A midwife supporting an expectant mother': 'Umhlengikazi encedisa umama okhulelweyo',
+  'Your next step': 'Inyathelo lakho elilandelayo',
+  'Keep your antenatal care close at hand.':
+    'Hlala useduze lokunakekelwa kwakho kwe-ANC.',
   Info: 'Ulwazi',
   Chat: 'Ingxoxo',
   Reminders: 'Izikhumbuzo',

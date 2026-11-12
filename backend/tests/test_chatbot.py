@@ -35,7 +35,10 @@ class ChatbotTests(unittest.TestCase):
 
     def test_unknown_question_uses_safe_localized_fallback(self) -> None:
         self.assertEqual(classify_question("Can you tell me a story?"), ("fallback", "en"))
-        self.assertIn("umhlanzi wakho", answer_question("ND: random question"))
+        reply = answer_question("ND: random question")
+        self.assertIn("umhlanzi wakho", reply)
+        self.assertNotIn("intanethi", reply)
+        self.assertNotIn("app", reply)
 
 
 if __name__ == "__main__":
