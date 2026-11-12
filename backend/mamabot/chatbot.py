@@ -2,7 +2,7 @@ import json
 import re
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 
 LANGUAGES = ("en", "sn", "nd")
@@ -54,53 +54,67 @@ def _read_catalog() -> tuple[list[Intent], dict[str, dict[str, str]], dict[str, 
 
 
 INTENTS, RESPONSES, LANGUAGE_PREFIXES = _read_catalog()
+IntentClassifier = Callable[[str], tuple[str, str] | None]
 
 
 def _normalize(message: str) -> str:
     return message.strip().casefold()
 
 
-def classify_question(message: str) -> tuple[str, str]:
+def classify_question(
+    message: str,
+    preferred_language: str = "en",
+) -> tuple[str, str]:
     normalized = _normalize(message)
-    preferred_language: str | None = None
+    preferred = preferred_language if preferred_language in LANGUAGES else "en"
+    explicit_language: str | None = None
 
     for language in LANGUAGES:
         for prefix in LANGUAGE_PREFIXES.get(language, ()):
             if normalized.startswith(prefix):
-                preferred_language = language
+                explicit_language = language
                 normalized = normalized[len(prefix) :].strip()
                 break
-        if preferred_language:
+        if explicit_language:
             break
 
-    scores = {language: 0 for language in LANGUAGES}
-    for intent in INTENTS:
+    language_scores = {language: 0 for language in LANGUAGES}
+    intent_scores: list[tuple[int, float, Intent]] = []
+    for order, intent in enumerate(INTENTS):
+        score = 0.0
         for language in LANGUAGES:
-            scores[language] += sum(
-                phrase in normalized for phrase in intent.patterns[language]
-            )
+            for phrase in intent.patterns[language]:
+                if phrase in normalized:
+                    evidence = max(1, len(phrase.split()))
+                    score += evidence + len(phrase) / 100
+                    language_scores[language] += evidence
+        intent_scores.append((order, score, intent))
 
-    detected_language = preferred_language or max(
-        LANGUAGES,
-        key=lambda language: scores[language],
-    )
-    matched_intent = next(
-        (
-            intent
-            for intent in INTENTS
-            if any(
-                phrase in normalized
-                for language in LANGUAGES
-                for phrase in intent.patterns[language]
-            )
+    intent_scores.sort(
+        key=lambda item: (
+            item[1] > 0 and item[2].id == "urgent_symptoms",
+            item[1],
+            -item[0],
         ),
-        None,
+        reverse=True,
     )
+    matched_intent = intent_scores[0][2] if intent_scores[0][1] > 0 else None
+    best_language_score = max(language_scores.values())
+    tied_languages = [
+        language
+        for language, score in language_scores.items()
+        if score == best_language_score
+    ]
+    detected_language = explicit_language or (
+        preferred
+        if best_language_score == 0 or preferred in tied_languages
+        else tied_languages[0]
+    )
+
     return (matched_intent.id if matched_intent else "fallback", detected_language)
 
 
-def answer_question(message: str) -> str:
-    intent_id, language = classify_question(message)
+def _render_response(intent_id: str, language: str) -> str:
     intent = next((item for item in INTENTS if item.id == intent_id), None)
     response_id = intent.response if intent else "fallback"
 
@@ -113,3 +127,42 @@ def answer_question(message: str) -> str:
 
     template = RESPONSES.get(response_id, RESPONSES["fallback"])[language]
     return re.sub(r"\{[^{}]*\}", "", template).strip()
+
+
+def answer_question_with_mode(
+    message: str,
+    preferred_language: str = "en",
+    classifier: IntentClassifier | None = None,
+) -> tuple[str, str]:
+    local_intent, local_language = classify_question(message, preferred_language)
+    if local_intent in {"urgent_symptoms", "danger_signs"}:
+        return _render_response(local_intent, local_language), "safety"
+
+    online_classification = classifier(message) if classifier else None
+    if online_classification is not None:
+        intent_id, language = online_classification
+        valid_intents = {intent.id for intent in INTENTS}
+        if intent_id == "clarify" and language in LANGUAGES:
+            if local_intent != "fallback":
+                return _render_response(local_intent, local_language), "offline"
+            return RESPONSES["clarify_question"][language], "online"
+        if (
+            isinstance(intent_id, str)
+            and intent_id in valid_intents
+            and isinstance(language, str)
+            and language in LANGUAGES
+        ):
+            if intent_id == "fallback" and local_intent != "fallback":
+                return _render_response(local_intent, local_language), "offline"
+            return _render_response(intent_id, language), "online"
+
+    return _render_response(local_intent, local_language), "offline"
+
+
+def answer_question(
+    message: str,
+    preferred_language: str = "en",
+    classifier: IntentClassifier | None = None,
+) -> str:
+    reply, _mode = answer_question_with_mode(message, preferred_language, classifier)
+    return reply

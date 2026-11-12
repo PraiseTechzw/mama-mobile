@@ -139,6 +139,11 @@
     "sn": "Handina mhinduro chaiyo yeizvozvo. Bvunza mupi wako weANC nezvemamiriro ako. Kana uchirwadziwa zvikuru, uchibuda ropa rakawanda, uchitadza kufema, kana uine rimwe dambudziko rechimbichimbi, tsvaga rubatsiro rwechiso nechiso izvozvi.",
     "nd": "Angilampendulo eqondileyo yalokho. Buza umhlanzi wakho we-ANC ngesimo sakho. Nxa usizwa ubuhlungu obukhulu, wopha kakhulu, uphefumula nzima kumbe ulolunye uhlupho oluphuthumayo, dinga usizo lwangempela khathesi."
   },
+  "clarify_question": {
+    "en": "I’m not sure I understood. Could you rephrase or say whether your question is about pregnancy changes, clinic visits, food, medicines, or warning signs? For advice about your personal situation, please contact your ANC provider.",
+    "sn": "Handina chokwadi chekuti ndanzwisisa. Unogona kubvunza zvakare kana kuti utaure kana mubvunzo wako uri nezveshanduko dzepamuviri, kushanya kukiriniki, kudya, mishonga kana zviratidzo zvengozi? Kuti uwane mazano anoenderana nemamiriro ako, taura nemupi wako weANC.",
+    "nd": "Angilaqiniseki ukuthi ngizwisisile. Ungaphinda ubeke umbuzo wakho kumbe utsho ukuthi umayelana lezinguquko zokukhulelwa, ukuvakatshela ikilinika, ukudla, imithi kumbe izibonakaliso zengozi? Ukuze uthole izeluleko ngesimo sakho, khuluma lomhlanzi wakho we-ANC."
+  },
   "greeting": {
     "en": "Hello, I’m MamaBot. I can share general pregnancy information in English, Shona, or Ndebele. Ask about antenatal visits, food, medicines, pregnancy changes, or warning signs. Prefix a question with EN:, SN:, or ND: to choose the reply language. I’m not a clinician. For urgent concerns, contact a health facility now.",
     "sn": "Mhoro, ndini MamaBot. Ndinogona kupa ruzivo rwakajairika rwepamuviri muChirungu, Shona kana Ndebele. Bvunza nezvekushanya kuANC, kudya, mishonga, shanduko dzepamuviri kana zviratidzo zvengozi. Nyora EN:, SN: kana ND: usati wabvunza kuti usarudze mutauro wemhinduro. Handisi chiremba. Kana dambudziko richikurumidzira, enda kuchipatara izvozvi.",

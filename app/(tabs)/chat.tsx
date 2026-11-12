@@ -16,9 +16,10 @@ import { ActionButton } from '@/components/action-button';
 import { AppIcon } from '@/components/app-icon';
 import { AppText as Text } from '@/components/app-text';
 import { useAppState, type AppLanguage, type ChatMessage, type Reminder } from '@/contexts/app-state';
-import { getOfflineReply } from '@/utils/chatbot';
+import { classifyOfflineQuestion, getOfflineReply } from '@/utils/chatbot';
 import { localeForLanguage, translate, useTranslation } from '@/utils/i18n';
 import { messagingChannels } from '@/utils/messaging-channels';
+import { getOnlineReply, isOnlineChatConfigured } from '@/utils/online-chatbot';
 import { radius, space, typeScale, useAppTheme } from '@/theme';
 import { pregnancyWeekFromDueDate } from '@/utils/pregnancy';
 
@@ -74,6 +75,9 @@ export default function ChatScreen() {
   const { data, addChatMessages, clearChat } = useAppState();
   const [draft, setDraft] = useState('');
   const [error, setError] = useState('');
+  const [status, setStatus] = useState('');
+  const [onlineEnabled, setOnlineEnabled] = useState(false);
+  const [isSending, setIsSending] = useState(false);
   const [now] = useState(() => Date.now());
   const listRef = useRef<FlatList<ChatMessage>>(null);
   const week =
@@ -104,19 +108,44 @@ export default function ChatScreen() {
   };
   const messages = data.chatMessages.length ? data.chatMessages : [greeting];
 
-  const sendMessage = (message = draft, replyMessage = message) => {
+  const sendMessage = async (message = draft, replyMessage = message) => {
     const text = message.trim();
-    if (!text) return;
+    if (!text || isSending) return;
 
-    const saved = addChatMessages([
-      createMessage('you', text),
-      createMessage('mama', getLocalReply(replyMessage, week, nextReminder, data.profile.language)),
-    ]);
-    if (saved) {
-      setDraft('');
-      setError('');
-    } else {
-      setError(t('Your message could not be saved. It is still in the text box—please try again.'));
+    setIsSending(true);
+    setError('');
+    setStatus('');
+    try {
+      let reply = getLocalReply(replyMessage, week, nextReminder, data.profile.language);
+      const isUrgent = classifyOfflineQuestion(text, data.profile.language).intent === 'urgent_symptoms';
+      if (onlineEnabled && !isUrgent) {
+        setStatus(t('Checking your question with online AI…'));
+        try {
+          const onlineResult = await getOnlineReply(text, data.profile.language);
+          reply = onlineResult.reply;
+          if (onlineResult.mode === 'offline') {
+            setStatus(t('Online AI is unavailable; this answer used on-device guidance.'));
+          } else if (onlineResult.mode === 'safety') {
+            setStatus(t('Safety-critical guidance was answered locally.'));
+          }
+        } catch {
+          setStatus(t('Could not reach online AI; this answer used on-device guidance.'));
+        }
+      } else if (isUrgent) {
+        setStatus(t('Safety-critical guidance was answered locally.'));
+      }
+
+      const saved = addChatMessages([
+        createMessage('you', text),
+        createMessage('mama', reply),
+      ]);
+      if (saved) {
+        setDraft('');
+      } else {
+        setError(t('Your message could not be saved. It is still in the text box—please try again.'));
+      }
+    } finally {
+      setIsSending(false);
     }
   };
   const confirmClearChat = () => {
@@ -162,12 +191,49 @@ export default function ChatScreen() {
               }}>
               <AppIcon name="sparkles" color={theme.primary} size={16} />
               <Text selectable style={{ flex: 1, color: theme.muted, fontSize: typeScale.caption, lineHeight: 16 }}>
-                {t('Private offline guide — not a clinician or live AI service.')}
+                {t('MamaBot works offline. Optional online AI sends your question to MamaBot’s service and OpenRouter. Do not include names or contact details. MamaBot is not a clinician.')}
               </Text>
             </View>
             <Text selectable style={{ color: theme.muted, fontSize: typeScale.caption, lineHeight: 18 }}>
               {t('In-app chat works offline. WhatsApp and SMS need mobile network access, and their messages are handled by those providers.')}
             </Text>
+            {isOnlineChatConfigured ? (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: space.md,
+                  padding: space.md,
+                  borderRadius: radius.lg,
+                  backgroundColor: theme.surface,
+                  borderWidth: 1,
+                  borderColor: theme.line,
+                }}>
+                <Text style={{ flex: 1, color: theme.text, fontSize: typeScale.small, lineHeight: 18 }}>
+                  {onlineEnabled
+                    ? t('Online AI is on for this chat.')
+                    : t('Online AI is off. Your questions stay on this device.')}
+                </Text>
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityState={{ disabled: isSending }}
+                  disabled={isSending}
+                  onPress={() => setOnlineEnabled((enabled) => !enabled)}
+                  style={({ pressed }) => ({
+                    minHeight: 40,
+                    justifyContent: 'center',
+                    paddingHorizontal: space.md,
+                    borderRadius: radius.full,
+                    backgroundColor: theme.primary,
+                    opacity: pressed || isSending ? 0.7 : 1,
+                  })}>
+                  <Text style={{ color: theme.white, fontSize: typeScale.small, fontWeight: '700' }}>
+                    {onlineEnabled ? t('Turn off') : t('Use online AI')}
+                  </Text>
+                </Pressable>
+              </View>
+            ) : null}
             {whatsappUrl || smsUrl ? (
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: space.sm }}>
                 {whatsappUrl ? (
@@ -334,6 +400,13 @@ export default function ChatScreen() {
           {error}
         </Text>
       ) : null}
+      {status ? (
+        <Text
+          accessibilityLiveRegion="polite"
+          style={{ paddingHorizontal: space.lg, color: theme.muted, fontSize: typeScale.caption }}>
+          {status}
+        </Text>
+      ) : null}
       <View
         style={{
           paddingHorizontal: space.lg,
@@ -350,7 +423,7 @@ export default function ChatScreen() {
           accessibilityLabel={t('Message MamaBot')}
           value={draft}
           onChangeText={setDraft}
-          onSubmitEditing={() => sendMessage()}
+          onSubmitEditing={() => void sendMessage()}
           placeholder={t('Ask MamaBot…')}
           placeholderTextColor={theme.muted}
           returnKeyType="send"
@@ -373,9 +446,9 @@ export default function ChatScreen() {
         <Pressable
           accessibilityRole="button"
           accessibilityLabel={t('Send message')}
-          accessibilityState={{ disabled: !draft.trim() }}
-          disabled={!draft.trim()}
-          onPress={() => sendMessage()}
+          accessibilityState={{ disabled: !draft.trim() || isSending }}
+          disabled={!draft.trim() || isSending}
+          onPress={() => void sendMessage()}
           style={({ pressed }) => ({
             width: 48,
             height: 48,

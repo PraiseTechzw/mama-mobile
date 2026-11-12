@@ -114,14 +114,26 @@ export const ndebeleTranslations: Record<string, string> = {
   'When to seek help': 'Isikhathi sokudinga usizo',
   'Ask MamaBot': 'Buza uMamaBot',
   'Get pregnancy guidance': 'Thola izeluleko ngokukhulelwa',
-  'Private offline guide — not a clinician or live AI service.':
-    'Umhlahlandlela wangasese ongadingi intanethi — kasisiyo ingcitshi yezempilakahle loba isevisi ye-AI ephendula ngesikhathi leso.',
+  'MamaBot works offline. Optional online AI sends your question to MamaBot’s service and OpenRouter. Do not include names or contact details. MamaBot is not a clinician.':
+    'UMamaBot usebenza engelantanethi. Nxa ukhetha i-AI eku-inthanethi, umbuzo wakho uthunyelwa kuseva kaMamaBot le-OpenRouter. Ungafaki ibizo lakho kumbe imininingwane engakwazisa. UMamaBot kasisiyo ingcitshi yezempilakahle.',
   'In-app chat works offline. WhatsApp and SMS need mobile network access, and their messages are handled by those providers.':
     'Ingxoxo eku-app isebenza ingela-inthanethi. I-WhatsApp le-SMS kudinga inethiwekhi yefoni, lemilayezo iphathwa yizinkampani lezo.',
   'Chat on WhatsApp': 'Xoxa kuWhatsApp',
   'Send by SMS': 'Thumela nge-SMS',
   'Could not open {channel}. Check that it is available on your device.':
     'Yehlulekile ukuvula {channel}. Hlola ukuthi iyatholakala yini efonini yakho.',
+  'Online AI is on for this chat.': 'I-AI eku-inthanethi ivuliwe kule ingxoxo.',
+  'Online AI is off. Your questions stay on this device.':
+    'I-AI eku-inthanethi icinyiwe. Imibuzo yakho ihlala kule foni.',
+  'Use online AI': 'Sebenzisa i-AI eku-inthanethi',
+  'Turn off': 'Cima',
+  'Online AI is unavailable; this answer used on-device guidance.':
+    'I-AI eku-inthanethi ayitholakali; impendulo le isebenzise ulwazi olusefonini.',
+  'Safety-critical guidance was answered locally.':
+    'Ngenxa yokuphepha, isiqondiso esiqakathekileyo siphendulwe yifoni.',
+  'Could not reach online AI; this answer used on-device guidance.':
+    'Yehlulekile ukuthola i-AI eku-inthanethi; impendulo le isebenzise ulwazi olusefonini.',
+  'Checking your question with online AI…': 'Sihlola umbuzo wakho nge-AI eku-inthanethi…',
   'This could need urgent medical attention. Please contact your local emergency service or go to the nearest health facility now. Do not wait for a reply in this app. If you can, ask someone nearby to help you get care.':
     'Lokhu kungadinga usizo lwezempilakahle ngokuphangisa. Thinta usizo oluphuthumayo kumbe uye esibhedlela esiseduze khathesi. Ungalindi impendulo ku-app le. Nxa usenelisa, cela umuntu oseduze lawe akuncedise uthole usizo.',
   'Seek urgent in-person care for heavy bleeding, severe abdominal pain, a severe headache or blurred vision, difficulty breathing, fainting or seizures, high fever, fluid leaking, or reduced baby movement. Contact your local emergency service or nearest health facility now; do not wait for a reply in this app.':
@@ -143,9 +155,13 @@ export const ndebeleTranslations: Record<string, string> = {
   'The conversation could not be cleared. Please try again.':
     'Ingxoxo yehlulekile ukususwa. Zama njalo.',
   'Your pregnancy, one step at a time': 'Uhambo lwakho lokukhulelwa, inyathelo ngalinye',
+  'PREGNANCY CARE': 'UKUNAKEKELWA KOKUKHULELWA',
   'Gentle, general information to help you prepare for conversations with your ANC provider.':
     'Ulwazi oluvamileyo olukunceda ulungiselele ukukhuluma lomhlinzeki wakho we-ANC.',
   'Browse by trimester': 'Khangela ngezigaba zokukhulelwa',
+  'Choose a stage to explore guidance for that part of pregnancy.':
+    'Khetha isigaba ukuze ubone izeluleko zaleso sikhathi sokukhulelwa.',
+  'Stage guidance': 'Izeluleko zesigaba',
   'First trimester': 'Isigaba sokuqala sokukhulelwa',
   'Second trimester': 'Isigaba sesibili sokukhulelwa',
   'Third trimester': 'Isigaba sesithathu sokukhulelwa',

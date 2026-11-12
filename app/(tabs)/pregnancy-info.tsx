@@ -65,43 +65,65 @@ export default function PregnancyInfoScreen() {
   );
   const [openTopic, setOpenTopic] = useState<string | null>(topics[0].title);
   const stageIndex = stages.findIndex((stage) => stage.title === selectedStage);
+  const selectedStageData = stages[stageIndex];
+  const selectedStageIsCurrent =
+    week !== null && week >= selectedStageData.start && week <= selectedStageData.end;
 
   return (
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
-      contentContainerStyle={{ padding: space.lg, paddingBottom: space.xxxl, gap: space.xl }}
+      contentContainerStyle={{ padding: space.lg, paddingBottom: space.xxxl, gap: space.xxl }}
       style={{ flex: 1, backgroundColor: theme.background }}>
       <View
         style={{
+          minHeight: 182,
           overflow: 'hidden',
+          flexDirection: 'row',
+          alignItems: 'center',
           borderRadius: radius.lg,
           borderCurve: 'continuous',
           backgroundColor: theme.surfaceSoft,
+          borderWidth: 1,
+          borderColor: 'rgba(81, 37, 184, 0.08)',
         }}>
+        <View style={{ flex: 1, padding: space.lg, gap: space.sm }}>
+          <Text
+            style={{
+              color: theme.primary,
+              fontSize: typeScale.caption,
+              fontWeight: '800',
+              letterSpacing: 1,
+            }}>
+            {t('PREGNANCY CARE')}
+          </Text>
+          <Text style={{ color: theme.text, fontSize: typeScale.heading, fontWeight: '800', lineHeight: 26 }}>
+            {t('Your pregnancy, one step at a time')}
+          </Text>
+          <Text style={{ color: theme.muted, fontSize: typeScale.small, lineHeight: 20 }}>
+            {t('Gentle, general information to help you prepare for conversations with your ANC provider.')}
+          </Text>
+        </View>
         <Image
           source={prenatalCareImage}
           contentFit="contain"
-          accessibilityLabel="Midwife providing care to an expectant mother"
-          style={{ width: '100%', height: 190 }}
+          accessibilityLabel={t('A midwife supporting an expectant mother')}
+          style={{ width: '38%', height: 166, alignSelf: 'flex-end' }}
         />
       </View>
 
-      <View style={{ gap: space.xs }}>
-        <Text style={{ color: theme.text, fontSize: typeScale.title, fontWeight: '800' }}>
-          {t('Your pregnancy, one step at a time')}
-        </Text>
-        <Text style={{ color: theme.muted, fontSize: typeScale.body, lineHeight: 23 }}>
-          {t('Gentle, general information to help you prepare for conversations with your ANC provider.')}
-        </Text>
-      </View>
-
       <View style={{ gap: space.md }}>
-        <Text style={{ color: theme.text, fontSize: typeScale.heading, fontWeight: '800' }}>
-          {t('Browse by trimester')}
-        </Text>
+        <View style={{ gap: space.xs }}>
+          <Text style={{ color: theme.text, fontSize: typeScale.heading, fontWeight: '800' }}>
+            {t('Browse by trimester')}
+          </Text>
+          <Text style={{ color: theme.muted, fontSize: typeScale.small, lineHeight: 19 }}>
+            {t('Choose a stage to explore guidance for that part of pregnancy.')}
+          </Text>
+        </View>
         <View style={{ gap: space.sm }}>
           {stages.map((stage, index) => {
             const selected = stage.title === selectedStage;
+            const isCurrent = week !== null && week >= stage.start && week <= stage.end;
 
             return (
               <Pressable
@@ -119,12 +141,14 @@ export default function PregnancyInfoScreen() {
                   borderRadius: radius.md,
                   borderCurve: 'continuous',
                   backgroundColor: selected ? theme.primarySoft : theme.surface,
+                  borderWidth: 1,
+                  borderColor: selected ? theme.primary : theme.line,
                   opacity: pressed ? 0.84 : 1,
                 })}>
                 <View
                   style={{
-                    width: 34,
-                    height: 34,
+                    width: 40,
+                    height: 40,
                     alignItems: 'center',
                     justifyContent: 'center',
                     borderRadius: radius.full,
@@ -140,24 +164,61 @@ export default function PregnancyInfoScreen() {
                   </Text>
                 </View>
                 <View style={{ flex: 1, gap: space.xs }}>
-                  <Text style={{ color: theme.text, fontSize: typeScale.body, fontWeight: '800' }}>
+                  <Text style={{ color: theme.text, fontSize: typeScale.body, fontWeight: '800', lineHeight: 20 }}>
                     {t(stage.title)}
                   </Text>
                   <Text style={{ color: theme.muted, fontSize: typeScale.small }}>{t(stage.weeks)}</Text>
                 </View>
-                {week && week >= stage.start && week <= stage.end ? (
-                  <Text style={{ color: theme.primary, fontSize: typeScale.caption, fontWeight: '700' }}>
-                    {t('YOUR STAGE')}
-                  </Text>
+                {isCurrent ? (
+                  <View
+                    style={{
+                      paddingHorizontal: space.sm,
+                      paddingVertical: space.xs,
+                      borderRadius: radius.full,
+                      backgroundColor: theme.surface,
+                    }}>
+                    <Text style={{ color: theme.primary, fontSize: typeScale.caption, fontWeight: '800' }}>
+                      {t('YOUR STAGE')}
+                    </Text>
+                  </View>
                 ) : null}
+                {selected && !isCurrent ? <AppIcon name="check" color={theme.primary} size={20} /> : null}
               </Pressable>
             );
           })}
         </View>
-        <SurfaceCard tone="soft">
-          <Text style={{ color: theme.primary, fontSize: typeScale.small, fontWeight: '800' }}>
-            {t(selectedStage).toUpperCase()}
-          </Text>
+        <SurfaceCard
+          tone="soft"
+          style={{
+            borderWidth: 1,
+            borderColor: 'rgba(81, 37, 184, 0.08)',
+          }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: space.sm }}>
+            <View
+              style={{
+                width: 36,
+                height: 36,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: radius.full,
+                backgroundColor: theme.surface,
+              }}>
+              <AppIcon name="pregnancy" color={theme.primary} size={19} />
+            </View>
+            <View style={{ flex: 1, gap: space.xs }}>
+              <Text style={{ color: theme.primary, fontSize: typeScale.caption, fontWeight: '800' }}>
+                {t('Stage guidance')}
+              </Text>
+              <Text style={{ color: theme.text, fontSize: typeScale.body, fontWeight: '800' }}>
+                {t(selectedStage)}
+              </Text>
+            </View>
+            {selectedStageIsCurrent ? (
+              <Text style={{ color: theme.primary, fontSize: typeScale.caption, fontWeight: '800' }}>
+                {t('YOUR STAGE')}
+              </Text>
+            ) : null}
+          </View>
           <Text selectable style={{ color: theme.text, fontSize: typeScale.body, lineHeight: 23 }}>
             {t(stageGuidance[stageIndex])}
           </Text>
@@ -183,10 +244,22 @@ export default function PregnancyInfoScreen() {
                 borderRadius: radius.md,
                 borderCurve: 'continuous',
                 backgroundColor: theme.surface,
+                borderWidth: 1,
+                borderColor: expanded ? theme.primarySoft : theme.line,
                 opacity: pressed ? 0.88 : 1,
               })}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: space.md }}>
-                <AppIcon name={topic.icon} color={theme.primary} size={21} />
+                <View
+                  style={{
+                    width: 40,
+                    height: 40,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: radius.full,
+                    backgroundColor: theme.primarySoft,
+                  }}>
+                  <AppIcon name={topic.icon} color={theme.primary} size={20} />
+                </View>
                 <Text style={{ flex: 1, color: theme.text, fontSize: typeScale.body, fontWeight: '700' }}>
                   {t(topic.title)}
                 </Text>

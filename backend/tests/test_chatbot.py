@@ -1,6 +1,6 @@
 import unittest
 
-from backend.mamabot.chatbot import answer_question, classify_question
+from backend.mamabot.chatbot import answer_question, answer_question_with_mode, classify_question
 
 
 class ChatbotTests(unittest.TestCase):
@@ -25,6 +25,40 @@ class ChatbotTests(unittest.TestCase):
         intent, language = classify_question("SN: what foods are helpful?")
         self.assertEqual((intent, language), ("nutrition", "sn"))
         self.assertIn("Edza kudya", answer_question("SN: what foods are helpful?"))
+        self.assertEqual(classify_question("an unrecognized message", "nd")[1], "nd")
+
+    def test_phrase_ranking_selects_the_best_topic_and_detects_language(self) -> None:
+        self.assertEqual(
+            classify_question("Ndinobuda ropa rakawanda uye ndiri kunetseka kufema"),
+            ("urgent_symptoms", "sn"),
+        )
+        self.assertEqual(classify_question("Ngiyopha kakhulu")[1], "nd")
+
+    def test_online_classifier_selects_catalog_reply_but_not_freeform_advice(self) -> None:
+        reply, mode = answer_question_with_mode(
+            "How should I prepare before the clinic?",
+            classifier=lambda _message: ("visit_preparation", "sn"),
+        )
+        self.assertEqual(mode, "online")
+        self.assertIn("ANC", reply)
+        self.assertNotIn("How should I prepare", reply)
+
+    def test_urgent_local_match_bypasses_online_classifier(self) -> None:
+        def unexpected_classifier(_message: str) -> tuple[str, str]:
+            raise AssertionError("Urgent symptoms must bypass the model.")
+
+        _reply, mode = answer_question_with_mode(
+            "I have heavy bleeding",
+            classifier=unexpected_classifier,
+        )
+        self.assertEqual(mode, "safety")
+
+    def test_online_fallback_does_not_discard_a_local_topic_match(self) -> None:
+        _reply, mode = answer_question_with_mode(
+            "What foods should I eat?",
+            classifier=lambda _message: ("fallback", "en"),
+        )
+        self.assertEqual(mode, "offline")
 
     def test_suggested_language_prompts_match_their_intents(self) -> None:
         self.assertEqual(

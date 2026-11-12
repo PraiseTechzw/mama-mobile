@@ -1,8 +1,8 @@
 # MamaBot messaging prototype
 
-The mobile app keeps its in-app chatbot and saved conversation on the device. It can answer without a network connection. WhatsApp and SMS are optional online channels: Twilio forwards inbound messages to this Flask service, which returns a reply using TwiML.
+The mobile app keeps its in-app chatbot and saved conversation on the device. Offline replies come from the shared response catalog. When a user explicitly turns on online AI, the app sends only the current question and selected language to this Flask service. The service can use OpenRouter to classify the language and topic, then selects a fixed catalog response; it does not ask a model to generate medical advice. If the service or model is unavailable, the app uses its local reply.
 
-The backend uses the same phrase-intent and translated-response catalogs as the offline app. It does not store a message history or profile. Twilio and the mobile carriers still process messages sent through their services.
+WhatsApp and SMS are optional online channels: Twilio forwards inbound messages to this Flask service, which returns a reply using TwiML. They can use the same OpenRouter classifier after `OPENROUTER_MESSAGING_ENABLED=true`; keep this disabled until users are clearly told that their messages go to OpenRouter. The backend does not store a message history or profile. Twilio, carriers, OpenRouter, and the selected inference provider still process online messages.
 
 ## Run locally
 
@@ -52,11 +52,27 @@ To activate the app-to-Twilio path end to end:
 3. Confirm `https://<host>/healthz` returns `ok`, then send a test message to the Twilio number. Prefix a test with `EN:`, `SN:`, or `ND:` to check a chosen reply language.
 4. If the in-app contact buttons should open the configured Twilio number, set `EXPO_PUBLIC_MAMABOT_WHATSAPP_NUMBER` and/or `EXPO_PUBLIC_MAMABOT_SMS_NUMBER` in the repository-root `.env`, using international digits (Zimbabwe numbers start with `263`, without `+`), then rebuild the app. These are public contact numbers, not credentials; leave them blank to hide the buttons.
 
-The root `.env` values configure only the mobile app's visible contact links. Keep Twilio secrets in `backend/.env` for local development or in the backend host's secret settings for deployment; do not put secrets in `EXPO_PUBLIC_*` variables.
+The root `.env` values configure the mobile app's public contact links and backend origin. Keep Twilio and OpenRouter secrets in `backend/.env` for local development or in the backend host's secret settings for deployment; do not put secrets in `EXPO_PUBLIC_*` variables.
+
+## Optional OpenRouter classifier
+
+The app's online mode requires `EXPO_PUBLIC_MAMABOT_API_URL` in the repository-root `.env`, set to the Flask service's HTTPS origin (without a trailing slash). Expo embeds `EXPO_PUBLIC_*` values in the app bundle, so this must never contain a secret. Restart Expo after changing it.
+
+The backend's optional online classifier uses:
+
+| Variable | Required for model classification | Purpose |
+| --- | --- | --- |
+| `OPENROUTER_API_KEY` | Yes | Secret OpenRouter credential. Configure only on the backend host or in ignored `backend/.env`. |
+| `OPENROUTER_MODEL` | No | Defaults to `openrouter/free`, which picks an available free model. Set a specific OpenRouter model ID to override it. |
+| `OPENROUTER_MESSAGING_ENABLED` | For WhatsApp/SMS only | Defaults to `false`; set to `true` only after messaging users are informed and consent requirements are met. |
+
+The model returns only a validated intent ID, language, and confidence. The service rejects unknown/low-confidence classifications and uses existing local matching instead. It always bypasses the model when local urgent-symptom patterns match. Requests ask OpenRouter to route only to providers that deny data collection and support zero-data-retention; if no provider meets those requirements, classification falls back locally. Review OpenRouter's current privacy terms and the selected provider's handling before real-user testing.
+
+The endpoint sends no app profile, pregnancy week, reminders, or chat history. Set spending limits for the OpenRouter key and hosting-level request limits before exposing the service publicly. The fixed answer catalog is still prototype content and has not been clinically or linguistically approved; the model does not make it safer or more complete.
 
 ## Prototype limitations and safety
 
-- The local/offline and server classifiers are deterministic phrase matching, not a trained NLP model. Unsupported or ambiguous wording gets a localized fallback rather than a generated clinical answer.
+- Offline classification is deterministic phrase matching, not an AI model. Online OpenRouter classification can better map varied questions to the fixed topics, but it does not generate or verify clinical guidance.
 - In WhatsApp/SMS, prefix a question with `EN:`, `SN:`, or `ND:` to select English, Shona, or Ndebele explicitly. Otherwise, the reply language is inferred from recognized phrases; unrecognized messages default to English.
 - The backend has no access to the app's local pregnancy week or reminders and does not retain channel conversations.
 - Automated outbound reminders and backend-synced in-app chat are not enabled. App reminders and in-app chat remain on-device; adding scheduled Twilio messages requires server-side persistence, explicit messaging consent, and a delivery scheduler.

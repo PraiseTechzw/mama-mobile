@@ -40,7 +40,13 @@
       ],
       "expo-image",
       "expo-sqlite",
-      "expo-notifications"
+      "expo-notifications",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Allow MamaBot to use your location to find nearby health facilities. Your location is not saved."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

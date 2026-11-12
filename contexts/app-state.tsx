@@ -29,6 +29,7 @@ export type Reminder = {
   notes: string;
   scheduledAt: string;
   notificationId: string | null;
+  facilityId?: string | null;
 };
 
 export type ChatMessage = {
@@ -125,6 +126,9 @@ function parseSavedData(value: unknown): AppData {
       typeof item.title !== 'string' ||
       typeof item.notes !== 'string' ||
       typeof item.scheduledAt !== 'string' ||
+      (item.facilityId !== undefined &&
+        item.facilityId !== null &&
+        typeof item.facilityId !== 'string') ||
       (item.notificationId !== null && typeof item.notificationId !== 'string')
     ) {
       throw new Error('A saved reminder could not be read. Your information has not been changed.');
@@ -136,6 +140,7 @@ function parseSavedData(value: unknown): AppData {
       notes: item.notes,
       scheduledAt: item.scheduledAt,
       notificationId: item.notificationId,
+      facilityId: typeof item.facilityId === 'string' ? item.facilityId : null,
     };
   });
 

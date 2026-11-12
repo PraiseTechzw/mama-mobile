@@ -10,6 +10,7 @@ import { useAppState } from '@/contexts/app-state';
 import { localeForLanguage, useTranslation } from '@/utils/i18n';
 import { cancelReminderNotification } from '@/services/reminder-notifications';
 import { formatDate } from '@/utils/pregnancy';
+import { getHealthcareFacility } from '@/utils/facilities';
 import { radius, space, typeScale, useAppTheme } from '@/theme';
 
 export default function RemindersScreen() {
@@ -148,6 +149,15 @@ export default function RemindersScreen() {
                   {reminder.notes ? (
                     <Text style={{ color: theme.muted, fontSize: typeScale.caption, lineHeight: 18 }}>
                       {reminder.notes}
+                    </Text>
+                  ) : null}
+                  {getHealthcareFacility(reminder.facilityId) ? (
+                    <Text style={{ color: theme.primary, fontSize: typeScale.caption, lineHeight: 18 }}>
+                      {t('Health facility: {name} · {district}, {province}', {
+                        name: getHealthcareFacility(reminder.facilityId)!.name,
+                        district: getHealthcareFacility(reminder.facilityId)!.district,
+                        province: getHealthcareFacility(reminder.facilityId)!.province,
+                      })}
                     </Text>
                   ) : null}
                   {data.profile.notificationsEnabled && !reminder.notificationId ? (
