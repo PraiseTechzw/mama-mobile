@@ -15,7 +15,7 @@ services:
       - key: OPENROUTER_MODEL
         value: openrouter/free
       - key: OPENROUTER_MESSAGING_ENABLED
-        value: "false"
+        value: "true"
       - key: TWILIO_AUTH_TOKEN
         sync: false
       - key: TWILIO_WEBHOOK_BASE_URL

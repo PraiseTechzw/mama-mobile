@@ -24,7 +24,7 @@ def create_app(test_config: Mapping[str, object] | None = None) -> Flask:
         OPENROUTER_MODEL=os.environ.get("OPENROUTER_MODEL", "").strip(),
         OPENROUTER_TIMEOUT_SECONDS=5,
         OPENROUTER_MESSAGING_ENABLED=(
-            os.environ.get("OPENROUTER_MESSAGING_ENABLED", "false").strip().lower() == "true"
+            os.environ.get("OPENROUTER_MESSAGING_ENABLED", "true").strip().lower() == "true"
         ),
     )
     if test_config:

@@ -13,6 +13,8 @@ class WebhookTests(unittest.TestCase):
                 "TESTING": True,
                 "TWILIO_AUTH_TOKEN": "test-auth-token",
                 "TWILIO_WEBHOOK_BASE_URL": "https://mamabot.example",
+                "OPENROUTER_API_KEY": "",
+                "OPENROUTER_MESSAGING_ENABLED": False,
             }
         )
         self.client = self.app.test_client()
@@ -141,6 +143,28 @@ class WebhookTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(classifier_calls, ["What foods should I eat?"])
         self.assertIn("Edza kudya", response.text)
+
+    def test_whatsapp_auto_detects_shona_without_a_language_prefix(self) -> None:
+        classifier_calls: list[str] = []
+        app = create_app(
+            {
+                "TESTING": True,
+                "TWILIO_AUTH_TOKEN": "test-auth-token",
+                "TWILIO_WEBHOOK_BASE_URL": "https://mamabot.example",
+                "OPENROUTER_MESSAGING_ENABLED": True,
+                "CHATBOT_CLASSIFIER": lambda message: (
+                    classifier_calls.append(message) or ("body_changes", "sn")
+                ),
+            }
+        )
+        response = app.test_client().post(
+            "/twilio/whatsapp",
+            data={"Body": "ndikuzwa Musoro"},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(classifier_calls, ["ndikuzwa Musoro"])
+        self.assertIn("zviratidzo", response.text)
+        self.assertNotIn("EN:", response.text)
 
     def test_webhook_rejects_invalid_twilio_signature(self) -> None:
         app = create_app(
