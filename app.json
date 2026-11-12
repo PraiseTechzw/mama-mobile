@@ -17,6 +17,7 @@
       }
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "softwareKeyboardLayoutMode": "resize",
       "adaptiveIcon": {
         "backgroundColor": "#FBF8FF",
