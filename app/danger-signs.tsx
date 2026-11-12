@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { router } from 'expo-router';
 import { ScrollView, View } from 'react-native';
 
 import { AppIcon } from '@/components/app-icon';
@@ -22,11 +22,6 @@ const warningSigns = [
 export default function DangerSignsScreen() {
   const theme = useAppTheme();
   const t = useTranslation();
-  const [showHelp, setShowHelp] = useState(false);
-
-  const requestUrgentHelp = () => {
-    setShowHelp(true);
-  };
 
   return (
     <ScrollView
@@ -105,37 +100,11 @@ export default function DangerSignsScreen() {
       </View>
 
       <ActionButton
-        title={t('Show urgent care guidance')}
+        title={t('Open urgent care guidance')}
         icon="phone"
         variant="danger"
-        onPress={requestUrgentHelp}
+        onPress={() => router.push('/urgent-care')}
       />
-      {showHelp ? (
-        <View
-          accessibilityLiveRegion="polite"
-          style={{
-            flexDirection: 'row',
-            alignItems: 'flex-start',
-            gap: space.md,
-            padding: space.lg,
-            borderRadius: radius.md,
-            borderCurve: 'continuous',
-            backgroundColor: theme.dangerSoft,
-          }}>
-          <AppIcon name="phone" color={theme.danger} size={18} />
-          <Text
-            selectable
-            style={{
-              flex: 1,
-              color: theme.danger,
-              fontSize: typeScale.body,
-              fontWeight: '700',
-              lineHeight: 22,
-            }}>
-            {t('Please contact your local emergency service or nearest health facility now.')}
-          </Text>
-        </View>
-      ) : null}
 
       <SurfaceCard tone="soft">
         <Text style={{ color: theme.text, fontSize: typeScale.body, fontWeight: '700' }}>

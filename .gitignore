@@ -42,3 +42,10 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# Firebase client configuration (kept out of Git, included in EAS builds)
+google-services.json
+GoogleService-Info.plist
+
+# Firebase Admin SDK credentials
+*-firebase-adminsdk-*.json

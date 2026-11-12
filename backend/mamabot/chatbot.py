@@ -1,5 +1,6 @@
 import json
 import re
+from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable
@@ -114,19 +115,47 @@ def classify_question(
     return (matched_intent.id if matched_intent else "fallback", detected_language)
 
 
-def _render_response(intent_id: str, language: str) -> str:
+def _render_response(
+    intent_id: str,
+    language: str,
+    pregnancy_week: int | None = None,
+) -> str:
     intent = next((item for item in INTENTS if item.id == intent_id), None)
     response_id = intent.response if intent else "fallback"
+    values: dict[str, str] = {}
 
     if intent_id == "pregnancy_week":
-        response_id = "pregnancy_week_missing_channel"
+        if pregnancy_week:
+            response_id = "pregnancy_week_saved"
+            trimester_id = (
+                "ordinal_first"
+                if pregnancy_week <= 13
+                else "ordinal_second"
+                if pregnancy_week <= 27
+                else "ordinal_third"
+            )
+            values = {
+                "week": str(pregnancy_week),
+                "trimester": RESPONSES[trimester_id][language],
+            }
+        else:
+            response_id = "pregnancy_week_missing_channel"
+    elif intent_id == "pregnancy_basics":
+        if pregnancy_week:
+            values["savedWeek"] = RESPONSES["saved_week"][language].format(
+                week=pregnancy_week
+            )
     elif intent_id == "visit_preparation":
         response_id = "anc_visit"
     elif intent_id in {"urgent_symptoms", "danger_signs", "fallback"}:
         response_id = f"{response_id}_channel"
 
     template = RESPONSES.get(response_id, RESPONSES["fallback"])[language]
-    return re.sub(r"\{[^{}]*\}", "", template).strip()
+    return re.sub(
+        r"\{(\w+)\}",
+        lambda match: values.get(match.group(1), ""),
+        template,
+    ).strip()
 
 
 def answer_question_with_mode(
@@ -134,12 +163,16 @@ def answer_question_with_mode(
     preferred_language: str = "en",
     classifier: IntentClassifier | None = None,
     force_language: bool = False,
+    context: Mapping[str, object] | None = None,
 ) -> tuple[str, str]:
     local_intent, local_language = classify_question(message, preferred_language)
+    pregnancy_week = (context or {}).get("pregnancy_week")
+    if not isinstance(pregnancy_week, int) or isinstance(pregnancy_week, bool):
+        pregnancy_week = None
     if force_language and preferred_language in LANGUAGES:
         local_language = preferred_language
     if local_intent in {"urgent_symptoms", "danger_signs"}:
-        return _render_response(local_intent, local_language), "safety"
+        return _render_response(local_intent, local_language, pregnancy_week), "safety"
 
     online_classification = classifier(message) if classifier else None
     if online_classification is not None:
@@ -149,7 +182,7 @@ def answer_question_with_mode(
         valid_intents = {intent.id for intent in INTENTS}
         if intent_id == "clarify" and language in LANGUAGES:
             if local_intent != "fallback":
-                return _render_response(local_intent, local_language), "offline"
+                return _render_response(local_intent, local_language, pregnancy_week), "offline"
             return RESPONSES["clarify_question"][language], "online"
         if (
             isinstance(intent_id, str)
@@ -158,10 +191,10 @@ def answer_question_with_mode(
             and language in LANGUAGES
         ):
             if intent_id == "fallback" and local_intent != "fallback":
-                return _render_response(local_intent, local_language), "offline"
-            return _render_response(intent_id, language), "online"
+                return _render_response(local_intent, local_language, pregnancy_week), "offline"
+            return _render_response(intent_id, language, pregnancy_week), "online"
 
-    return _render_response(local_intent, local_language), "offline"
+    return _render_response(local_intent, local_language, pregnancy_week), "offline"
 
 
 def answer_question(

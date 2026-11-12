@@ -136,8 +136,8 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
       'AI iri online haisi kuwanikwa; mhinduro iyi yashandisa mazano ari pafoni.',
     'Safety-critical guidance was answered locally.':
       'Nekuda kwekuchengeteka, mhinduro inokosha yapihwa nefoni.',
-    'Could not reach online AI; this answer used on-device guidance.':
-      'Hatina kukwanisa kubatana neAI iri online; mhinduro iyi yashandisa mazano ari pafoni.',
+    'Could not reach MamaBot; this answer used on-device guidance.':
+      'Hatina kukwanisa kubatana naMamaBot; mhinduro iyi yashandisa mazano ari pafoni.',
     'MamaBot is replying…': 'MamaBot iri kupindura…',
     'Connecting to online AI…': 'Tiri kubatana neAI iri online…',
     'Chat on WhatsApp': 'Kurukura paWhatsApp',
@@ -260,9 +260,42 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     'If you’re unsure': 'Kana usina chokwadi',
     'This list is not complete. If you feel something is seriously wrong, contact your care team or seek urgent help. This app cannot assess emergencies.':
       'Rondedzero iyi haina kukwana. Kana uchifunga kuti pane chisina kumira zvakanaka, bata timu yako yezveutano kana tsvaga rubatsiro rwechimbichimbi. App ino haigoni kuongorora njodzi.',
-    'Show urgent care guidance': 'Ratidza mazano erubatsiro rwechimbichimbi',
+    'Open urgent care guidance': 'Vhura mazano erubatsiro rwechimbichimbi',
     'Please contact your local emergency service or nearest health facility now.':
       'Bata rubatsiro rwechimbichimbi rwekwaunogara kana chipatara chiri pedyo izvozvi.',
+    'Need urgent help now?': 'Unoda rubatsiro rwechimbichimbi izvozvi here?',
+    'Call emergency services or go to a health facility now. Do not wait for an in-app reply.':
+      'Fona rubatsiro rwechimbichimbi kana enda kunzvimbo yezveutano izvozvi. Usamirire mhinduro muapp ino.',
+    'Emergency numbers in Zimbabwe': 'Nhamba dzerubatsiro rwechimbichimbi muZimbabwe',
+    'Choose the number for your network. These lines can connect you to ambulance, fire and police services.':
+      'Sarudza nhamba inoenderana nenetwork yako. Nhamba idzi dzinogona kukubatanidza neamburenzi, vanodzima moto nemapurisa.',
+    'All emergencies': 'Njodzi dzose',
+    'Ambulance, fire and police': 'Amburenzi, vanodzima moto nemapurisa',
+    'Econet mobile': 'Nhare yeEconet',
+    'NetOne mobile': 'Nhare yeNetOne',
+    'Toll-free landline': 'Nhare yepamba yemahara',
+    'For landlines': 'Yenhare dzepamba',
+    'Call {number}, {service}': 'Fona {number}, {service}',
+    'Opens your phone app to place the call.': 'Inovhura nhare yako kuti ufone.',
+    'Emergency numbers published by the Government of Zimbabwe. Network availability may vary.':
+      'Nhamba idzi dzakaburitswa neHurumende yeZimbabwe. Kuwanikwa kwadzo kunogona kusiyana nenetwork.',
+    'Could not open the phone dialer for {number}. Please dial it manually.':
+      'Nhare haina kukwanisa kuvhurwa kuti ufone {number}. Nyora nhamba yacho pafoni yako.',
+    'What to tell the operator': 'Zvaunofanira kuudza anopindura runhare',
+    'Say that you are pregnant and describe what is happening.':
+      'Tsanangura kuti une pamuviri uye zviri kuitika.',
+    'Give your exact location, a nearby landmark, and a callback number.':
+      'Taura nzvimbo yauri, nzvimbo inozivikanwa iri pedyo, uye nhamba yefoni yaungafonerwa.',
+    'Follow the operator’s instructions and keep your phone available.':
+      'Tevedzera zvawaurairwa uye chengeta foni yako iri pedyo.',
+    'While help is on the way': 'Paunenge wakamirira rubatsiro',
+    'Ask someone you trust to stay with you and help you get care.':
+      'Kumbira munhu waunovimba naye kuti agare newe uye akubatsire kuwana rubatsiro.',
+    'If you cannot reach emergency services, try another listed number or go to the nearest health facility.':
+      'Kana usingakwanisi kubata rubatsiro rwechimbichimbi, edza imwe nhamba iri pamusoro kana enda kunzvimbo yezveutano iri pedyo.',
+    'Do not wait for a reply in this app or travel alone if you can avoid it.':
+      'Usamirire mhinduro muapp ino uye usaende wega kana uchikwanisa kuwana anokuperekedza.',
+    'Find a nearby health facility': 'Tsvaga nzvimbo yezveutano iri pedyo',
     'Add a gentle reminder': 'Isa chiyeuchidzo chinyoro',
     'Add a clinic visit or a note for yourself. Your clinic’s advice comes first.':
       'Isa kushanya kukiriniki kana chinyorwa chako. Mazano ekiriniki yako ndiwo anotanga.',
@@ -560,8 +593,8 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
       'I-AI eku-inthanethi ayitholakali; impendulo le isebenzise ulwazi olusefonini.',
     'Safety-critical guidance was answered locally.':
       'Ngenxa yokuphepha, isiqondiso esiqakathekileyo siphendulwe yifoni.',
-    'Could not reach online AI; this answer used on-device guidance.':
-      'Yehlulekile ukuthola i-AI eku-inthanethi; impendulo le isebenzise ulwazi olusefonini.',
+    'Could not reach MamaBot; this answer used on-device guidance.':
+      'Yehlulekile ukuxhumana loMamaBot; impendulo le isebenzise ulwazi olusefonini.',
     'MamaBot is replying…': 'UMamaBot uyaphendula…',
     'Connecting to online AI…': 'Sixhumana le-AI eku-inthanethi…',
     'This could need urgent medical attention. Please contact your local emergency service or go to the nearest health facility now. Do not wait for a reply in this app. If you can, ask someone nearby to help you get care.':

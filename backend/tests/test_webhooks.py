@@ -65,6 +65,22 @@ class WebhookTests(unittest.TestCase):
         self.assertEqual(response.json["mode"], "safety")
         self.assertIn("chimbichimbi", response.json["reply"])
 
+    def test_app_chat_api_uses_context_when_online_classification_is_unavailable(self) -> None:
+        response = self.client.post(
+            "/api/chat",
+            json={
+                "message": "What should I know about week 6?",
+                "language": "en",
+                "use_online": True,
+                "context": {"pregnancy_week": 6},
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json["mode"], "offline")
+        self.assertIn("around week 6", response.json["reply"])
+        self.assertIn("first trimester", response.json["reply"])
+
     def test_app_chat_api_uses_model_classification_for_catalog_lookup(self) -> None:
         app = create_app(
             {

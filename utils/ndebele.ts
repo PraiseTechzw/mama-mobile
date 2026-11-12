@@ -126,8 +126,8 @@ export const ndebeleTranslations: Record<string, string> = {
     'I-AI eku-inthanethi ayitholakali; impendulo le isebenzise ulwazi olusefonini.',
   'Safety-critical guidance was answered locally.':
     'Ngenxa yokuphepha, isiqondiso esiqakathekileyo siphendulwe yifoni.',
-  'Could not reach online AI; this answer used on-device guidance.':
-    'Yehlulekile ukuthola i-AI eku-inthanethi; impendulo le isebenzise ulwazi olusefonini.',
+  'Could not reach MamaBot; this answer used on-device guidance.':
+    'Yehlulekile ukuxhumana loMamaBot; impendulo le isebenzise ulwazi olusefonini.',
   'MamaBot is replying…': 'UMamaBot uyaphendula…',
   'Connecting to online AI…': 'Sixhumana le-AI eku-inthanethi…',
   'This could need urgent medical attention. Please contact your local emergency service or go to the nearest health facility now. Do not wait for a reply in this app. If you can, ask someone nearby to help you get care.':
@@ -245,9 +245,42 @@ export const ndebeleTranslations: Record<string, string> = {
   'If you’re unsure': 'Nxa ungelaqiniso',
   'This list is not complete. If you feel something is seriously wrong, contact your care team or seek urgent help. This app cannot assess emergencies.':
     'Uhlu lolu aluphelelanga. Nxa uzwa kulento engahambi kuhle, thinta ithimba lakho lezempilakahle kumbe dinga usizo oluphuthumayo. I-app le yehluleka ukuhlola izimo eziphuthumayo.',
-  'Show urgent care guidance': 'Tshengisa izeluleko zosizo oluphuthumayo',
+  'Open urgent care guidance': 'Vula izeluleko zosizo oluphuthumayo',
   'Please contact your local emergency service or nearest health facility now.':
     'Thinta usizo oluphuthumayo lwendawo yakho kumbe isibhedlela esiseduze khathesi.',
+  'Need urgent help now?': 'Udinga usizo oluphuthumayo khathesi?',
+  'Call emergency services or go to a health facility now. Do not wait for an in-app reply.':
+    'Tshayela usizo oluphuthumayo kumbe uye esibhedlela khathesi. Ungalindi impendulo ku-app le.',
+  'Emergency numbers in Zimbabwe': 'Izinombolo zosizo oluphuthumayo eZimbabwe',
+  'Choose the number for your network. These lines can connect you to ambulance, fire and police services.':
+    'Khetha inombolo yenethiwekhi yakho. Lezi zinombolo zikuxhumanisa lama-ambulensi, abacima umlilo lamapholisa.',
+  'All emergencies': 'Zonke izehlakalo eziphuthumayo',
+  'Ambulance, fire and police': 'Ama-ambulensi, abacima umlilo lamapholisa',
+  'Econet mobile': 'Umakhalekhukhwini we-Econet',
+  'NetOne mobile': 'Umakhalekhukhwini we-NetOne',
+  'Toll-free landline': 'Ucingo lwasekhaya lwamahala',
+  'For landlines': 'Olwezingcingo zasemakhaya',
+  'Call {number}, {service}': 'Tshayela {number}, {service}',
+  'Opens your phone app to place the call.': 'Kuvula ucingo lwakho ukuze utshaye.',
+  'Emergency numbers published by the Government of Zimbabwe. Network availability may vary.':
+    'Izinombolo lezi zikhutshwe nguHulumende weZimbabwe. Ukusebenza kwazo kungatshiyana ngenkampani yenethiwekhi.',
+  'Could not open the phone dialer for {number}. Please dial it manually.':
+    'Ucingo lwehlulekile ukuvula inombolo ethi {number}. Sicela uyidiale ngokwakho.',
+  'What to tell the operator': 'Ongakutshela ophendula ucingo',
+  'Say that you are pregnant and describe what is happening.':
+    'Tsho ukuthi uzithwele njalo uchaze okwenzakalayo.',
+  'Give your exact location, a nearby landmark, and a callback number.':
+    'Tsho indawo okuyo, uphawu lwendawo oluseduze, lenombolo abangakufonela ngayo.',
+  'Follow the operator’s instructions and keep your phone available.':
+    'Landela imilayezo yomphenduli njalo ugcine ucingo lwakho luseduze.',
+  'While help is on the way': 'Usalindele usizo',
+  'Ask someone you trust to stay with you and help you get care.':
+    'Cela umuntu omthembayo ukuthi ahlale lawe njalo akuncedise ukuthi uthole usizo.',
+  'If you cannot reach emergency services, try another listed number or go to the nearest health facility.':
+    'Nxa ungatholi usizo oluphuthumayo, zama enye inombolo kumbe uye esibhedlela esiseduze.',
+  'Do not wait for a reply in this app or travel alone if you can avoid it.':
+    'Ungalindi impendulo ku-app le njalo ungahambi wedwa nxa ungathola ozakuphelekezela.',
+  'Find a nearby health facility': 'Dinga isibhedlela esiseduze',
   'Add a gentle reminder': 'Faka isikhumbuzo esithambileyo',
   'Add a clinic visit or a note for yourself. Your clinic’s advice comes first.':
     'Faka ukuvakatshela ikilinika kumbe inothi lakho. Izeluleko zekilinika yakho ziqakathekile.',

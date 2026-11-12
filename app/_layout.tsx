@@ -82,6 +82,7 @@ function AppNavigator({ theme }: { theme: ReturnType<typeof useAppTheme> }) {
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="reminder-form" options={{ title: 'Add a reminder' }} />
           <Stack.Screen name="danger-signs" options={{ title: 'Danger signs' }} />
+          <Stack.Screen name="urgent-care" options={{ title: 'Urgent care guidance' }} />
         </Stack>
         {error ? (
           <View

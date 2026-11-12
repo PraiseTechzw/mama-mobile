@@ -151,16 +151,17 @@ export default function ChatScreen() {
             pregnancyWeek: week,
             recentMessages,
           });
-          reply = onlineResult.reply;
-          if (onlineResult.mode === 'offline') {
-            setStatus(t('Online AI is unavailable; this answer used on-device guidance.'));
+          if (onlineResult.mode === 'online') {
+            reply = onlineResult.reply;
+            setStatus('');
           } else if (onlineResult.mode === 'safety') {
+            reply = onlineResult.reply;
             setStatus(t('Safety-critical guidance was answered locally.'));
           } else {
-            setStatus('');
+            setStatus(t('Online AI is unavailable; this answer used on-device guidance.'));
           }
         } catch {
-          setStatus(t('Could not reach online AI; this answer used on-device guidance.'));
+          setStatus(t('Could not reach MamaBot; this answer used on-device guidance.'));
         }
       } else if (isUrgent) {
         setStatus(t('Safety-critical guidance was answered locally.'));

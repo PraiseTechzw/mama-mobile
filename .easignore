@@ -1,0 +1,48 @@
+# Keep EAS uploads aligned with .gitignore, but include Firebase client config
+# files so native builds can use the locally supplied project configuration.
+
+# dependencies
+node_modules/
+.venv/
+__pycache__/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+.env
+.env*.local
+
+# typescript
+*.tsbuildinfo
+
+# generated native folders
+/ios
+/android
+
+# Firebase Admin SDK credentials must never be uploaded.
+*-firebase-adminsdk-*.json

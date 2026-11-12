@@ -43,6 +43,24 @@ class ChatbotTests(unittest.TestCase):
         self.assertIn("ANC", reply)
         self.assertNotIn("How should I prepare", reply)
 
+    def test_pregnancy_week_context_personalizes_backend_reply(self) -> None:
+        reply, mode = answer_question_with_mode(
+            "What should I know about week 6?",
+            context={"pregnancy_week": 6},
+        )
+
+        self.assertEqual(mode, "offline")
+        self.assertIn("around week 6", reply)
+        self.assertIn("first trimester", reply)
+
+    def test_pregnancy_basics_reply_uses_saved_week_context(self) -> None:
+        reply, _mode = answer_question_with_mode(
+            "What happens during pregnancy?",
+            context={"pregnancy_week": 24},
+        )
+
+        self.assertIn("around week 24", reply)
+
     def test_urgent_local_match_bypasses_online_classifier(self) -> None:
         def unexpected_classifier(_message: str) -> tuple[str, str]:
             raise AssertionError("Urgent symptoms must bypass the model.")
