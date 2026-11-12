@@ -111,19 +111,21 @@ export default function RemindersScreen() {
 
         {reminders.length ? (
           <SurfaceCard style={{ padding: 0, gap: 0, overflow: 'hidden' }}>
-            {reminders.map((reminder, index) => (
-              <View
-                key={reminder.id}
-                style={{
-                  minHeight: 82,
-                  paddingHorizontal: space.lg,
-                  paddingVertical: space.md,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: space.md,
-                  borderBottomWidth: index === reminders.length - 1 ? 0 : 1,
-                  borderBottomColor: theme.line,
-                }}>
+            {reminders.map((reminder, index) => {
+              const facility = getHealthcareFacility(reminder.facilityId);
+              return (
+                <View
+                  key={reminder.id}
+                  style={{
+                    minHeight: 82,
+                    paddingHorizontal: space.lg,
+                    paddingVertical: space.md,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    gap: space.md,
+                    borderBottomWidth: index === reminders.length - 1 ? 0 : 1,
+                    borderBottomColor: theme.line,
+                  }}>
                 <View
                   style={{
                     width: 40,
@@ -151,12 +153,12 @@ export default function RemindersScreen() {
                       {reminder.notes}
                     </Text>
                   ) : null}
-                  {getHealthcareFacility(reminder.facilityId) ? (
+                  {facility ? (
                     <Text style={{ color: theme.primary, fontSize: typeScale.caption, lineHeight: 18 }}>
                       {t('Health facility: {name} · {district}, {province}', {
-                        name: getHealthcareFacility(reminder.facilityId)!.name,
-                        district: getHealthcareFacility(reminder.facilityId)!.district,
-                        province: getHealthcareFacility(reminder.facilityId)!.province,
+                        name: facility.name,
+                        district: facility.district,
+                        province: facility.province,
                       })}
                     </Text>
                   ) : null}
@@ -182,8 +184,9 @@ export default function RemindersScreen() {
                   })}>
                   <AppIcon name="close" color={theme.muted} size={18} />
                 </Pressable>
-              </View>
-            ))}
+                </View>
+              );
+            })}
           </SurfaceCard>
         ) : (
           <SurfaceCard tone="soft" style={{ alignItems: 'center' }}>
