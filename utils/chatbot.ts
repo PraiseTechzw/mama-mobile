@@ -104,6 +104,6 @@ export function getOfflineReply(
     responseId = week && week < 28 ? 'birth_early' : 'birth';
   }
 
-  if (!isResponseId(responseId)) responseId = 'fallback';
-  return interpolate(chatbotResponses[responseId][language], values);
+  const safeResponseId = isResponseId(responseId) ? responseId : 'fallback';
+  return interpolate(chatbotResponses[safeResponseId][language], values);
 }
