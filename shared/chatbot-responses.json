@@ -1,0 +1,122 @@
+{
+  "urgent_symptoms": {
+    "en": "This could need urgent medical attention. Please contact your local emergency service or go to the nearest health facility now. Do not wait for a reply in this app. If you can, ask someone nearby to help you get care.",
+    "sn": "Izvi zvinogona kuda rubatsiro rwechimbichimbi. Bata rubatsiro rwechimbichimbi kana enda kuchipatara chiri pedyo izvozvi. Usamirire mhinduro muapp ino. Kana uchikwanisa, kumbira munhu ari pedyo akubatsire kuwana rubatsiro.",
+    "nd": "Lokhu kungadinga usizo lwezempilakahle ngokuphangisa. Thinta usizo oluphuthumayo kumbe uye esibhedlela esiseduze khathesi. Ungalindi impendulo ku-app le. Nxa usenelisa, cela umuntu oseduze lawe akuncedise uthole usizo."
+  },
+  "danger_signs": {
+    "en": "Seek urgent in-person care for heavy bleeding, severe abdominal pain, a severe headache or blurred vision, difficulty breathing, fainting or seizures, high fever, fluid leaking, or reduced baby movement. Contact your local emergency service or nearest health facility now; do not wait for a reply in this app.",
+    "sn": "Tsvaga rubatsiro rwechimbichimbi kuchipatara kana uchibuda ropa rakawanda, uchirwadziwa zvikuru mudumbu, uchirwadziwa musoro kana kusaona zvakanaka, uchitadza kufema, kufenda kana kubatwa nepfari, kupisa muviri zvakanyanya, kubuda mvura, kana mwana asingachafambi sezvaajaira. Bata rubatsiro rwechimbichimbi kana chipatara chiri pedyo izvozvi; usamirire mhinduro muapp ino.",
+    "nd": "Dinga usizo ngokuphangisa nxa wopha kakhulu, usizwa ubuhlungu obukhulu besisu, ikhanda elibuhlungu kumbe ungaboni kuhle, uphefumula nzima, uwa isithuli kumbe uhlaselwa yikugula okubangela ukuqhaqhazela, ulomkhuhlane ophezulu, kuphuma amanzi, kumbe usane lungasanyakazi njengensuku zonke. Thinta usizo oluphuthumayo kumbe isibhedlela esiseduze khathesi; ungalindi impendulo ku-app le."
+  },
+  "pregnancy_week_saved": {
+    "en": "Your saved profile puts you at around week {week}, in the {trimester} trimester. Pregnancy dates can be adjusted by your provider, so use your ANC visits to confirm your dates and ask which care is right for this stage.",
+    "sn": "Mashoko ako akachengetwa anoratidza kuti une vhiki rinenge riri {week}, muchikamu {trimester} chemimba. Mazuva epamuviri anogona kugadziriswa nemupi wako wezveutano, saka simbisa mazuva ako paANC uye bvunza rubatsiro rwakakodzera panguva iyi.",
+    "nd": "Imininingwane yakho itshengisa ukuthi ususevikweni elingaba ngu-{week}, kusigaba {trimester} sokukhulelwa. Umhlanzi wakho angalungisa izinsuku, ngakho qinisekisa izinsuku zakho nxa uvakatshele i-ANC ubusubuza ngokunakekelwa okufaneleyo."
+  },
+  "ordinal_first": {
+    "en": "first",
+    "sn": "chekutanga",
+    "nd": "sokuqala"
+  },
+  "ordinal_second": {
+    "en": "second",
+    "sn": "chechipiri",
+    "nd": "sesibili"
+  },
+  "ordinal_third": {
+    "en": "third",
+    "sn": "chechitatu",
+    "nd": "sesithathu"
+  },
+  "pregnancy_week_missing": {
+    "en": "I don’t have your pregnancy dates yet. Your ANC provider can help estimate how far along you are. You can also add your due date or pregnancy week in your profile for more tailored suggestions.",
+    "sn": "Handisati ndine mazuva ako epamuviri. Mupi wako weANC anogona kukubatsira kuziva nguva yepamuviri. Unogonawo kuisa zuva rako rekusununguka kana vhiki repamuviri mumashoko ako kuti uwane mazano akakukodzera.",
+    "nd": "Angilalo usuku lwakho lokukhulelwa okwamanje. Umhlanzi wakho we-ANC angakunceda ubone ukuthi usukhulelwe okwesikhathi esinganani. Ungangeza usuku olulindele ukuzala kumbe iviki lokukhulelwa emininingwaneni yakho ukuze uthole izeluleko ezikufaneleyo."
+  },
+  "pregnancy_basics": {
+    "en": "Pregnancy is commonly described in three trimesters: weeks 1–13, 14–27, and 28 onward. Bodies and pregnancies differ, so use regular ANC visits to discuss changes, check-ups, nutrition, medicines, and questions for your stage.{savedWeek} Your provider can confirm your dates and give advice for your situation.",
+    "sn": "Pamuviri panowanzopatsanurwa kuita zvikamu zvitatu: vhiki 1–13, 14–27, uye kubva pavhiki 28 zvichienda mberi. Miviri nepamuviri zvinosiyana, saka taura nezveshanduko, kuongororwa, kudya, mishonga nemibvunzo yako paANC nguva dzose.{savedWeek} Mupi wako anogona kusimbisa mazuva ako nekupa mazano anoenderana nemamiriro ako.",
+    "nd": "Ukukhulelwa kujayele ukuhlukaniswa ngezigaba ezintathu: amaviki 1–13, 14–27, kusukela evikini 28 kuye phambili. Imizimba lokukhulelwa kwehlukene, ngakho khuluma ngezinguquko, ukuhlolwa, ukudla, imithi lemibuzo yakho nxa uvakatshela i-ANC.{savedWeek} Umhlanzi wakho angaqinisekisa izinsuku akunike izeluleko ngesimo sakho."
+  },
+  "saved_week": {
+    "en": "Your saved profile estimates around week {week}.",
+    "sn": "Mashoko ako akachengetwa anoratidza vhiki rinenge riri {week}.",
+    "nd": "Imininingwane yakho itshengisa iviki elingaba ngu-{week}."
+  },
+  "next_reminder": {
+    "en": "Your next saved reminder is “{title}” on {date}. You could note any questions or symptoms and bring your medicines or supplements list. Your clinic can tell you if you need to bring anything else.",
+    "sn": "Chiyeuchidzo chako chinotevera ndechekuti “{title}” musi wa{date}. Unogona kunyora mibvunzo kana zviratidzo zvako, uye kuuya nerondedzero yemishonga kana zvinowedzerwa zvaunotora. Kiriniki yako inogona kukuudza zvimwe zvaunofanira kuuya nazvo.",
+    "nd": "Isikhumbuzo sakho esilandelayo sithi “{title}” ngo-{date}. Ungabhala imibuzo kumbe izibonakaliso zakho njalo uphathe uhlu lwemithi kumbe izakhamzimba ozengezayo. Ikilinika ingakutshela okunye okumele ukuphathe."
+  },
+  "birth_early": {
+    "en": "It is okay to start collecting questions about birth early. As your pregnancy progresses, ask your ANC provider about your birth plan, where to go when labour starts, transport, support people, and what to do if a concern comes up.",
+    "sn": "Zvakanaka kutanga kuunganidza mibvunzo yekusununguka pachine nguva. Pamuviri paunenge uchikura, bvunza mupi wako weANC nezveurongwa hwekusununguka, kwekuenda kana kurwadziwa kwatanga, zvekufambisa, vanhu vanokutsigira, uye zvekuita kana paine chikunetsa.",
+    "nd": "Kulungile ukuqala ukuqoqa imibuzo emayelana lokubeletha kusese lesikhathi. Njengoba ukukhulelwa kuqhubeka, buza umhlanzi wakho we-ANC ngohlelo lokubeletha, indawo yokuya nxa ususizwa yinhlungu, uhambo, abantu abazakusiza, lokumele ukwenze nxa kulokukukhathazayo."
+  },
+  "birth": {
+    "en": "Talk with your ANC provider about where to give birth, how to get there, who can support you, what to bring, and how to contact the facility. Plans may need to change, so ask what to do if labour starts unexpectedly or you have a warning sign.",
+    "sn": "Taura nemupi wako weANC nezvekusunungukira, nzira yekusvika ikoko, munhu angakutsigira, zvekuuya nazvo, uye nzira yekubata chipatara. Urongwa hunogona kuchinja, saka bvunza zvekuita kana kurwadziwa kwatanga usingatarisiri kana ukaona chiratidzo chengozi.",
+    "nd": "Khuluma lomhlanzi wakho we-ANC ngendawo ozabeletha kuyo, ukuthi uzafika njani, ozakusiza, lokumele ukuphathe, lokuthi ungafinyelela njani esibhedlela. Uhlelo lungaguquka, ngakho buza okumele ukwenze nxa inhlungu ziqala ungalindelanga kumbe ubona isibonakaliso sengozi."
+  },
+  "body_changes": {
+    "en": "Pregnancy can bring changes such as nausea, tiredness, heartburn, or back discomfort, and experiences differ. Mention symptoms at ANC, especially if they are severe, new, worsening, or worrying. Sudden swelling with a severe headache or vision changes needs urgent assessment.",
+    "sn": "Pamuviri panogona kuuya nekusvotwa, kuneta, chirungurira, kana kurwadziwa musana; vanhu vanosiyana. Udza mushandi weANC nezvezviratidzo, kunyanya kana zvakanyanya, zvitsva, zvichiwedzera, kana zvichikunetsa. Kuzvimba kamwe chete pamwe nemusoro unorwadza zvikuru kana kusaona zvakanaka zvinoda kuongororwa nechimbichimbi.",
+    "nd": "Ukukhulelwa kungabangela ukuhlanza, ukukhathala, ukutshisa esifubeni kumbe ubuhlungu bomhlane; okwenzakalayo kuyehluka. Tshela abe-ANC ngezibonakaliso, ikakhulu nxa zizimbi, zizintsha, ziqhubeka zisiba zimbi kumbe zikukhathaza. Ukuvuvukala okungazelelanga kulokuduma kwekhanda lokuguquka kokubona kudinga ukuhlolwa ngokuphangisa."
+  },
+  "anc_visit": {
+    "en": "At an antenatal care (ANC) visit, a health worker can talk with you about your health, check on you and your baby, answer questions, and plan care. The checks and visit schedule can vary, so ask your clinic what is planned, when to return, and what to bring. It can help to write down questions and medicines you take.",
+    "sn": "Pakushanya kuANC, mushandi wezveutano anogona kutaura newe nezveutano hwako, kukuongorora iwe nemwana, kupindura mibvunzo, uye kuronga rubatsiro. Kuongororwa nenguva dzekushanya zvinogona kusiyana, saka bvunza kiriniki zvakarongwa, nguva yekudzoka, uye zvekuuya nazvo. Zvinobatsira kunyora mibvunzo nemishonga yaunotora.",
+    "nd": "Nxa uvakatshele i-ANC, isisebenzi sezempilakahle singakhuluma lawe ngempilakahle yakho, sikuhlole wena losane, siphendule imibuzo, sihlele ukunakekelwa. Ukuhlolwa lezikhathi zokuvakatshela kungatshiyana, ngakho buza ikilinika ngokuhleliweyo, ukuthi ubuye nini, lokumele ukuphathe. Kuyanceda ukubhala imibuzo lemithi oyinathayo."
+  },
+  "tests": {
+    "en": "The checks offered at ANC depend on your stage of pregnancy, health history, and local care guidance. Ask what each check is for, what the result means, and when you will hear back. Your provider can explain which tests or scans are recommended for you.",
+    "sn": "Kuongororwa kunoitwa paANC kunoenderana nechikamu chepamuviri, nhoroondo yeutano, uye mazano emunzvimbo yako. Bvunza chinangwa chekuongororwa kwega kwega, zvinorehwa nemhinduro, uye nguva yauchazoziva mhinduro. Mupi wako anogona kutsanangura bvunzo kana scan dzakakukodzera.",
+    "nd": "Ukuhlolwa okwenziwa e-ANC kuncike kusigaba sokukhulelwa, umlando wempilakahle, lezeluleko zendawo. Buza ukuthi ukuhlolwa ngakunye kwenzelwani, impumela itshoni, lokuthi uzayizwa nini. Umhlanzi wakho angachaza ukuthi yikuphi ukuhlolwa kumbe i-scan okudingayo."
+  },
+  "nutrition": {
+    "en": "Aim for a varied diet with nourishing foods available to you, and drink safe water. Food needs can differ, so ask your ANC provider about local nutrition support, food safety, or any dietary needs. Avoid starting restrictive diets or supplements without professional advice.",
+    "sn": "Edza kudya zvakasiyana uye zvinovaka muviri zviripo kwauri, uye inwa mvura yakachengeteka. Zvinodiwa pakudya zvinosiyana, saka bvunza mupi wako weANC nezverubatsiro rwekudya uye kuchengetedzwa kwezvekudya. Usatanga kudya kunorambidza zvimwe zvekudya kana kutora zvinowedzerwa usina kubvunza nyanzvi.",
+    "nd": "Zama ukudla okwehlukeneyo okwakha umzimba okutholakalayo njalo unathe amanzi ahlanzekileyo. Izidingo zokudla ziyatshiyana, ngakho buza umhlanzi wakho we-ANC mayelana losizo lokudla, ukuphepha kokudla, kumbe ezinye izidingo. Ungaqali ukuyekela okunye ukudla kumbe izakhamzimba ungakatholi iseluleko sengcitshi."
+  },
+  "medicines": {
+    "en": "Check with a qualified health worker or pharmacist before starting, stopping, or changing any medicine, vitamin, or supplement during pregnancy. Do not stop a prescribed medicine without advice. Bring the package or a list of what you take to ANC.",
+    "sn": "Bvunza mushandi wezveutano ane hunyanzvi kana mufemesi usati watanga, wamisa, kana kushandura mushonga, vhitamini, kana zvinowedzerwa pamuviri. Usamisa mushonga wawakarayirwa usina kubvunza. Enda nemudziyo wemushonga kana rondedzero yezvaunotora kuANC.",
+    "nd": "Buza isisebenzi sezempilakahle esilolwazi kumbe usokhemisi ungakaqali, ungakayekeli kumbe ukuguqula imithi, amavithamini loba izakhamzimba ngesikhathi sokukhulelwa. Ungayekeli umuthi owaphiwayo ungakatholi iseluleko. Phatha ibhodlela kumbe uhlu lwalokho okunathayo nxa usiya e-ANC."
+  },
+  "exercise": {
+    "en": "If you feel well, gentle everyday movement and rest when needed can support general wellbeing. What is suitable depends on your health and pregnancy; ask your ANC provider before starting a new or strenuous activity, especially if you have symptoms or have been advised to limit activity.",
+    "sn": "Kana uchinzwa zvakanaka, kufamba zvishoma zuva nezuva uye kuzorora paunoda zvinogona kubatsira. Zvakakukodzera zvinoenderana neutano nepamuviri pako; bvunza mupi weANC usati watanga maekisesaizi matsva kana akaoma, kunyanya kana uine zviratidzo kana wakaudzwa kuti udzikise kufamba.",
+    "nd": "Nxa uzizwa ungcono, ukuhamba kancinyane lokuphumula nxa kudingeka kunganceda empilweni. Okufaneleyo kuncike empilweni yakho lokukhulelwa; buza umhlanzi wakho we-ANC ungakaqali imisebenzi emitsha kumbe enzima, ikakhulu nxa ulezibonakaliso kumbe walaywa ukuthi wehlise imisebenzi."
+  },
+  "substances": {
+    "en": "Avoiding alcohol, tobacco, vaping, and non-prescribed drugs is the safest choice during pregnancy. If stopping is difficult, tell your ANC provider without fear of judgement; they can help you find support. Ask a health worker before using any medicine or substance.",
+    "sn": "Kusashandisa doro, fodya, vape, kana zvinodhaka zvisina kunyorerwa ndiko kwakachengeteka zvikuru pamuviri. Kana zvakaoma kurega, udza mupi wako weANC usingatyi kutongwa; anogona kukubatsira kuwana rubatsiro. Bvunza mushandi wezveutano usati washandisa mushonga kana chimwe chinhu.",
+    "nd": "Ukungasebenzisi utshwala, igwayi, i-vape kumbe izidakamizwa ezingaphiwanga ngudokotela yikho okuphephe kakhulu ngesikhathi sokukhulelwa. Nxa kunzima ukuyekela, tshela umhlanzi wakho we-ANC ungalesabi ukwahlulelwa; angakunceda uthole usizo. Buza isisebenzi sezempilakahle ungakasebenzisi umuthi loba enye into."
+  },
+  "mental_health": {
+    "en": "It is okay to ask for support with stress, worry, or low mood during pregnancy. Consider telling someone you trust and speaking with your ANC provider, who can help connect you with support. If you may harm yourself or are in immediate danger, contact local emergency services or go to a health facility now.",
+    "sn": "Zvakanaka kukumbira rubatsiro kana uchinetseka, uchitya, kana kusuruvara pamuviri. Funga kuudza munhu waunovimba naye uye kutaura nemupi wako weANC, anogona kukubatanidza nerubatsiro. Kana ungazvikuvadza kana uri munjodzi izvozvi, fonera rubatsiro rwechimbichimbi kana enda kuchipatara izvozvi.",
+    "nd": "Kulungile ukucela usizo nxa ukhathazekile, usaba kumbe uzizwa udanile ngesikhathi sokukhulelwa. Cabanga ukutshela umuntu omthembayo lokukhuluma lomhlanzi wakho we-ANC ongakuhlanganisa losizo. Nxa ungazilimaza kumbe usengozini khathesi, thinta usizo oluphuthumayo kumbe uye esibhedlela khathesi."
+  },
+  "baby_movement": {
+    "en": "Your baby grows and changes throughout pregnancy, and your ANC team can explain what to expect at your stage. Once you are feeling regular movements, contact your maternity care team promptly if movement is noticeably reduced or different from your baby’s usual pattern; do not wait until the next visit.",
+    "sn": "Mwana wako anokura nekuchinja pamuviri pese, uye timu yako yeANC inogona kutsanangura zvaungatarisira panguva iyi. Kana wava kunzwa mwana achifamba nguva nenguva, bata timu yako yezveutano nekukurumidza kana mafambiro akaderera kana kuchinja kubva pane zvaajaira; usamirira kushanya kunotevera.",
+    "nd": "Usane luyakhula luguquke ngesikhathi sokukhulelwa, njalo ithimba lakho le-ANC lingakuchasisela okulindelekileyo esigabeni sakho. Nxa ususizwa luhamba njengenjayelo, thinta ithimba lakho ngokuphangisa nxa ukuhamba kwalo kwehle kakhulu kumbe kwehlukile; ungalindi ukuvakatshela okulandelayo."
+  },
+  "labour": {
+    "en": "Signs and timing of labour can differ. Ask your maternity team when and where to contact them, especially if you are before 37 weeks. Contact a health facility urgently for fluid leaking, bleeding, severe pain, or a noticeable change in your baby’s movement.",
+    "sn": "Zviratidzo nenguva yekutanga kurwadziwa zvinogona kusiyana. Bvunza timu yako yezveutano nguva nenzvimbo yekuvabata, kunyanya kana usati wasvitsa mavhiki 37. Bata chipatara nechimbichimbi kana mvura ichibuda, uchibuda ropa, uchirwadziwa zvikuru, kana mafambiro emwana achichinja zvinooneka.",
+    "nd": "Izibonakaliso lesikhathi sokuqala kwenhlungu kuyehluka. Buza ithimba lakho lezempilakahle ukuthi ulibiza nini futhi ngaphi, ikakhulu nxa ungelamaviki angu-37. Thinta isibhedlela ngokuphangisa nxa kuphuma amanzi, wopha, usizwa ubuhlungu obukhulu kumbe ukuhamba kosane kuguquka kakhulu."
+  },
+  "provider_questions": {
+    "en": "You can ask your provider how your pregnancy is progressing, which checks are planned, what symptoms to watch for, whether your medicines are suitable, when to return, and how to get help between visits. Write down any personal concerns so you can discuss them.",
+    "sn": "Unogona kubvunza mupi wako mafambiro epamuviri, kuongororwa kwakarongwa, zviratidzo zvekutarisa, kana mishonga yako yakakodzera, nguva yekudzoka, uye kuwana rubatsiro pakati pekushanya. Nyora zvinokunetsa kuti muzokurukura.",
+    "nd": "Ungabuza umhlanzi wakho ukuthi ukukhulelwa kuqhubeka njani, yikuphi ukuhlolwa okuhleliweyo, izibonakaliso zokunanzelela, nxa imithi yakho ikufanele, isikhathi sokubuya, lokuthola usizo phakathi kokuvakatshela. Bhala izinto ezikukhathazayo ukuze lizikhulume."
+  },
+  "fallback": {
+    "en": "I’m an offline information guide and don’t have a specific answer for that. Please ask your ANC provider for advice about your situation. If you have severe pain, heavy bleeding, trouble breathing, or another urgent concern, seek in-person care now.",
+    "sn": "Ndiri nhungamiro yeruzivo isingashandisi internet uye handina mhinduro chaiyo yeizvozvo. Bvunza mupi wako weANC nezvemamiriro ako. Kana uchirwadziwa zvikuru, uchibuda ropa rakawanda, uchitadza kufema, kana uine rimwe dambudziko rechimbichimbi, tsvaga rubatsiro rwechiso nechiso izvozvi.",
+    "nd": "Ngingumhlahlandlela wolwazi ongadingi intanethi njalo angilampendulo eqondileyo yalokho. Buza umhlanzi wakho we-ANC ngesimo sakho. Nxa usizwa ubuhlungu obukhulu, wopha kakhulu, uphefumula nzima kumbe ulolunye uhlupho oluphuthumayo, dinga usizo lwangempela khathesi."
+  }
+}

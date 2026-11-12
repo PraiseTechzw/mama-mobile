@@ -10,7 +10,9 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Animated, {
+  cubicBezier,
   Easing,
   FadeIn,
   FadeInDown,
@@ -39,6 +41,7 @@ const languages: { code: AppLanguage; label: string }[] = [
 
 export default function WelcomeScreen() {
   const theme = useAppTheme();
+  const insets = useSafeAreaInsets();
   const { data, error: stateError, completeOnboarding } = useAppState();
   const reduceMotion = useReducedMotion();
   const conversationRef = useRef<ComponentRef<typeof ScrollView>>(null);
@@ -46,12 +49,12 @@ export default function WelcomeScreen() {
   const [started, setStarted] = useState(false);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [name, setName] = useState(data.profile.name);
+  const [phone, setPhone] = useState(data.profile.phone);
   const [week, setWeek] = useState(data.profile.pregnancyWeek?.toString() ?? '');
   const [dueDate, setDueDate] = useState(data.profile.dueDate);
-  const [weekUnknown, setWeekUnknown] = useState(false);
-  const [dueDateUnknown, setDueDateUnknown] = useState(false);
   const [draft, setDraft] = useState('');
   const [error, setError] = useState('');
+  const [activePress, setActivePress] = useState<string | null>(null);
   const t = (message: string, values?: Record<string, string | number>) =>
     translate(language, message, values);
 
@@ -68,7 +71,21 @@ export default function WelcomeScreen() {
               {
                 id: 'name-answer',
                 author: 'you' as const,
-                text: name.trim() || t('Skip for now'),
+                text: name.trim(),
+              },
+              {
+                id: 'phone-question',
+                author: 'mama' as const,
+                text: t('What phone number can we use to reach you?'),
+              },
+            ]
+          : []),
+        ...(questionIndex >= 2
+          ? [
+              {
+                id: 'phone-answer',
+                author: 'you' as const,
+                text: phone.trim(),
               },
               {
                 id: 'week-question',
@@ -77,14 +94,12 @@ export default function WelcomeScreen() {
               },
             ]
           : []),
-        ...(questionIndex >= 2
+        ...(questionIndex >= 3
           ? [
               {
                 id: 'week-answer',
                 author: 'you' as const,
-                text: weekUnknown
-                  ? t('I’m not sure yet')
-                  : t('I’m around week {week}', { week }),
+                text: t('I’m around week {week}', { week }),
               },
               {
                 id: 'due-date-question',
@@ -93,12 +108,12 @@ export default function WelcomeScreen() {
               },
             ]
           : []),
-        ...(questionIndex >= 3
+        ...(questionIndex >= 4
           ? [
               {
                 id: 'due-date-answer',
                 author: 'you' as const,
-                text: dueDateUnknown ? t('I don’t know it yet') : dueDate,
+                text: dueDate,
               },
               {
                 id: 'thanks',
@@ -117,26 +132,12 @@ export default function WelcomeScreen() {
       ]
     : [];
 
-  const goBack = () => {
-    setError('');
-    if (started && questionIndex > 0) {
-      setQuestionIndex((current) => current - 1);
-      setDraft('');
-      return;
-    }
-    if (started) {
-      setStarted(false);
-      setQuestionIndex(0);
-      return;
-    }
-    router.back();
-  };
-
   const saveAndOpenApp = () => {
     const profile = {
       ...data.profile,
       language,
       name: name.trim(),
+      phone: phone.trim(),
       pregnancyWeek: week.trim() ? Number(week) : null,
       dueDate,
     };
@@ -151,44 +152,35 @@ export default function WelcomeScreen() {
     setError('');
     const answer = draft.trim();
 
+    if (!answer) {
+      setError(t('Please answer before continuing.'));
+      return;
+    }
+
     if (questionIndex === 0) {
-      if (!answer) {
-        setError(t('Tell me what to call you, or skip this question.'));
-        return;
-      }
       setName(answer);
     } else if (questionIndex === 1) {
+      const phoneDigits = answer.replace(/\D/g, '');
+      if (!/^\+?[\d\s()-]+$/.test(answer) || phoneDigits.length < 7 || phoneDigits.length > 15) {
+        setError(t('Enter a valid phone number.'));
+        return;
+      }
+      setPhone(answer);
+    } else if (questionIndex === 2) {
       const pregnancyWeek = Number(answer);
       if (!Number.isInteger(pregnancyWeek) || pregnancyWeek < 1 || pregnancyWeek > 42) {
-        setError(t('Enter a week from 1 to 42, or choose “I’m not sure yet”.'));
+        setError(t('Enter a pregnancy week from 1 to 42.'));
         return;
       }
       setWeek(String(pregnancyWeek));
-      setWeekUnknown(false);
-    } else if (questionIndex === 2) {
+    } else if (questionIndex === 3) {
       if (!parseDateInput(answer)) {
-        setError(t('Enter a valid date in YYYY-MM-DD format, or skip for now.'));
+        setError(t('Enter a valid date in YYYY-MM-DD format.'));
         return;
       }
       setDueDate(answer);
-      setDueDateUnknown(false);
     }
 
-    setDraft('');
-    setQuestionIndex((current) => current + 1);
-  };
-
-  const skipQuestion = () => {
-    setError('');
-    if (questionIndex === 0) setName('');
-    if (questionIndex === 1) {
-      setWeek('');
-      setWeekUnknown(true);
-    }
-    if (questionIndex === 2) {
-      setDueDate('');
-      setDueDateUnknown(true);
-    }
     setDraft('');
     setQuestionIndex((current) => current + 1);
   };
@@ -209,47 +201,9 @@ export default function WelcomeScreen() {
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1, backgroundColor: theme.background }}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      style={{ flex: 1, paddingTop: insets.top, backgroundColor: theme.background }}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <StatusBar style="dark" />
-      <View
-        style={{
-          minHeight: 64,
-          paddingHorizontal: space.lg,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}>
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel={t('Go back')}
-          onPress={goBack}
-          style={({ pressed }) => ({
-            minWidth: 48,
-            minHeight: 44,
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: space.xs,
-            opacity: pressed ? 0.65 : 1,
-          })}>
-          <AppIcon name="chevron" color={theme.primary} size={16} />
-          <Text style={{ color: theme.primary, fontSize: typeScale.small, fontWeight: '700' }}>
-            {t('Back')}
-          </Text>
-        </Pressable>
-        <View style={{ alignItems: 'center', flexDirection: 'row', gap: space.sm }}>
-          <Image
-            source={motherBabyLogo}
-            resizeMode="contain"
-            accessibilityLabel="MamaBot"
-            style={{ width: 30, height: 30 }}
-          />
-          <Text style={{ color: theme.text, fontSize: typeScale.body, fontWeight: '800' }}>
-            MamaBot
-          </Text>
-        </View>
-        <View style={{ minWidth: 48 }} />
-      </View>
 
       {!started ? (
         <Animated.View
@@ -320,6 +274,8 @@ export default function WelcomeScreen() {
               setStarted(true);
               setQuestionIndex(0);
             }}
+            onPressIn={() => setActivePress('start')}
+            onPressOut={() => setActivePress(null)}
             style={{
               minHeight: 54,
               paddingHorizontal: space.xl,
@@ -330,10 +286,22 @@ export default function WelcomeScreen() {
               borderRadius: radius.full,
               backgroundColor: theme.primary,
             }}>
-            <Text style={{ color: theme.white, fontSize: typeScale.body, fontWeight: '800' }}>
-              {t('Start our chat')}
-            </Text>
-            <AppIcon name="arrow" color={theme.white} size={18} />
+            <Animated.View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: space.sm,
+                opacity: activePress === 'start' ? 0.82 : 1,
+                transitionProperty: 'opacity',
+                transitionDuration: '120ms',
+                transitionTimingFunction: cubicBezier(0.23, 1, 0.32, 1),
+              }}>
+              <Text style={{ color: theme.white, fontSize: typeScale.body, fontWeight: '800' }}>
+                {t('Start our chat')}
+              </Text>
+              <AppIcon name="arrow" color={theme.white} size={18} />
+            </Animated.View>
           </Pressable>
         </Animated.View>
       ) : (
@@ -346,12 +314,12 @@ export default function WelcomeScreen() {
                 fontWeight: '800',
                 letterSpacing: 0.8,
               }}>
-              {t('A LITTLE ABOUT YOU · {current} OF 3', {
-                current: String(Math.min(questionIndex + 1, 3)).padStart(2, '0'),
+              {t('A LITTLE ABOUT YOU · {current} OF 4', {
+                current: String(Math.min(questionIndex + 1, 4)).padStart(2, '0'),
               })}
             </Text>
             <View style={{ height: 4, flexDirection: 'row', gap: space.xs }}>
-              {[0, 1, 2].map((index) => (
+              {[0, 1, 2, 3].map((index) => (
                 <View
                   key={index}
                   style={{
@@ -383,7 +351,7 @@ export default function WelcomeScreen() {
                   key={message.id}
                   entering={
                     index >= messages.length - 2 && !reduceMotion
-                      ? FadeInDown.duration(180).easing(Easing.bezier(0.23, 1, 0.32, 1))
+                      ? FadeInDown.duration(220).easing(Easing.bezier(0.23, 1, 0.32, 1))
                       : undefined
                   }
                   style={{
@@ -433,7 +401,7 @@ export default function WelcomeScreen() {
             })}
           </ScrollView>
 
-          {questionIndex < 3 ? (
+          {questionIndex < 4 ? (
             <View
               style={{
                 paddingHorizontal: space.lg,
@@ -444,89 +412,82 @@ export default function WelcomeScreen() {
                 borderTopColor: theme.line,
                 backgroundColor: theme.background,
               }}>
-              {questionIndex === 1 ? (
-                <Pressable
-                  accessibilityRole="button"
-                  onPress={() => {
-                    setWeek('');
-                    setWeekUnknown(true);
-                    setQuestionIndex(2);
-                    setDraft('');
-                    setError('');
-                  }}
-                  style={({ pressed }) => ({
-                    minHeight: 40,
-                    alignSelf: 'flex-start',
-                    justifyContent: 'center',
-                    paddingHorizontal: space.md,
-                    borderRadius: radius.full,
-                    backgroundColor: theme.surfaceSoft,
-                    opacity: pressed ? 0.75 : 1,
-                  })}>
-                  <Text style={{ color: theme.primary, fontSize: typeScale.small, fontWeight: '700' }}>
-                    {t('I’m not sure yet')}
-                  </Text>
-                </Pressable>
-              ) : null}
               <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: space.sm }}>
                 <TextInput
                   accessibilityLabel={
                     questionIndex === 0
                       ? t('Your name')
                       : questionIndex === 1
-                        ? t('Pregnancy week')
-                        : t('Expected due date')
+                        ? t('Phone number')
+                        : questionIndex === 2
+                          ? t('Pregnancy week')
+                          : t('Expected due date')
                   }
                   value={draft}
+                  onFocus={() => conversationRef.current?.scrollToEnd({ animated: true })}
                   onChangeText={(value) => {
-                    setDraft(questionIndex === 1 ? value.replace(/[^0-9]/g, '').slice(0, 2) : value);
+                    setDraft(
+                      questionIndex === 2
+                        ? value.replace(/[^0-9]/g, '').slice(0, 2)
+                        : value,
+                    );
                     setError('');
                   }}
                   placeholder={
                     questionIndex === 0
                       ? t('Type your name…')
                       : questionIndex === 1
-                        ? t('Type your pregnancy week…')
-                        : t('Type your due date: YYYY-MM-DD')
+                        ? t('Type your phone number…')
+                        : questionIndex === 2
+                          ? t('Type your pregnancy week…')
+                          : t('Type your due date: YYYY-MM-DD')
                   }
                   placeholderTextColor={theme.muted}
-                  keyboardType={questionIndex === 1 ? 'number-pad' : 'default'}
+                  keyboardType={
+                    questionIndex === 1
+                      ? 'phone-pad'
+                      : questionIndex === 2
+                        ? 'number-pad'
+                        : 'default'
+                  }
                   returnKeyType="send"
                   onSubmitEditing={submitAnswer}
-                  maxLength={questionIndex === 0 ? 60 : questionIndex === 1 ? 2 : 10}
+                  maxLength={
+                    questionIndex === 0
+                      ? 60
+                      : questionIndex === 1
+                        ? 24
+                        : questionIndex === 2
+                          ? 2
+                          : 10
+                  }
                   style={inputStyle}
                 />
                 <Pressable
                   accessibilityRole="button"
                   accessibilityLabel={t('Send answer')}
                   onPress={submitAnswer}
-                  style={({ pressed }) => ({
+                  onPressIn={() => setActivePress('send')}
+                  onPressOut={() => setActivePress(null)}
+                  style={{
                     width: 50,
                     height: 50,
                     alignItems: 'center',
                     justifyContent: 'center',
                     borderRadius: radius.full,
                     backgroundColor: theme.primary,
-                    opacity: pressed ? 0.8 : 1,
-                  })}>
-                  <AppIcon name="arrow" color={theme.white} size={20} />
+                  }}>
+                  <Animated.View
+                    style={{
+                      opacity: activePress === 'send' ? 0.82 : 1,
+                      transitionProperty: 'opacity',
+                      transitionDuration: '120ms',
+                      transitionTimingFunction: cubicBezier(0.23, 1, 0.32, 1),
+                    }}>
+                    <AppIcon name="arrow" color={theme.white} size={20} />
+                  </Animated.View>
                 </Pressable>
               </View>
-              {questionIndex !== 1 ? (
-                <Pressable
-                  accessibilityRole="button"
-                  onPress={skipQuestion}
-                  style={({ pressed }) => ({
-                    minHeight: 44,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    opacity: pressed ? 0.65 : 1,
-                  })}>
-                  <Text style={{ color: theme.muted, fontSize: typeScale.small, fontWeight: '700' }}>
-                    {t('Skip for now')}
-                  </Text>
-                </Pressable>
-              ) : null}
               {error || stateError ? (
                 <Text
                   accessibilityLiveRegion="polite"

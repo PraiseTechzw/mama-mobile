@@ -101,6 +101,12 @@ export const ndebeleTranslations: Record<string, string> = {
   'Get pregnancy guidance': 'Thola izeluleko ngokukhulelwa',
   'Private offline guide — not a clinician or live AI service.':
     'Umhlahlandlela wangasese ongadingi intanethi — kasisiyo ingcitshi yezempilakahle loba isevisi ye-AI ephendula ngesikhathi leso.',
+  'In-app chat works offline. WhatsApp and SMS need mobile network access, and their messages are handled by those providers.':
+    'Ingxoxo eku-app isebenza ingela-inthanethi. I-WhatsApp le-SMS kudinga inethiwekhi yefoni, lemilayezo iphathwa yizinkampani lezo.',
+  'Chat on WhatsApp': 'Xoxa kuWhatsApp',
+  'Send by SMS': 'Thumela nge-SMS',
+  'Could not open {channel}. Check that it is available on your device.':
+    'Yehlulekile ukuvula {channel}. Hlola ukuthi iyatholakala yini efonini yakho.',
   'This could need urgent medical attention. Please contact your local emergency service or go to the nearest health facility now. Do not wait for a reply in this app. If you can, ask someone nearby to help you get care.':
     'Lokhu kungadinga usizo lwezempilakahle ngokuphangisa. Thinta usizo oluphuthumayo kumbe uye esibhedlela esiseduze khathesi. Ungalindi impendulo ku-app le. Nxa usenelisa, cela umuntu oseduze lawe akuncedise uthole usizo.',
   'Seek urgent in-person care for heavy bleeding, severe abdominal pain, a severe headache or blurred vision, difficulty breathing, fainting or seizures, high fever, fluid leaking, or reduced baby movement. Contact your local emergency service or nearest health facility now; do not wait for a reply in this app.':
@@ -255,10 +261,12 @@ export const ndebeleTranslations: Record<string, string> = {
     'Khetha ulimi. UMamaBot uzaxoxa lawe ekubuza umbuzo owodwa ngesikhathi.',
   'Start our chat': 'Qalisa ingxoxo yethu',
   'Skip for now': 'Yeqa okwamanje',
-  'A LITTLE ABOUT YOU · {current} OF 3': 'OKUNCANE NGAWE · {current} KU-3',
+  'A LITTLE ABOUT YOU · {current} OF 4': 'OKUNCANE NGAWE · {current} KU-4',
   'I’m MamaBot. Let’s make this feel like your space. I’ll ask a few quick questions so I can tailor the guidance you see.':
     'NginguMamaBot. Asenze indawo le ibe ngeyakho. Ngizakubuza imibuzo emifitshane ukuze ngikunike izeluleko ezikufaneleyo.',
   'What would you like me to call you?': 'Ngingakubiza ngithini?',
+  'What phone number can we use to reach you?':
+    'Yiphi inombolo yocingo esingayisebenzisa ukukuthinta ngayo?',
   'Do you know how many weeks pregnant you are?': 'Uyakwazi ukuthi ulamaviki amangaki ukhulelwe?',
   'Do you know your expected due date?': 'Uyalwazi usuku olindele ukuzala?',
   'I’m around week {week}': 'Ngilamaviki angaba ngu-{week}',
@@ -272,14 +280,14 @@ export const ndebeleTranslations: Record<string, string> = {
     'Izimpendulo zakho zehlulekile ukugcinwa. Zama futhi.',
   'Tell me what to call you, or skip this question.':
     'Ngitshele ukuthi ngikubize ngithini, kumbe weqe umbuzo lo.',
-  'Enter a week from 1 to 42, or choose “I’m not sure yet”.':
-    'Faka iviki kusukela ku-1 kusiya ku-42, kumbe khetha ukuthi “Angikabi leqiniso”.',
-  'Enter a valid date in YYYY-MM-DD format, or skip for now.':
-    'Faka usuku oluqondileyo ngendlela ethi YYYY-MM-DD, kumbe weqe okwamanje.',
+  'Enter a pregnancy week from 1 to 42.': 'Faka iviki lokukhulelwa kusukela ku-1 kusiya ku-42.',
+  'Enter a valid phone number.': 'Faka inombolo yocingo eqondileyo.',
+  'Please answer before continuing.': 'Sicela uphendule ungakaqhubeki.',
   'Go back': 'Buyela emuva',
   'Your name': 'Ibizo lakho',
   'Expected due date': 'Usuku olulindele ukuzala',
   'Type your name…': 'Bhala ibizo lakho…',
+  'Type your phone number…': 'Bhala inombolo yakho yocingo…',
   'Type your pregnancy week…': 'Bhala iviki lakho lokukhulelwa…',
   'Type your due date: YYYY-MM-DD': 'Bhala usuku lwakho: YYYY-MM-DD',
   'Send answer': 'Thumela impendulo',

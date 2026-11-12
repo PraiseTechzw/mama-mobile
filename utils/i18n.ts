@@ -115,6 +115,12 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     'Get pregnancy guidance': 'Wana mazano epamuviri',
     'Private offline guide — not a clinician or live AI service.':
       'Nhungamiro yakavanzika isingashandisi internet — haisi chiremba kana AI iri kushanda panguva chaiyo.',
+    'In-app chat works offline. WhatsApp and SMS need mobile network access, and their messages are handled by those providers.':
+      'Nhaurirano iri muapp ino inoshanda isina internet. WhatsApp neSMS zvinoda network yefoni, uye mashoko zvinopfuura kumakambani iwayo.',
+    'Chat on WhatsApp': 'Kurukura paWhatsApp',
+    'Send by SMS': 'Tumira neSMS',
+    'Could not open {channel}. Check that it is available on your device.':
+      'Hatina kukwanisa kuvhura {channel}. Tarisa kana ichishanda pafoni yako.',
     'This could need urgent medical attention. Please contact your local emergency service or go to the nearest health facility now. Do not wait for a reply in this app. If you can, ask someone nearby to help you get care.':
       'Izvi zvinogona kuda rubatsiro rwechimbichimbi. Bata rubatsiro rwechimbichimbi kana enda kuchipatara chiri pedyo izvozvi. Usamirire mhinduro muapp ino. Kana uchikwanisa, kumbira munhu ari pedyo akubatsire kuwana rubatsiro.',
     'Seek urgent in-person care for heavy bleeding, severe abdominal pain, a severe headache or blurred vision, difficulty breathing, fainting or seizures, high fever, fluid leaking, or reduced baby movement. Contact your local emergency service or nearest health facility now; do not wait for a reply in this app.':
@@ -329,10 +335,12 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
       'Sarudza mutauro. MamaBot achataura newe achibvunza mubvunzo mumwe panguva.',
     'Start our chat': 'Tanga nhaurirano yedu',
     'Skip for now': 'Darika izvozvi',
-    'A LITTLE ABOUT YOU · {current} OF 3': 'ZVISHOMA NEZVAKO · {current} PANE 3',
+    'A LITTLE ABOUT YOU · {current} OF 4': 'ZVISHOMA NEZVAKO · {current} PANE 4',
     'I’m MamaBot. Let’s make this feel like your space. I’ll ask a few quick questions so I can tailor the guidance you see.':
       'Ndini MamaBot. Ngatiite kuti nzvimbo ino ive yako. Ndichabvunza mibvunzo mishoma kuti ndikupe mazano akakukodzera.',
     'What would you like me to call you?': 'Ungada kuti ndikudanidze kuti ani?',
+    'What phone number can we use to reach you?':
+      'Ndeipi nhamba yefoni yatingashandisa kukubata nayo?',
     'Do you know how many weeks pregnant you are?': 'Unoziva here kuti une mavhiki mangani epamuviri?',
     'Do you know your expected due date?': 'Unoziva here zuva raunotarisirwa kusununguka?',
     'I’m around week {week}': 'Ndine mavhiki angangoita {week}',
@@ -346,14 +354,15 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
       'Mhinduro dzako hadzina kukwanisa kuchengetwa. Edza zvakare.',
     'Tell me what to call you, or skip this question.':
       'Ndiudze kuti ndikudanidze kuti ani, kana kuti darika mubvunzo uyu.',
-    'Enter a week from 1 to 42, or choose “I’m not sure yet”.':
-      'Isa vhiki kubva pa1 kusvika pa42, kana sarudza kuti “Handisati ndava nechokwadi”.',
-    'Enter a valid date in YYYY-MM-DD format, or skip for now.':
-      'Isa zuva rakarurama nenzira yeYYYY-MM-DD, kana kuti darika izvozvi.',
+    'Enter a pregnancy week from 1 to 42.':
+      'Isa vhiki repamuviri kubva pa1 kusvika pa42.',
+    'Enter a valid phone number.': 'Isa nhamba yefoni yakarurama.',
+    'Please answer before continuing.': 'Ndapota pindura usati waenderera.',
     'Go back': 'Dzokera',
     'Your name': 'Zita rako',
     'Expected due date': 'Zuva rinotarisirwa kusununguka',
     'Type your name…': 'Nyora zita rako…',
+    'Type your phone number…': 'Nyora nhamba yako yefoni…',
     'Type your pregnancy week…': 'Nyora vhiki repamuviri…',
     'Type your due date: YYYY-MM-DD': 'Nyora zuva rako: YYYY-MM-DD',
     'Send answer': 'Tumira mhinduro',

@@ -28,14 +28,15 @@ export default function SplashScreen() {
   const { height, width } = useWindowDimensions();
   const { data } = useAppState();
   const t = useTranslation();
+  const logoHeight = Math.min(124, Math.max(72, height * 0.18));
+  const introPaddingTop = Math.max(insets.top + space.md, height * 0.045);
+  const loadingInset = insets.bottom + space.xxxl + space.lg + space.sm;
 
   useEffect(() => {
-    if (data.onboardingComplete) {
-      router.replace('/home');
-      return;
-    }
-
-    const timeout = setTimeout(() => router.replace('/welcome'), 2600);
+    const timeout = setTimeout(
+      () => router.replace(data.onboardingComplete ? '/home' : '/welcome'),
+      5000
+    );
     return () => clearTimeout(timeout);
   }, [data.onboardingComplete]);
 
@@ -65,74 +66,24 @@ export default function SplashScreen() {
 
       <View
         style={{
-          position: 'absolute',
-          bottom: insets.bottom + height * 0.05,
-          alignSelf: 'center',
-          width: width * 0.92,
-          height: height * 0.44,
-        }}>
-        <NativeImage
-          source={radiantMotherhood}
-          resizeMode="contain"
-          accessibilityLabel="Expectant mother holding her belly"
-          style={{ width: '100%', height: '100%' }}
-        />
-      </View>
-
-      <View
-        style={{
-          position: 'absolute',
-          bottom: -height * 0.05,
-          left: -width * 0.25,
-          width: width * 1.5,
-          height: height * 0.18,
-          borderRadius: 999,
-          backgroundColor: splashColors.lavender,
-          transform: [{ rotate: '-7deg' }],
-        }}
-      />
-      <View
-        style={{
-          position: 'absolute',
-          bottom: -height * 0.1,
-          left: -width * 0.22,
-          width: width * 1.45,
-          height: height * 0.22,
-          borderRadius: 999,
-          backgroundColor: splashColors.deepPurple,
-          transform: [{ rotate: '-5deg' }],
-        }}
-      />
-      <View
-        style={{
-          position: 'absolute',
-          bottom: -height * 0.17,
-          left: -width * 0.22,
-          width: width * 1.45,
-          height: height * 0.28,
-          borderRadius: 999,
-          backgroundColor: splashColors.purple,
-          transform: [{ rotate: '4deg' }],
-        }}
-      />
-
-      <View
-        style={{
+          flex: 1,
+          width: '100%',
+          paddingTop: introPaddingTop,
+          paddingBottom: loadingInset,
           alignItems: 'center',
-          paddingTop: Math.max(insets.top + space.md, space.huge * 2),
         }}>
         <Image
           source={motherBabyLogo}
           contentFit="contain"
           accessibilityLabel="Mother and baby surrounded by a heart"
-          style={{ width: 180, height: 170 }}
+          style={{ width: logoHeight * (1512 / 1040), height: logoHeight }}
         />
         <Text
           style={{
             color: splashColors.text,
-            fontSize: typeScale.display + 8,
+            fontSize: Math.min(typeScale.display + 8, height * 0.08),
             fontWeight: '800',
-            lineHeight: 50,
+            lineHeight: Math.min(50, height * 0.085),
           }}>
           MamaBot
         </Text>
@@ -148,7 +99,7 @@ export default function SplashScreen() {
         <Text
           style={{
             maxWidth: 240,
-            marginTop: space.xxl + space.sm,
+            marginTop: Math.min(space.xxl + space.sm, height * 0.05),
             color: splashColors.tagline,
             fontSize: typeScale.subheading,
             fontStyle: 'italic',
@@ -158,7 +109,64 @@ export default function SplashScreen() {
           }}>
           {t('Your smart maternal\nhealth companion')}
         </Text>
+
+        <View
+          pointerEvents="none"
+          style={{
+            flex: 1,
+            minHeight: Math.min(100, height * 0.18),
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <NativeImage
+            source={radiantMotherhood}
+            resizeMode="contain"
+            accessibilityLabel="Expectant mother holding her belly"
+            style={{ width: Math.min(width * 0.92, 440), height: '100%' }}
+          />
+        </View>
       </View>
+
+      <View
+        pointerEvents="none"
+        style={{
+          position: 'absolute',
+          bottom: -height * 0.05,
+          left: -width * 0.25,
+          width: width * 1.5,
+          height: height * 0.18,
+          borderRadius: 999,
+          backgroundColor: splashColors.lavender,
+          transform: [{ rotate: '-7deg' }],
+        }}
+      />
+      <View
+        pointerEvents="none"
+        style={{
+          position: 'absolute',
+          bottom: -height * 0.1,
+          left: -width * 0.22,
+          width: width * 1.45,
+          height: height * 0.22,
+          borderRadius: 999,
+          backgroundColor: splashColors.deepPurple,
+          transform: [{ rotate: '-5deg' }],
+        }}
+      />
+      <View
+        pointerEvents="none"
+        style={{
+          position: 'absolute',
+          bottom: -height * 0.17,
+          left: -width * 0.22,
+          width: width * 1.45,
+          height: height * 0.28,
+          borderRadius: 999,
+          backgroundColor: splashColors.purple,
+          transform: [{ rotate: '4deg' }],
+        }}
+      />
 
       <View
         accessibilityRole="progressbar"
@@ -166,7 +174,7 @@ export default function SplashScreen() {
         style={{
           position: 'absolute',
           right: 0,
-          bottom: insets.bottom + space.xxxl + space.lg + space.sm,
+          bottom: loadingInset,
           left: 0,
           flexDirection: 'row',
           alignItems: 'center',

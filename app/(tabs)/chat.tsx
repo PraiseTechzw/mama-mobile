@@ -9,14 +9,18 @@ import {
   View,
 } from 'react-native';
 import { Image } from 'expo-image';
+import * as Linking from 'expo-linking';
 
 import motherBabyLogo from '@/assets/brand/mother-baby-heart-logo.png';
+import { ActionButton } from '@/components/action-button';
 import { AppIcon } from '@/components/app-icon';
 import { AppText as Text } from '@/components/app-text';
 import { useAppState, type AppLanguage, type ChatMessage, type Reminder } from '@/contexts/app-state';
+import { getOfflineReply } from '@/utils/chatbot';
 import { localeForLanguage, translate, useTranslation } from '@/utils/i18n';
+import { messagingChannels } from '@/utils/messaging-channels';
 import { radius, space, typeScale, useAppTheme } from '@/theme';
-import { formatDate, pregnancyWeekFromDueDate } from '@/utils/pregnancy';
+import { pregnancyWeekFromDueDate } from '@/utils/pregnancy';
 
 function getSuggestedPrompts(
   week: number | null,
@@ -52,76 +56,7 @@ function getLocalReply(
   nextReminder?: Reminder,
   language: AppLanguage = 'en',
 ) {
-  const query = message.toLowerCase();
-  const reply = (text: string, values?: Record<string, string | number>) =>
-    translate(language, text, values);
-  const urgentSymptoms =
-    /\b(bleeding|severe pain|severe headache|blurred vision|blurry vision|difficulty breathing|trouble breathing|shortness of breath|fainting|seizure|high fever|fluid leaking|water broke|baby not moving|baby hasn.t moved|less baby movement|reduced movement|movement has changed|regular contractions before 37 weeks)\b/;
-
-  if (urgentSymptoms.test(query)) {
-    return reply('This could need urgent medical attention. Please contact your local emergency service or go to the nearest health facility now. Do not wait for a reply in this app. If you can, ask someone nearby to help you get care.');
-  }
-  if (/\b(warning signs|danger signs|urgent care|when .* seek help)\b/.test(query)) {
-    return reply('Seek urgent in-person care for heavy bleeding, severe abdominal pain, a severe headache or blurred vision, difficulty breathing, fainting or seizures, high fever, fluid leaking, or reduced baby movement. Contact your local emergency service or nearest health facility now; do not wait for a reply in this app.');
-  }
-  if (/\b(week \d+|pregnancy week|how far along|estimate.*week|week.*estimate|due date|pregnancy stage|trimester)\b/.test(query)) {
-    return week
-      ? reply('Your saved profile puts you at around week {week}, in the {trimester} trimester. Pregnancy dates can be adjusted by your provider, so use your ANC visits to confirm your dates and ask which care is right for this stage.', {
-          week,
-          trimester: week <= 13 ? reply('first') : week <= 27 ? reply('second') : reply('third'),
-        })
-      : reply('I don’t have your pregnancy dates yet. Your ANC provider can help estimate how far along you are. You can also add your due date or pregnancy week in your profile for more tailored suggestions.');
-  }
-  if (/\b(expect during pregnancy|pregnancy basics|what happens during pregnancy)\b/.test(query)) {
-    return reply('Pregnancy is commonly described in three trimesters: weeks 1–13, 14–27, and 28 onward. Bodies and pregnancies differ, so use regular ANC visits to discuss changes, check-ups, nutrition, medicines, and questions for your stage.{savedWeek} Your provider can confirm your dates and give advice for your situation.', {
-      savedWeek: week ? ` ${reply('Your saved profile estimates around week {week}.', { week })}` : '',
-    });
-  }
-  if (/\b(prepare|preparation|next visit|appointment)\b/.test(query) && nextReminder) {
-    return reply('Your next saved reminder is “{title}” on {date}. You could note any questions or symptoms and bring your medicines or supplements list. Your clinic can tell you if you need to bring anything else.', {
-      title: nextReminder.title,
-      date: formatDate(nextReminder.scheduledAt, undefined, localeForLanguage(language)),
-    });
-  }
-  if (/\b(birth plan|prepare for birth|labor|labour|delivery|giving birth)\b/.test(query)) {
-    return week && week < 28
-      ? reply('It is okay to start collecting questions about birth early. As your pregnancy progresses, ask your ANC provider about your birth plan, where to go when labour starts, transport, support people, and what to do if a concern comes up.')
-      : reply('Talk with your ANC provider about where to give birth, how to get there, who can support you, what to bring, and how to contact the facility. Plans may need to change, so ask what to do if labour starts unexpectedly or you have a warning sign.');
-  }
-  if (/\b(body|changes|nausea|morning sickness|heartburn|back pain|tired|fatigue|swelling|discomfort)\b/.test(query)) {
-    return reply('Pregnancy can bring changes such as nausea, tiredness, heartburn, or back discomfort, and experiences differ. Mention symptoms at ANC, especially if they are severe, new, worsening, or worrying. Sudden swelling with a severe headache or vision changes needs urgent assessment.');
-  }
-  if (/\b(anc|antenatal|appointment|clinic visit|check.?up|provider)\b/.test(query)) {
-    return reply('At an antenatal care (ANC) visit, a health worker can talk with you about your health, check on you and your baby, answer questions, and plan care. The checks and visit schedule can vary, so ask your clinic what is planned, when to return, and what to bring. It can help to write down questions and medicines you take.');
-  }
-  if (/\b(test|scan|ultrasound|blood pressure|blood test|check my baby)\b/.test(query)) {
-    return reply('The checks offered at ANC depend on your stage of pregnancy, health history, and local care guidance. Ask what each check is for, what the result means, and when you will hear back. Your provider can explain which tests or scans are recommended for you.');
-  }
-  if (/\b(food|eat|nutrition|water|drink|meal|diet)\b/.test(query)) {
-    return reply('Aim for a varied diet with nourishing foods available to you, and drink safe water. Food needs can differ, so ask your ANC provider about local nutrition support, food safety, or any dietary needs. Avoid starting restrictive diets or supplements without professional advice.');
-  }
-  if (/\b(medicine|medication|tablet|supplement|vitamin)\b/.test(query)) {
-    return reply('Check with a qualified health worker or pharmacist before starting, stopping, or changing any medicine, vitamin, or supplement during pregnancy. Do not stop a prescribed medicine without advice. Bring the package or a list of what you take to ANC.');
-  }
-  if (/\b(exercise|physical activity|walking|rest|sleep)\b/.test(query)) {
-    return reply('If you feel well, gentle everyday movement and rest when needed can support general wellbeing. What is suitable depends on your health and pregnancy; ask your ANC provider before starting a new or strenuous activity, especially if you have symptoms or have been advised to limit activity.');
-  }
-  if (/\b(alcohol|smoking|smoke|tobacco|vaping|drug use)\b/.test(query)) {
-    return reply('Avoiding alcohol, tobacco, vaping, and non-prescribed drugs is the safest choice during pregnancy. If stopping is difficult, tell your ANC provider without fear of judgement; they can help you find support. Ask a health worker before using any medicine or substance.');
-  }
-  if (/\b(stress|anxious|anxiety|sad|depressed|mental health|feel overwhelmed)\b/.test(query)) {
-    return reply('It is okay to ask for support with stress, worry, or low mood during pregnancy. Consider telling someone you trust and speaking with your ANC provider, who can help connect you with support. If you may harm yourself or are in immediate danger, contact local emergency services or go to a health facility now.');
-  }
-  if (/\b(baby|growth|develop|movement|moving|kick)\b/.test(query)) {
-    return reply('Your baby grows and changes throughout pregnancy, and your ANC team can explain what to expect at your stage. Once you are feeling regular movements, contact your maternity care team promptly if movement is noticeably reduced or different from your baby’s usual pattern; do not wait until the next visit.');
-  }
-  if (/\b(labou?r signs|water breaking|waters break|contractions|labou?r starting)\b/.test(query)) {
-    return reply('Signs and timing of labour can differ. Ask your maternity team when and where to contact them, especially if you are before 37 weeks. Contact a health facility urgently for fluid leaking, bleeding, severe pain, or a noticeable change in your baby’s movement.');
-  }
-  if (/\b(question|ask|prepare|visit|what can i ask)\b/.test(query)) {
-    return reply('You can ask your provider how your pregnancy is progressing, which checks are planned, what symptoms to watch for, whether your medicines are suitable, when to return, and how to get help between visits. Write down any personal concerns so you can discuss them.');
-  }
-  return reply('I’m an offline information guide and don’t have a specific answer for that. Please ask your ANC provider for advice about your situation. If you have severe pain, heavy bleeding, trouble breathing, or another urgent concern, seek in-person care now.');
+  return getOfflineReply(message, week, nextReminder, language);
 }
 
 function createMessage(author: ChatMessage['author'], text: string): ChatMessage {
@@ -147,6 +82,18 @@ export default function ChatScreen() {
     .filter((reminder) => new Date(reminder.scheduledAt).getTime() >= now)
     .sort((a, b) => a.scheduledAt.localeCompare(b.scheduledAt))[0];
   const prompts = getSuggestedPrompts(week, nextReminder, data.profile.language);
+  const whatsappUrl = messagingChannels.whatsappUrl;
+  const smsUrl = messagingChannels.smsUrl;
+  const openMessagingChannel = async (url: string, channel: string) => {
+    try {
+      await Linking.openURL(url);
+      setError('');
+    } catch {
+      setError(t('Could not open {channel}. Check that it is available on your device.', {
+        channel,
+      }));
+    }
+  };
   const greeting: ChatMessage = {
     id: 'welcome',
     author: 'mama',
@@ -218,6 +165,31 @@ export default function ChatScreen() {
                 {t('Private offline guide — not a clinician or live AI service.')}
               </Text>
             </View>
+            <Text selectable style={{ color: theme.muted, fontSize: typeScale.caption, lineHeight: 18 }}>
+              {t('In-app chat works offline. WhatsApp and SMS need mobile network access, and their messages are handled by those providers.')}
+            </Text>
+            {whatsappUrl || smsUrl ? (
+              <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: space.sm }}>
+                {whatsappUrl ? (
+                  <ActionButton
+                    title={t('Chat on WhatsApp')}
+                    icon="chat"
+                    variant="secondary"
+                    onPress={() => void openMessagingChannel(whatsappUrl, t('WhatsApp'))}
+                    style={{ flexGrow: 1, flexBasis: 140 }}
+                  />
+                ) : null}
+                {smsUrl ? (
+                  <ActionButton
+                    title={t('Send by SMS')}
+                    icon="phone"
+                    variant="outline"
+                    onPress={() => void openMessagingChannel(smsUrl, t('SMS'))}
+                    style={{ flexGrow: 1, flexBasis: 140 }}
+                  />
+                ) : null}
+              </View>
+            ) : null}
             {data.chatMessages.length > 0 ? (
               <Pressable
                 accessibilityRole="button"
@@ -307,7 +279,7 @@ export default function ChatScreen() {
                     fontSize: typeScale.caption,
                     fontWeight: '800',
                   }}>
-                  {isMama ? 'MamaBot' : t('You')}
+                  {isMama ? 'MamaBot' : data.profile.name.trim() || t('You')}
                 </Text>
                 <View
                   style={{

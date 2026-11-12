@@ -1,0 +1,162 @@
+{
+  "intents": [
+    {
+      "id": "urgent_symptoms",
+      "patterns": {
+        "en": ["heavy bleeding", "bleeding a lot", "severe pain", "severe headache", "blurred vision", "blurry vision", "difficulty breathing", "trouble breathing", "shortness of breath", "fainting", "seizure", "high fever", "fluid leaking", "water broke", "baby not moving", "less baby movement", "reduced movement", "movement has changed"],
+        "sn": ["kubuda ropa", "ropa rakawanda", "kurwadziwa zvakanyanya", "musoro unorwadza zvikuru", "kusaona zvakanaka", "kutadza kufema", "kunetseka kufema", "kufenda", "pfari", "kupisa muviri zvakanyanya", "kubuda mvura", "mvura ichibuda", "mwana haasi kufamba", "kusafamba kwemwana"],
+        "nd": ["wopha kakhulu", "ngiyopha kakhulu", "ukopha kakhulu", "ukopha", "ubuhlungu obukhulu", "ikhanda elibuhlungu kakhulu", "ungaboni kuhle", "uphefumula nzima", "uwa isithuli", "ukuhlaselwa yikugula", "umkhuhlane ophezulu", "kuphuma amanzi", "usane lungasanyakazi", "umntwana akasanyakazi"]
+      },
+      "response": "urgent_symptoms"
+    },
+    {
+      "id": "danger_signs",
+      "patterns": {
+        "en": ["warning signs", "danger signs", "urgent care", "when should i seek help", "when to seek help"],
+        "sn": ["zviratidzo zvengozi", "rubatsiro rwechimbichimbi", "nditsvage rubatsiro", "ndinofanira kutsvaga rubatsiro"],
+        "nd": ["izibonakaliso zengozi", "usizo oluphuthumayo", "dinga usizo", "ngidinge usizo"]
+      },
+      "response": "danger_signs"
+    },
+    {
+      "id": "pregnancy_week",
+      "patterns": {
+        "en": ["pregnancy week", "how far along", "estimate my week", "estimate pregnancy week", "due date", "pregnancy stage", "trimester", "week "],
+        "sn": ["vhiki repamuviri", "ndine vhiki", "ndine mavhiki", "mazuva epamuviri", "ndiri pamuviri"],
+        "nd": ["iviki lokukhulelwa", "amaviki amangaki", "iviki lami", "ususevikweni", "ngikhulelwe"]
+      },
+      "response": "pregnancy_week_missing"
+    },
+    {
+      "id": "pregnancy_basics",
+      "patterns": {
+        "en": ["what happens during pregnancy", "pregnancy basics", "expect during pregnancy"],
+        "sn": ["zvinoitika pamuviri", "nezvepamuviri", "pamuviri panowanzopatsanurwa"],
+        "nd": ["okwenzakalayo ngesikhathi sokukhulelwa", "ngokukhulelwa", "izigaba zokukhulelwa"]
+      },
+      "response": "pregnancy_basics"
+    },
+    {
+      "id": "visit_preparation",
+      "patterns": {
+        "en": ["prepare for my visit", "prepare for my appointment", "prepare for anc", "prepare for clinic", "what should i bring"],
+        "sn": ["kugadzirira kushanya", "kugadzirira anc", "zvekuuya nazvo"],
+        "nd": ["ngilungiselele ukuvakatshela", "ngilungiselele i-anc", "okumele ngikuphathe"]
+      },
+      "response": "anc_visit"
+    },
+    {
+      "id": "birth",
+      "patterns": {
+        "en": ["birth plan", "prepare for birth", "labor", "labour", "delivery", "giving birth"],
+        "sn": ["urongwa hwekusununguka", "kusununguka", "kurwadziwa kwatanga"],
+        "nd": ["uhlelo lokubeletha", "ukubeletha", "inhlungu ziqala"]
+      },
+      "response": "birth"
+    },
+    {
+      "id": "body_changes",
+      "patterns": {
+        "en": ["body changes", "nausea", "morning sickness", "heartburn", "back pain", "tiredness", "fatigue", "swelling", "discomfort"],
+        "sn": ["kusvotwa", "kuneta", "chirungurira", "kurwadziwa musana", "kuzvimba"],
+        "nd": ["ukuhlanza", "ukukhathala", "ukutshisa esifubeni", "ubuhlungu bomhlane", "ukuvuvukala"]
+      },
+      "response": "body_changes"
+    },
+    {
+      "id": "anc_visit",
+      "patterns": {
+        "en": ["antenatal", "anc visit", "clinic visit", "health worker", "appointment"],
+        "sn": ["kushanya kuanc", "kiriniki", "mushandi wezveutano", "kushanya kukiriniki"],
+        "nd": ["uvakatshele i-anc", "ikilinika", "isisebenzi sezempilakahle"]
+      },
+      "response": "anc_visit"
+    },
+    {
+      "id": "tests",
+      "patterns": {
+        "en": ["ultrasound", "blood pressure", "blood test", "scan", "pregnancy test"],
+        "sn": ["kuongororwa paanc", "bvunzo", "scan", "kuongororwa"],
+        "nd": ["ukuhlolwa e-anc", "ukuhlolwa", "i-scan", "impumela"]
+      },
+      "response": "tests"
+    },
+    {
+      "id": "nutrition",
+      "patterns": {
+        "en": ["food", "nutrition", "what should i eat", "safe water", "what can i drink", "diet"],
+        "sn": ["kudya", "zvekudya", "zvinovaka muviri", "mvura", "zvekudya"],
+        "nd": ["ukudla", "amanzi", "okwakha umzimba", "ngidle", "nginatheni"]
+      },
+      "response": "nutrition"
+    },
+    {
+      "id": "medicines",
+      "patterns": {
+        "en": ["medicine", "medication", "tablets", "supplement", "vitamin", "can i take"],
+        "sn": ["mushonga", "mishonga", "mapiritsi", "vhitamini", "zvinowedzerwa"],
+        "nd": ["umuthi", "imithi", "amavithamini", "izakhamzimba", "usokhemisi"]
+      },
+      "response": "medicines"
+    },
+    {
+      "id": "exercise",
+      "patterns": {
+        "en": ["exercise", "physical activity", "walking", "rest", "sleep"],
+        "sn": ["kufamba", "kuzorora", "kurara", "maekisesaizi"],
+        "nd": ["ukuhamba", "ukuphumula", "ukulala", "imisebenzi enzima"]
+      },
+      "response": "exercise"
+    },
+    {
+      "id": "substances",
+      "patterns": {
+        "en": ["alcohol", "smoking", "tobacco", "vaping", "drug use"],
+        "sn": ["doro", "fodya", "zvinodhaka", "vape"],
+        "nd": ["utshwala", "igwayi", "izidakamizwa", "i-vape"]
+      },
+      "response": "substances"
+    },
+    {
+      "id": "mental_health",
+      "patterns": {
+        "en": ["stress", "anxious", "anxiety", "sad", "depressed", "mental health", "overwhelmed"],
+        "sn": ["kushushikana", "kutya", "kusuruvara", "kuzvidya mwoyo"],
+        "nd": ["ukukhathazeka", "ukusaba", "ukuzizwa udanile", "ukudana"]
+      },
+      "response": "mental_health"
+    },
+    {
+      "id": "baby_movement",
+      "patterns": {
+        "en": ["baby movement", "baby moving", "baby growth", "baby kicks", "baby develops"],
+        "sn": ["mwana anofamba", "mafambiro emwana", "kukura kwemwana"],
+        "nd": ["ukuhamba kosane", "usane luyakhula", "ukunyakaza komntwana"]
+      },
+      "response": "baby_movement"
+    },
+    {
+      "id": "labour",
+      "patterns": {
+        "en": ["labour signs", "labor signs", "water breaking", "waters break", "contractions", "labour starting", "labor starting"],
+        "sn": ["zviratidzo zvekutanga kurwadziwa", "mvura ichibuda", "kurwadziwa kwatanga"],
+        "nd": ["izibonakaliso zokuqala kwenhlungu", "ukuphuma kwamanzi", "inhlungu ziqala"]
+      },
+      "response": "labour"
+    },
+    {
+      "id": "provider_questions",
+      "patterns": {
+        "en": ["questions for my provider", "what can i ask", "what should i ask"],
+        "sn": ["mibvunzo yemupi", "mibvunzo yandinofanira kubvunza", "ndingabvunza"],
+        "nd": ["imibuzo yomhlanzi", "ngingabuza", "imibuzo engingayibuza"]
+      },
+      "response": "provider_questions"
+    }
+  ],
+  "languagePrefixes": {
+    "en": ["en:", "english:"],
+    "sn": ["sn:", "shona:"],
+    "nd": ["nd:", "ndebele:"]
+  }
+}
