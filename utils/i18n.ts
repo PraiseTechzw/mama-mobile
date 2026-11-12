@@ -599,6 +599,7 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
       'Khetha isigaba ukuze ubone izeluleko zaleso sikhathi sokukhulelwa.',
     'Stage guidance': 'Izeluleko zesigaba',
     'Clinic or health facility (optional)': 'Ikilinika kumbe indawo yezempilakahle (akudingakali)',
+    'ANC appointment': 'Ukuvakatshela i-ANC',
     'Choose the actual clinic for this visit, or search by name, district or province.':
       'Khetha ikilinika ozayivakatshela, kumbe udinge ngebizo, isabelo kumbe isifundazwe.',
     'Find a clinic or health facility': 'Dinga ikilinika kumbe indawo yezempilakahle',

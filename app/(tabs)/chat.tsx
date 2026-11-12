@@ -165,7 +165,7 @@ export default function ChatScreen() {
   return (
     <KeyboardAvoidingView
       style={{ flex: 1, backgroundColor: theme.background }}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <FlatList
         ref={listRef}
         data={messages}
@@ -179,24 +179,6 @@ export default function ChatScreen() {
         }}
         ListHeaderComponent={
           <View style={{ gap: space.md, paddingBottom: space.md }}>
-            <View
-              style={{
-                paddingHorizontal: space.md,
-                paddingVertical: space.sm,
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: space.sm,
-                borderRadius: radius.full,
-                backgroundColor: theme.surfaceSoft,
-              }}>
-              <AppIcon name="sparkles" color={theme.primary} size={16} />
-              <Text selectable style={{ flex: 1, color: theme.muted, fontSize: typeScale.caption, lineHeight: 16 }}>
-                {t('MamaBot works offline. Optional online AI sends your question to MamaBot’s service and OpenRouter. Do not include names or contact details. MamaBot is not a clinician.')}
-              </Text>
-            </View>
-            <Text selectable style={{ color: theme.muted, fontSize: typeScale.caption, lineHeight: 18 }}>
-              {t('In-app chat works offline. WhatsApp and SMS need mobile network access, and their messages are handled by those providers.')}
-            </Text>
             {isOnlineChatConfigured ? (
               <View
                 style={{

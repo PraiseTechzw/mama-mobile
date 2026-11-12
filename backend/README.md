@@ -32,6 +32,20 @@ The backend does not make outbound Twilio REST API calls. For replies to inbound
 
 For deployment, install `backend/requirements.txt`, start the web process with `gunicorn --bind 0.0.0.0:$PORT backend.app:app`, and configure the environment variables in the hosting service rather than uploading a local `.env` file.
 
+## Deploy to Render
+
+The repository-root `render.yaml` defines a Render Blueprint for the Flask backend. To deploy:
+
+1. Push this repository and branch to GitHub, sign in to [Render](https://dashboard.render.com/), choose **New → Blueprint**, and connect this repository. Render reads `render.yaml`; review the service settings and create the Blueprint.
+2. Provide `OPENROUTER_API_KEY` and `TWILIO_AUTH_TOKEN` as secret values when prompted. Keep `OPENROUTER_MESSAGING_ENABLED` set to `false` for initial testing. The model defaults to the free-model router.
+3. Wait for the first deploy. Render assigns a public HTTPS origin such as `https://mamabot-backend.onrender.com`. Confirm that `<origin>/healthz` returns `ok`.
+4. In the Render service's **Environment** settings, set `TWILIO_WEBHOOK_BASE_URL` to that exact origin, without a trailing slash. Save changes and wait for the service to redeploy.
+5. In Twilio, configure the SMS and WhatsApp incoming-message webhooks as shown below, using the Render origin and `POST`.
+6. To enable the in-app online toggle, set `EXPO_PUBLIC_MAMABOT_API_URL` in the repository-root `.env` to the Render origin, restart Expo, and rebuild the app when making a release build. This URL is public; do not put credentials in it.
+7. Test the app and Twilio Sandbox with non-sensitive sample questions. Leave `OPENROUTER_MESSAGING_ENABLED=false` until messaging users are informed that their message will also be classified by OpenRouter and applicable consent is in place.
+
+The Blueprint uses Render's Free plan for academic testing. Free web services spin down after 15 minutes without traffic and can take about a minute to start again; this can cause delayed or missed Twilio webhook responses. Render documents Free instances as unsuitable for production. Use an always-on paid service before any dependable field trial. The service does not store user state, and its filesystem is not used for persistence.
+
 ## Configure Twilio
 
 Deploy this service to a public HTTPS host, set the two backend environment variables above, and configure the inbound-message webhook URLs:

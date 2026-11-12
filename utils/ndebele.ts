@@ -157,6 +157,7 @@ export const ndebeleTranslations: Record<string, string> = {
   'Your pregnancy, one step at a time': 'Uhambo lwakho lokukhulelwa, inyathelo ngalinye',
   'PREGNANCY CARE': 'UKUNAKEKELWA KOKUKHULELWA',
   'Clinic or health facility (optional)': 'Ikilinika kumbe indawo yezempilakahle (akudingakali)',
+  'ANC appointment': 'Ukuvakatshela i-ANC',
   'Choose the actual clinic for this visit, or search by name, district or province.':
     'Khetha ikilinika ozayivakatshela, kumbe udinge ngebizo, isabelo kumbe isifundazwe.',
   'Find a clinic or health facility': 'Dinga ikilinika kumbe indawo yezempilakahle',
