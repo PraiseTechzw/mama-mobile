@@ -66,7 +66,7 @@ class OpenRouterTests(unittest.TestCase):
         user_content = json.loads(payload["messages"][-1]["content"])
         self.assertEqual(user_content["current_question"], "What should I eat?")
         self.assertEqual(user_content["context"], context)
-        self.assertNotIn("phone", payload["messages"][-1]["content"].lower())
+        self.assertNotIn("phone", user_content["context"])
 
     @patch("backend.mamabot.openrouter.urlopen")
     def test_rejects_untrusted_or_low_confidence_classification(self, mocked_urlopen) -> None:

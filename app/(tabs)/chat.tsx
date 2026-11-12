@@ -88,7 +88,7 @@ export default function ChatScreen() {
   const prompts = getSuggestedPrompts(week, nextReminder, data.profile.language);
   const recentMessages = data.chatMessages.slice(-6).map(({ author, text }) => ({
     author,
-    text,
+    text: text.slice(-500),
   }));
   const whatsappUrl = messagingChannels.whatsappUrl;
   const smsUrl = messagingChannels.smsUrl;
@@ -179,7 +179,7 @@ export default function ChatScreen() {
   return (
     <KeyboardAvoidingView
       style={{ flex: 1, backgroundColor: theme.background }}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <FlatList
         ref={listRef}
         data={messages}
@@ -193,6 +193,13 @@ export default function ChatScreen() {
         }}
         ListHeaderComponent={
           <View style={{ gap: space.md, paddingBottom: space.md }}>
+            {isOnlineChatConfigured ? (
+              <Text
+                selectable
+                style={{ color: theme.muted, fontSize: typeScale.caption, lineHeight: 18 }}>
+                {t('Online chat uses your pregnancy week and recent messages for context. Your name and phone number are not sent.')}
+              </Text>
+            ) : null}
             {whatsappUrl || smsUrl ? (
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: space.sm }}>
                 {whatsappUrl ? (

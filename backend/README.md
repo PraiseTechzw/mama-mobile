@@ -88,14 +88,14 @@ The backend's optional online classifier uses:
 
 The model returns only a validated intent ID, language, and confidence. The service rejects unknown/low-confidence classifications and uses existing local matching instead. It always bypasses the model when local urgent-symptom patterns match. Requests ask OpenRouter to route only to providers that deny data collection and support zero-data-retention; if no provider meets those requirements, classification falls back locally. Review OpenRouter's current privacy terms and the selected provider's handling before real-user testing.
 
-The endpoint sends no app profile, pregnancy week, reminders, or chat history. Set spending limits for the OpenRouter key and hosting-level request limits before exposing the service publicly. The fixed answer catalog is still prototype content and has not been clinically or linguistically approved; the model does not make it safer or more complete.
+The endpoint sends no full app profile, phone number, or reminders. It receives only the current question, selected language, pregnancy week, and up to six recent messages for each online chat request; it does not retain those messages. Set spending limits for the OpenRouter key and hosting-level request limits before exposing the service publicly. The fixed answer catalog is still prototype content and has not been clinically or linguistically approved; the model does not make it safer or more complete.
 
 ## Prototype limitations and safety
 
 - Offline classification is deterministic phrase matching, not an AI model. Online OpenRouter classification can better map varied questions to the fixed topics, but it does not generate or verify clinical guidance.
 - WhatsApp/SMS automatically classifies topic and language using OpenRouter by default; local phrase matching remains the fallback if OpenRouter is unavailable. Language detection quality must be tested with fluent English, Shona, and Ndebele speakers.
-- The backend has no access to the app's local pregnancy week or reminders and does not retain channel conversations.
-- Automated outbound reminders and backend-synced in-app chat are not enabled. App reminders and in-app chat remain on-device; adding scheduled Twilio messages requires server-side persistence, explicit messaging consent, and a delivery scheduler.
+- Reminders remain on-device and are not sent to the backend. In-app chat history is stored on-device; up to six recent messages are included with each online chat request for context but are not retained by this backend.
+- Automated outbound reminders and backend-synced in-app chat are not enabled. Adding scheduled Twilio messages requires server-side persistence, explicit messaging consent, and a delivery scheduler.
 - The responses and translations are a prototype content set, not a substitute for clinical review. A qualified maternal-health professional and fluent Shona/Ndebele reviewers must approve the catalog before participant testing or real health use.
 - Confirm Zimbabwe SMS delivery, sender requirements, and current costs with Twilio before field testing. Longer SMS replies may be split into multiple billable segments.
 - Obtain appropriate participant consent and ethics approval before collecting or evaluating real user messages. Set hosting and provider logging/retention to minimize personal data.

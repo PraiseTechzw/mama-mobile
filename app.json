@@ -14,10 +14,14 @@
       }
     },
     "android": {
+      "softwareKeyboardLayoutMode": "resize",
       "adaptiveIcon": {
         "backgroundColor": "#FBF8FF",
         "foregroundImage": "./assets/app-icons/android-foreground.png",
         "monochromeImage": "./assets/app-icons/android-monochrome.png"
+      },
+      "androidStatusBar": {
+        "translucent": false
       },
       "predictiveBackGestureEnabled": false,
       "package": "com.praisetechzw.mamabot"
