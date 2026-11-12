@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import {
+  ActivityIndicator,
   Alert,
   FlatList,
   KeyboardAvoidingView,
@@ -76,7 +77,6 @@ export default function ChatScreen() {
   const [draft, setDraft] = useState('');
   const [error, setError] = useState('');
   const [status, setStatus] = useState('');
-  const [onlineEnabled, setOnlineEnabled] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [now] = useState(() => Date.now());
   const listRef = useRef<FlatList<ChatMessage>>(null);
@@ -86,6 +86,10 @@ export default function ChatScreen() {
     .filter((reminder) => new Date(reminder.scheduledAt).getTime() >= now)
     .sort((a, b) => a.scheduledAt.localeCompare(b.scheduledAt))[0];
   const prompts = getSuggestedPrompts(week, nextReminder, data.profile.language);
+  const recentMessages = data.chatMessages.slice(-6).map(({ author, text }) => ({
+    author,
+    text,
+  }));
   const whatsappUrl = messagingChannels.whatsappUrl;
   const smsUrl = messagingChannels.smsUrl;
   const openMessagingChannel = async (url: string, channel: string) => {
@@ -112,27 +116,37 @@ export default function ChatScreen() {
     const text = message.trim();
     if (!text || isSending) return;
 
+    const isUrgent = classifyOfflineQuestion(text, data.profile.language).intent === 'urgent_symptoms';
     setIsSending(true);
     setError('');
-    setStatus('');
+    setStatus(
+      isOnlineChatConfigured && !isUrgent
+        ? t('Connecting to online AI…')
+        : t('MamaBot is replying…'),
+    );
     try {
       let reply = getLocalReply(replyMessage, week, nextReminder, data.profile.language);
-      const isUrgent = classifyOfflineQuestion(text, data.profile.language).intent === 'urgent_symptoms';
-      if (onlineEnabled && !isUrgent) {
-        setStatus(t('Checking your question with online AI…'));
+      if (isOnlineChatConfigured && !isUrgent) {
         try {
-          const onlineResult = await getOnlineReply(text, data.profile.language);
+          const onlineResult = await getOnlineReply(text, data.profile.language, {
+            pregnancyWeek: week,
+            recentMessages,
+          });
           reply = onlineResult.reply;
           if (onlineResult.mode === 'offline') {
             setStatus(t('Online AI is unavailable; this answer used on-device guidance.'));
           } else if (onlineResult.mode === 'safety') {
             setStatus(t('Safety-critical guidance was answered locally.'));
+          } else {
+            setStatus('');
           }
         } catch {
           setStatus(t('Could not reach online AI; this answer used on-device guidance.'));
         }
       } else if (isUrgent) {
         setStatus(t('Safety-critical guidance was answered locally.'));
+      } else {
+        setStatus('');
       }
 
       const saved = addChatMessages([
@@ -179,43 +193,6 @@ export default function ChatScreen() {
         }}
         ListHeaderComponent={
           <View style={{ gap: space.md, paddingBottom: space.md }}>
-            {isOnlineChatConfigured ? (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  gap: space.md,
-                  padding: space.md,
-                  borderRadius: radius.lg,
-                  backgroundColor: theme.surface,
-                  borderWidth: 1,
-                  borderColor: theme.line,
-                }}>
-                <Text style={{ flex: 1, color: theme.text, fontSize: typeScale.small, lineHeight: 18 }}>
-                  {onlineEnabled
-                    ? t('Online AI is on for this chat.')
-                    : t('Online AI is off. Your questions stay on this device.')}
-                </Text>
-                <Pressable
-                  accessibilityRole="button"
-                  accessibilityState={{ disabled: isSending }}
-                  disabled={isSending}
-                  onPress={() => setOnlineEnabled((enabled) => !enabled)}
-                  style={({ pressed }) => ({
-                    minHeight: 40,
-                    justifyContent: 'center',
-                    paddingHorizontal: space.md,
-                    borderRadius: radius.full,
-                    backgroundColor: theme.primary,
-                    opacity: pressed || isSending ? 0.7 : 1,
-                  })}>
-                  <Text style={{ color: theme.white, fontSize: typeScale.small, fontWeight: '700' }}>
-                    {onlineEnabled ? t('Turn off') : t('Use online AI')}
-                  </Text>
-                </Pressable>
-              </View>
-            ) : null}
             {whatsappUrl || smsUrl ? (
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: space.sm }}>
                 {whatsappUrl ? (
@@ -383,11 +360,18 @@ export default function ChatScreen() {
         </Text>
       ) : null}
       {status ? (
-        <Text
+        <View
           accessibilityLiveRegion="polite"
-          style={{ paddingHorizontal: space.lg, color: theme.muted, fontSize: typeScale.caption }}>
-          {status}
-        </Text>
+          style={{
+            minHeight: 34,
+            paddingHorizontal: space.lg,
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: space.sm,
+          }}>
+          {isSending ? <ActivityIndicator size="small" color={theme.primary} /> : null}
+          <Text style={{ color: theme.muted, fontSize: typeScale.caption }}>{status}</Text>
+        </View>
       ) : null}
       <View
         style={{

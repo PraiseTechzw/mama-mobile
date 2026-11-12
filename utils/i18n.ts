@@ -132,18 +132,14 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
       'MamaBot inoshanda isina internet. Kana ukasarudza AI iri online, mubvunzo wako unotumirwa kuseva yeMamaBot neOpenRouter. Usaisa zita rako kana mashoko ekukuzivisa. MamaBot haisi nyanzvi yezveutano.',
     'In-app chat works offline. WhatsApp and SMS need mobile network access, and their messages are handled by those providers.':
       'Nhaurirano iri muapp ino inoshanda isina internet. WhatsApp neSMS zvinoda network yefoni, uye mashoko zvinopfuura kumakambani iwayo.',
-    'Online AI is on for this chat.': 'AI iri online yakabatidzwa panhaurirano iyi.',
-    'Online AI is off. Your questions stay on this device.':
-      'AI iri online yakadzimwa. Mibvunzo yako inoramba iri pafoni iyi.',
-    'Use online AI': 'Shandisa AI iri online',
-    'Turn off': 'Dzima',
     'Online AI is unavailable; this answer used on-device guidance.':
       'AI iri online haisi kuwanikwa; mhinduro iyi yashandisa mazano ari pafoni.',
     'Safety-critical guidance was answered locally.':
       'Nekuda kwekuchengeteka, mhinduro inokosha yapihwa nefoni.',
     'Could not reach online AI; this answer used on-device guidance.':
       'Hatina kukwanisa kubatana neAI iri online; mhinduro iyi yashandisa mazano ari pafoni.',
-    'Checking your question with online AI…': 'Tiri kutarisa mubvunzo wako neAI iri online…',
+    'MamaBot is replying…': 'MamaBot iri kupindura…',
+    'Connecting to online AI…': 'Tiri kubatana neAI iri online…',
     'Chat on WhatsApp': 'Kurukura paWhatsApp',
     'Send by SMS': 'Tumira neSMS',
     'Could not open {channel}. Check that it is available on your device.':
@@ -560,18 +556,14 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
       'UMamaBot usebenza engelantanethi. Nxa ukhetha i-AI eku-inthanethi, umbuzo wakho uthunyelwa kuseva kaMamaBot le-OpenRouter. Ungafaki ibizo lakho kumbe imininingwane engakwazisa. UMamaBot kasisiyo ingcitshi yezempilakahle.',
     'In-app chat works offline. WhatsApp and SMS need mobile network access, and their messages are handled by those providers.':
       'Ingxoxo eku-app isebenza ingela-inthanethi. I-WhatsApp le-SMS kudinga inethiwekhi yefoni, lemilayezo iphathwa yizinkampani lezo.',
-    'Online AI is on for this chat.': 'I-AI eku-inthanethi ivuliwe kule ingxoxo.',
-    'Online AI is off. Your questions stay on this device.':
-      'I-AI eku-inthanethi icinyiwe. Imibuzo yakho ihlala kule foni.',
-    'Use online AI': 'Sebenzisa i-AI eku-inthanethi',
-    'Turn off': 'Cima',
     'Online AI is unavailable; this answer used on-device guidance.':
       'I-AI eku-inthanethi ayitholakali; impendulo le isebenzise ulwazi olusefonini.',
     'Safety-critical guidance was answered locally.':
       'Ngenxa yokuphepha, isiqondiso esiqakathekileyo siphendulwe yifoni.',
     'Could not reach online AI; this answer used on-device guidance.':
       'Yehlulekile ukuthola i-AI eku-inthanethi; impendulo le isebenzise ulwazi olusefonini.',
-    'Checking your question with online AI…': 'Sihlola umbuzo wakho nge-AI eku-inthanethi…',
+    'MamaBot is replying…': 'UMamaBot uyaphendula…',
+    'Connecting to online AI…': 'Sixhumana le-AI eku-inthanethi…',
     'This could need urgent medical attention. Please contact your local emergency service or go to the nearest health facility now. Do not wait for a reply in this app. If you can, ask someone nearby to help you get care.':
       'Lokhu kungadinga usizo lwezempilakahle ngokuphangisa. Thinta usizo oluphuthumayo kumbe uye esibhedlela esiseduze khathesi. Ungalindi impendulo ku-app le. Nxa usenelisa, cela umuntu oseduze lawe akuncedise uthole usizo.',
     'Seek urgent in-person care for heavy bleeding, severe abdominal pain, a severe headache or blurred vision, difficulty breathing, fainting or seizures, high fever, fluid leaking, or reduced baby movement. Contact your local emergency service or nearest health facility now; do not wait for a reply in this app.':

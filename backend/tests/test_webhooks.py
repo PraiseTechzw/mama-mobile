@@ -85,6 +85,37 @@ class WebhookTests(unittest.TestCase):
         self.assertIn("Edza kudya", response.json["reply"])
 
     @patch("backend.app.classify_with_openrouter")
+    def test_app_chat_api_passes_pregnancy_and_recent_chat_context(self, classify) -> None:
+        classify.return_value = ("nutrition", "en")
+        app = create_app(
+            {
+                "TESTING": True,
+                "OPENROUTER_API_KEY": "test-key",
+            }
+        )
+        context = {
+            "pregnancy_week": 24,
+            "recent_messages": [
+                {"author": "you", "text": "I am around week 24."},
+                {"author": "mama", "text": "How can I help?"},
+            ],
+        }
+
+        response = app.test_client().post(
+            "/api/chat",
+            json={
+                "message": "What should I eat?",
+                "language": "en",
+                "use_online": True,
+                "context": context,
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json["mode"], "online")
+        self.assertEqual(classify.call_args.kwargs["context"], context)
+
+    @patch("backend.app.classify_with_openrouter")
     def test_app_chat_api_selects_free_router_when_model_is_unset(self, classify) -> None:
         classify.return_value = ("nutrition", "en")
         app = create_app(
@@ -133,6 +164,26 @@ class WebhookTests(unittest.TestCase):
         )
         self.assertEqual(
             client.post("/api/chat", json={"message": "x" * 501}).status_code,
+            400,
+        )
+        self.assertEqual(
+            client.post(
+                "/api/chat",
+                json={
+                    "message": "hello",
+                    "context": {"pregnancy_week": 43},
+                },
+            ).status_code,
+            400,
+        )
+        self.assertEqual(
+            client.post(
+                "/api/chat",
+                json={
+                    "message": "hello",
+                    "context": {"recent_messages": [{"author": "system", "text": "hello"}]},
+                },
+            ).status_code,
             400,
         )
 

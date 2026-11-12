@@ -40,9 +40,33 @@ class OpenRouterTests(unittest.TestCase):
         payload = json.loads(request.data)
         self.assertEqual(payload["provider"], {"data_collection": "deny", "zdr": True})
         self.assertEqual(payload["response_format"]["type"], "json_schema")
-        self.assertEqual(payload["messages"][-1]["content"], "Ndinofanira kudyei?")
-        self.assertNotIn("name", payload["messages"][-1]["content"])
+        self.assertEqual(
+            json.loads(payload["messages"][-1]["content"])["current_question"],
+            "Ndinofanira kudyei?",
+        )
         self.assertEqual(mocked_urlopen.call_args.kwargs["timeout"], 5)
+
+    @patch("backend.mamabot.openrouter.urlopen")
+    def test_includes_only_supplied_question_and_context(self, mocked_urlopen) -> None:
+        mocked_urlopen.return_value = self.make_response(
+            {"intent_id": "nutrition", "language": "en", "confidence": 0.94}
+        )
+        context = {
+            "pregnancy_week": 24,
+            "recent_messages": [{"author": "you", "text": "I am around week 24."}],
+        }
+        classify_with_openrouter(
+            "What should I eat?",
+            "test-key",
+            "provider/test-model",
+            context=context,
+        )
+
+        payload = json.loads(mocked_urlopen.call_args.args[0].data)
+        user_content = json.loads(payload["messages"][-1]["content"])
+        self.assertEqual(user_content["current_question"], "What should I eat?")
+        self.assertEqual(user_content["context"], context)
+        self.assertNotIn("phone", payload["messages"][-1]["content"].lower())
 
     @patch("backend.mamabot.openrouter.urlopen")
     def test_rejects_untrusted_or_low_confidence_classification(self, mocked_urlopen) -> None:

@@ -1,6 +1,6 @@
 # MamaBot messaging prototype
 
-The mobile app keeps its in-app chatbot and saved conversation on the device. Offline replies come from the shared response catalog. When a user explicitly turns on online AI, the app sends only the current question and selected language to this Flask service. The service can use OpenRouter to classify the language and topic, then selects a fixed catalog response; it does not ask a model to generate medical advice. If the service or model is unavailable, the app uses its local reply.
+The mobile app keeps its in-app chatbot and saved conversation on the device. Offline replies come from the shared response catalog. When the backend URL is configured, the app automatically sends the current question, selected app language, pregnancy week, and up to six recent chat messages to this Flask service for non-urgent questions. It does not send the user's name or phone number. The service can use OpenRouter to classify the current question's intent and language (English, Shona, or Ndebele), using the pregnancy week and recent messages only to resolve references. It then selects a fixed catalog response; it does not ask a model to generate medical advice. Urgent questions stay local, and if the service or model is unavailable, the app uses its local reply.
 
 WhatsApp and SMS are optional online channels: Twilio forwards inbound messages to this Flask service, which returns a reply using TwiML. With PostgreSQL configured, new senders are asked to choose English, Shona, or Ndebele; the selected language is used for replies until the session expires after 24 hours of inactivity. Users can change it by sending “change language”. The backend stores only a keyed hash of the channel and sender, the language choice, and session timestamps; it does not store message text or a conversation history. If PostgreSQL is not configured, the existing automatic language detection flow remains active. Twilio, carriers, OpenRouter, and the selected inference provider still process online messages. Tell users that messages are sent to OpenRouter for classification before enabling live use.
 
@@ -45,7 +45,7 @@ To deploy:
 3. Wait for the first deploy. Render assigns a public HTTPS origin such as `https://mamabot-backend.onrender.com`. Confirm that `<origin>/healthz` returns `ok`.
 4. In the Render service's **Environment** settings, set `TWILIO_WEBHOOK_BASE_URL` to that exact origin, without a trailing slash. Save changes and wait for the service to redeploy.
 5. In Twilio, configure the SMS and WhatsApp incoming-message webhooks as shown below, using the Render origin and `POST`.
-6. To enable the in-app online toggle, set `EXPO_PUBLIC_MAMABOT_API_URL` in the repository-root `.env` to the Render origin, restart Expo, and rebuild the app when making a release build. This URL is public; do not put credentials in it.
+6. To enable automatic in-app online chat, set `EXPO_PUBLIC_MAMABOT_API_URL` in the repository-root `.env` to the Render origin, restart Expo, and rebuild the app when making a release build. This URL is public; do not put credentials in it.
 7. Test the app and Twilio Sandbox with non-sensitive sample questions. Do not use real or identifying health details. Inform messaging users that messages are sent to OpenRouter for classification and obtain applicable consent before real-user testing.
 
 If an existing Render service still fails, open **Settings → Build & Deploy** and set **Root Directory** to the repository root (clear the field or use `.`), **Build Command** to `pip install -r requirements.txt`, and **Start Command** to `gunicorn --bind 0.0.0.0:$PORT backend.app:app`, then redeploy the latest commit. The root `requirements.txt` includes the backend's pinned dependencies, so it also works with Render's existing `pip install -r requirements.txt` setting.
@@ -76,7 +76,7 @@ The root `.env` values configure the mobile app's public contact links and backe
 
 ## Optional OpenRouter classifier
 
-The app's online mode requires `EXPO_PUBLIC_MAMABOT_API_URL` in the repository-root `.env`, set to the Flask service's HTTPS origin (without a trailing slash). Expo embeds `EXPO_PUBLIC_*` values in the app bundle, so this must never contain a secret. Restart Expo after changing it.
+The app's automatic online mode requires `EXPO_PUBLIC_MAMABOT_API_URL` in the repository-root `.env`, set to the Flask service's HTTPS origin (without a trailing slash). Expo embeds `EXPO_PUBLIC_*` values in the app bundle, so this must never contain a secret. Restart Expo after changing it. The app sends pregnancy week and up to six recent messages as context for intent classification; it never sends the saved name or phone number. Questions and context may be processed by the backend and OpenRouter, so disclose this before enabling online use.
 
 The backend's optional online classifier uses:
 

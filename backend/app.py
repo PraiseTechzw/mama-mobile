@@ -66,6 +66,7 @@ def create_app(test_config: Mapping[str, object] | None = None) -> Flask:
     def chatbot_classifier(
         enabled: bool = True,
         preferred_language: str = "en",
+        context: dict[str, object] | None = None,
     ) -> IntentClassifier | None:
         if not enabled:
             return None
@@ -85,6 +86,7 @@ def create_app(test_config: Mapping[str, object] | None = None) -> Flask:
             model,
             float(app.config["OPENROUTER_TIMEOUT_SECONDS"]),
             preferred_language,
+            context=context,
         )
 
     @app.post("/api/chat")
@@ -106,10 +108,41 @@ def create_app(test_config: Mapping[str, object] | None = None) -> Flask:
         if not isinstance(use_online, bool):
             return jsonify(error="use_online must be a boolean."), 400
 
+        context = payload.get("context", {})
+        if not isinstance(context, dict):
+            return jsonify(error="Context must be an object."), 400
+        pregnancy_week = context.get("pregnancy_week")
+        if pregnancy_week is not None and (
+            isinstance(pregnancy_week, bool)
+            or not isinstance(pregnancy_week, int)
+            or not 1 <= pregnancy_week <= 42
+        ):
+            return jsonify(error="Pregnancy week must be between 1 and 42."), 400
+        recent_messages = context.get("recent_messages", [])
+        if not isinstance(recent_messages, list) or len(recent_messages) > 6:
+            return jsonify(error="Recent messages must contain at most 6 items."), 400
+        for item in recent_messages:
+            if (
+                not isinstance(item, dict)
+                or item.get("author") not in {"mama", "you"}
+                or not isinstance(item.get("text"), str)
+                or not item["text"].strip()
+                or len(item["text"]) > 500
+            ):
+                return jsonify(error="Recent message context is invalid."), 400
+
+        classification_context = {
+            "pregnancy_week": pregnancy_week,
+            "recent_messages": recent_messages,
+        }
         reply, mode = answer_question_with_mode(
             message.strip(),
             language,
-            chatbot_classifier(enabled=use_online, preferred_language=language),
+            chatbot_classifier(
+                enabled=use_online,
+                preferred_language=language,
+                context=classification_context,
+            ),
         )
         return jsonify(reply=reply, mode=mode)
 

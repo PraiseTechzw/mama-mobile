@@ -5,6 +5,11 @@ export type OnlineReply = {
   mode: 'online' | 'offline' | 'safety';
 };
 
+export type OnlineChatContext = {
+  pregnancyWeek: number | null;
+  recentMessages: { author: 'mama' | 'you'; text: string }[];
+};
+
 const backendUrl = process.env.EXPO_PUBLIC_MAMABOT_API_URL?.trim().replace(/\/+$/, '') ?? '';
 
 export const isOnlineChatConfigured =
@@ -14,6 +19,7 @@ export const isOnlineChatConfigured =
 export async function getOnlineReply(
   message: string,
   language: AppLanguage,
+  context: OnlineChatContext,
 ): Promise<OnlineReply> {
   if (!isOnlineChatConfigured) {
     throw new Error('Online MamaBot service is not configured.');
@@ -25,7 +31,15 @@ export async function getOnlineReply(
     const response = await fetch(`${backendUrl}/api/chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message, language, use_online: true }),
+      body: JSON.stringify({
+        message,
+        language,
+        use_online: true,
+        context: {
+          pregnancy_week: context.pregnancyWeek,
+          recent_messages: context.recentMessages,
+        },
+      }),
       signal: controller.signal,
     });
     if (!response.ok) {
