@@ -1,3 +1,5 @@
+import { Host } from '@expo/ui';
+import { DateTimePicker } from '@expo/ui/community/datetimepicker';
 import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useRef, useState, type ComponentRef } from 'react';
@@ -23,9 +25,9 @@ import motherBabyLogo from '@/assets/brand/mother-baby-heart-logo.png';
 import { AppIcon } from '@/components/app-icon';
 import { AppText as Text } from '@/components/app-text';
 import { useAppState, type AppLanguage } from '@/contexts/app-state';
+import { localeForLanguage, translate } from '@/utils/i18n';
+import { dateInputValue, formatDate, parseDateInput } from '@/utils/pregnancy';
 import { radius, space, typeScale, useAppTheme } from '@/theme';
-import { translate } from '@/utils/i18n';
-import { parseDateInput } from '@/utils/pregnancy';
 
 type ConversationMessage = {
   id: string;
@@ -52,6 +54,7 @@ export default function WelcomeScreen() {
   const [phone, setPhone] = useState(data.profile.phone);
   const [week, setWeek] = useState(data.profile.pregnancyWeek?.toString() ?? '');
   const [dueDate, setDueDate] = useState(data.profile.dueDate);
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const [draft, setDraft] = useState('');
   const [error, setError] = useState('');
   const [activePress, setActivePress] = useState<string | null>(null);
@@ -150,7 +153,7 @@ export default function WelcomeScreen() {
 
   const submitAnswer = () => {
     setError('');
-    const answer = draft.trim();
+    const answer = questionIndex === 3 ? dueDate : draft.trim();
 
     if (!answer) {
       setError(t('Please answer before continuing.'));
@@ -412,7 +415,93 @@ export default function WelcomeScreen() {
                 borderTopColor: theme.line,
                 backgroundColor: theme.background,
               }}>
-              <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: space.sm }}>
+              {questionIndex === 3 ? (
+                <View style={{ gap: space.sm }}>
+                  {Platform.OS === 'web' ? (
+                    <TextInput
+                      accessibilityLabel={t('Expected due date in YYYY-MM-DD format')}
+                      value={draft}
+                      onChangeText={(value) => {
+                        setDraft(value);
+                        setError('');
+                      }}
+                      placeholder={t('Type your due date: YYYY-MM-DD')}
+                      placeholderTextColor={theme.muted}
+                      keyboardType="numbers-and-punctuation"
+                      maxLength={10}
+                      style={inputStyle}
+                    />
+                  ) : (
+                    <>
+                      <Pressable
+                        accessibilityRole="button"
+                        accessibilityLabel={t('Choose a date')}
+                        accessibilityHint={t('Expected due date')}
+                        onPress={() => setShowDatePicker((visible) => !visible)}
+                        style={{
+                          minHeight: 50,
+                          paddingHorizontal: space.lg,
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: space.sm,
+                          borderRadius: radius.md,
+                          borderCurve: 'continuous',
+                          backgroundColor: theme.surface,
+                        }}>
+                        <AppIcon name="calendar" color={theme.primary} size={18} />
+                        <Text style={{ color: theme.text, fontSize: typeScale.body, fontWeight: '700' }}>
+                          {parseDateInput(dueDate)
+                            ? formatDate(
+                                parseDateInput(dueDate)!.toISOString(),
+                                undefined,
+                                localeForLanguage(language),
+                              )
+                            : t('Choose a date')}
+                        </Text>
+                      </Pressable>
+                      {showDatePicker ? (
+                        <Host matchContents>
+                          <DateTimePicker
+                            value={parseDateInput(dueDate) ?? new Date()}
+                            mode="date"
+                            display={Platform.OS === 'ios' ? 'inline' : 'default'}
+                            presentation={Platform.OS === 'android' ? 'dialog' : 'inline'}
+                            minimumDate={new Date()}
+                            accentColor={theme.primary}
+                            onValueChange={(_event, date) => {
+                              setDueDate(dateInputValue(date));
+                              setError('');
+                              if (Platform.OS === 'android') setShowDatePicker(false);
+                            }}
+                            onDismiss={() => setShowDatePicker(false)}
+                          />
+                        </Host>
+                      ) : null}
+                    </>
+                  )}
+                  <Pressable
+                    accessibilityRole="button"
+                    accessibilityLabel={t('Continue')}
+                    onPress={submitAnswer}
+                    style={({ pressed }) => ({
+                      minHeight: 50,
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: space.sm,
+                      borderRadius: radius.full,
+                      backgroundColor: theme.primary,
+                      opacity: pressed ? 0.82 : 1,
+                    })}>
+                    <Text style={{ color: theme.white, fontSize: typeScale.body, fontWeight: '800' }}>
+                      {t('Continue')}
+                    </Text>
+                    <AppIcon name="arrow" color={theme.white} size={18} />
+                  </Pressable>
+                </View>
+              ) : (
+                <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: space.sm }}>
                 <TextInput
                   accessibilityLabel={
                     questionIndex === 0
@@ -487,7 +576,8 @@ export default function WelcomeScreen() {
                     <AppIcon name="arrow" color={theme.white} size={20} />
                   </Animated.View>
                 </Pressable>
-              </View>
+                </View>
+              )}
               {error || stateError ? (
                 <Text
                   accessibilityLiveRegion="polite"
