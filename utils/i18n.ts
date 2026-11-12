@@ -200,8 +200,8 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
       'Shandisa nzvimbo yangu kutsvaga nzvimbo dzehutano dziri pedyo',
     'Your location is used only to sort this list. It is not saved or sent anywhere.':
       'Nzvimbo yako inoshandiswa kuronga runyorwa urwu chete. Haichengetwi kana kutumirwa kumwe.',
-    'Source: supplied Zimbabwe health facilities master dataset. Record years range from {startYear} to {endYear}; source and current operating status are not verified. Confirm details before traveling.':
-      'Kwabva: runyorwa rwenzvimbo dzehutano rweZimbabwe rwakapihwa. Makore ezvinyorwa anobva {startYear} kusvika {endYear}; kwakabva mashoko uye kushanda kwenzvimbo izvozvi hazvina kusimbiswa. Simbisa usati waenda.',
+    'Source file: data/zimbabwe_facilities_master-1782225366.csv. Record years range from {startYear} to {endYear}; original source and current operating status are not verified. Confirm details before traveling.':
+      'Faira rakashandiswa: data/zimbabwe_facilities_master-1782225366.csv. Makore ezvinyorwa anobva {startYear} kusvika {endYear}; kwakabva mashoko uye kushanda kwenzvimbo izvozvi hazvina kusimbiswa. Simbisa usati waenda.',
     'Remove selected facility': 'Bvisa nzvimbo yasarudzwa',
     'No matching facilities': 'Hapana nzvimbo dzehutano dzawanikwa',
     'Try a different facility name, district or province.':
@@ -621,8 +621,8 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
       'Sebenzisa indawo yami ukudinga ezempilakahle eziseduze',
     'Your location is used only to sort this list. It is not saved or sent anywhere.':
       'Indawo yakho isetshenziswa ukuhlela lolu hlu kuphela. Ayigcinwa njalo ayithunyelwa kwenye indawo.',
-    'Source: supplied Zimbabwe health facilities master dataset. Record years range from {startYear} to {endYear}; source and current operating status are not verified. Confirm details before traveling.':
-      'Umthombo: uhlu lwezempilakahle eZimbabwe olunikwe lolu hlelo. Iminyaka yamarekhodi isukela ku-{startYear} kusiya ku-{endYear}; umthombo lokusebenza kwamanje akuqinisekiswanga. Qinisekisa ungakayi.',
+    'Source file: data/zimbabwe_facilities_master-1782225366.csv. Record years range from {startYear} to {endYear}; original source and current operating status are not verified. Confirm details before traveling.':
+      'Ifayela lomthombo: data/zimbabwe_facilities_master-1782225366.csv. Iminyaka yamarekhodi isukela ku-{startYear} kusiya ku-{endYear}; umthombo lokusebenza kwamanje akuqinisekiswanga. Qinisekisa ungakayi.',
     'Remove selected facility': 'Susa indawo ekhethiweyo',
     'No matching facilities': 'Akulazindawo zezempilakahle ezitholakeleyo',
     'Try a different facility name, district or province.':

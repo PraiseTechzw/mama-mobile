@@ -252,7 +252,7 @@ export function FacilityPicker({
               </Text>
             ) : null}
             <Text style={{ color: theme.muted, fontSize: typeScale.caption, lineHeight: 18 }}>
-              {t('Source: supplied Zimbabwe health facilities master dataset. Record years range from {startYear} to {endYear}; source and current operating status are not verified. Confirm details before traveling.', {
+              {t('Source file: data/zimbabwe_facilities_master-1782225366.csv. Record years range from {startYear} to {endYear}; original source and current operating status are not verified. Confirm details before traveling.', {
                 startYear: facilityRecordYearRange.startYear,
                 endYear: facilityRecordYearRange.endYear,
               })}
@@ -320,6 +320,7 @@ export function FacilityPicker({
                     name: facility.name,
                     details: locationDetails || t('Facility details not listed'),
                   })}
+                  accessibilityState={{ selected: facility.id === facilityId }}
                   onPress={() => {
                     onSelect(facility);
                     close();

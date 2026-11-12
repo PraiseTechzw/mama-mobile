@@ -179,8 +179,8 @@ export const ndebeleTranslations: Record<string, string> = {
     'Sebenzisa indawo yami ukudinga ezempilakahle eziseduze',
   'Your location is used only to sort this list. It is not saved or sent anywhere.':
     'Indawo yakho isetshenziswa ukuhlela lolu hlu kuphela. Ayigcinwa njalo ayithunyelwa kwenye indawo.',
-  'Source: supplied Zimbabwe health facilities master dataset. Record years range from {startYear} to {endYear}; source and current operating status are not verified. Confirm details before traveling.':
-    'Umthombo: uhlu lwezempilakahle eZimbabwe olunikwe lolu hlelo. Iminyaka yamarekhodi isukela ku-{startYear} kusiya ku-{endYear}; umthombo lokusebenza kwamanje akuqinisekiswanga. Qinisekisa ungakayi.',
+  'Source file: data/zimbabwe_facilities_master-1782225366.csv. Record years range from {startYear} to {endYear}; original source and current operating status are not verified. Confirm details before traveling.':
+    'Ifayela lomthombo: data/zimbabwe_facilities_master-1782225366.csv. Iminyaka yamarekhodi isukela ku-{startYear} kusiya ku-{endYear}; umthombo lokusebenza kwamanje akuqinisekiswanga. Qinisekisa ungakayi.',
   'Remove selected facility': 'Susa indawo ekhethiweyo',
   'No matching facilities': 'Akulazindawo zezempilakahle ezitholakeleyo',
   'Try a different facility name, district or province.':
