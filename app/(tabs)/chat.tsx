@@ -1,13 +1,15 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
   FlatList,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   Pressable,
   TextInput,
   View,
+  useWindowDimensions,
 } from 'react-native';
 import { Image } from 'expo-image';
 import * as Linking from 'expo-linking';
@@ -78,7 +80,9 @@ export default function ChatScreen() {
   const [error, setError] = useState('');
   const [status, setStatus] = useState('');
   const [isSending, setIsSending] = useState(false);
+  const [keyboardInset, setKeyboardInset] = useState(0);
   const [now] = useState(() => Date.now());
+  const { height: windowHeight } = useWindowDimensions();
   const listRef = useRef<FlatList<ChatMessage>>(null);
   const week =
     pregnancyWeekFromDueDate(data.profile.dueDate) ?? data.profile.pregnancyWeek;
@@ -86,6 +90,21 @@ export default function ChatScreen() {
     .filter((reminder) => new Date(reminder.scheduledAt).getTime() >= now)
     .sort((a, b) => a.scheduledAt.localeCompare(b.scheduledAt))[0];
   const prompts = getSuggestedPrompts(week, nextReminder, data.profile.language);
+  useEffect(() => {
+    if (Platform.OS !== 'android') return undefined;
+
+    const showSubscription = Keyboard.addListener('keyboardDidShow', ({ endCoordinates }) => {
+      setKeyboardInset(Math.max(0, windowHeight - endCoordinates.screenY));
+    });
+    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardInset(0);
+    });
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  }, [windowHeight]);
   const recentMessages = data.chatMessages.slice(-6).map(({ author, text }) => ({
     author,
     text: text.slice(-500),
@@ -178,8 +197,8 @@ export default function ChatScreen() {
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1, backgroundColor: theme.background }}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      style={{ flex: 1, paddingBottom: keyboardInset, backgroundColor: theme.background }}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <FlatList
         ref={listRef}
         data={messages}
@@ -197,7 +216,7 @@ export default function ChatScreen() {
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: space.sm }}>
                 {whatsappUrl ? (
                   <ActionButton
-                    title={t('Chat on WhatsApp')}
+                    title={t('WhatsApp')}
                     brandIcon="whatsapp"
                     variant="secondary"
                     onPress={() => void openMessagingChannel(whatsappUrl, t('WhatsApp'))}
