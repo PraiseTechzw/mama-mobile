@@ -7,6 +7,9 @@
     "icon": "./assets/app-icons/app-icon.png",
     "scheme": "mamabot",
     "userInterfaceStyle": "automatic",
+    "androidStatusBar": {
+      "translucent": false
+    },
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
@@ -19,9 +22,6 @@
         "backgroundColor": "#FBF8FF",
         "foregroundImage": "./assets/app-icons/android-foreground.png",
         "monochromeImage": "./assets/app-icons/android-monochrome.png"
-      },
-      "androidStatusBar": {
-        "translucent": false
       },
       "predictiveBackGestureEnabled": false,
       "package": "com.praisetechzw.mamabot"

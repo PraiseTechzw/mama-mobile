@@ -179,7 +179,7 @@ export default function ChatScreen() {
   return (
     <KeyboardAvoidingView
       style={{ flex: 1, backgroundColor: theme.background }}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <FlatList
         ref={listRef}
         data={messages}
@@ -193,19 +193,12 @@ export default function ChatScreen() {
         }}
         ListHeaderComponent={
           <View style={{ gap: space.md, paddingBottom: space.md }}>
-            {isOnlineChatConfigured ? (
-              <Text
-                selectable
-                style={{ color: theme.muted, fontSize: typeScale.caption, lineHeight: 18 }}>
-                {t('Online chat uses your pregnancy week and recent messages for context. Your name and phone number are not sent.')}
-              </Text>
-            ) : null}
             {whatsappUrl || smsUrl ? (
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: space.sm }}>
                 {whatsappUrl ? (
                   <ActionButton
                     title={t('Chat on WhatsApp')}
-                    icon="chat"
+                    brandIcon="whatsapp"
                     variant="secondary"
                     onPress={() => void openMessagingChannel(whatsappUrl, t('WhatsApp'))}
                     style={{ flexGrow: 1, flexBasis: 140 }}
@@ -214,7 +207,7 @@ export default function ChatScreen() {
                 {smsUrl ? (
                   <ActionButton
                     title={t('Send by SMS')}
-                    icon="phone"
+                    icon="sms"
                     variant="outline"
                     onPress={() => void openMessagingChannel(smsUrl, t('SMS'))}
                     style={{ flexGrow: 1, flexBasis: 140 }}

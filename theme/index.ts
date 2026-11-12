@@ -83,6 +83,7 @@ export const icons = {
     web: 'warning',
   },
   phone: { ios: 'phone.fill', android: 'call', web: 'call' },
+  sms: { ios: 'message.fill', android: 'sms', web: 'sms' },
   drop: { ios: 'drop.fill', android: 'water_drop', web: 'water_drop' },
   eye: { ios: 'eye.fill', android: 'visibility', web: 'visibility' },
   breathing: { ios: 'wind', android: 'air', web: 'air' },

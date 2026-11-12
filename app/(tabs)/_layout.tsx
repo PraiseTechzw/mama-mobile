@@ -74,6 +74,7 @@ export default function TabLayout() {
       <Tabs
         screenOptions={{
           headerShown: true,
+          tabBarHideOnKeyboard: true,
           headerStyle: { backgroundColor: theme.primary },
           headerTintColor: theme.white,
           headerTitleStyle: { color: theme.white, fontFamily: 'Nunito_700Bold' },

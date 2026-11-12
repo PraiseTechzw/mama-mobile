@@ -9,11 +9,14 @@ import { useTranslation } from '@/utils/i18n';
 import { radius, space, typeScale, useAppTheme } from '@/theme';
 
 const warningSigns = [
-  'Heavy bleeding',
-  'Severe or persistent headache, or changes in vision',
-  'Difficulty breathing, fainting, or a seizure',
-  'Severe abdominal pain or a high fever',
-  'Fluid leaking, or a noticeable change in your baby’s movement',
+  { label: 'Heavy bleeding', icon: 'drop' as const },
+  { label: 'Severe or persistent headache, or changes in vision', icon: 'eye' as const },
+  { label: 'Difficulty breathing, fainting, or a seizure', icon: 'breathing' as const },
+  { label: 'Severe abdominal pain or a high fever', icon: 'medical' as const },
+  {
+    label: 'Fluid leaking, or a noticeable change in your baby’s movement',
+    icon: 'pregnancy' as const,
+  },
 ];
 
 export default function DangerSignsScreen() {
@@ -38,7 +41,17 @@ export default function DangerSignsScreen() {
           borderCurve: 'continuous',
           backgroundColor: theme.dangerSoft,
         }}>
-        <AppIcon name="warning" color={theme.danger} size={30} />
+        <View
+          style={{
+            width: 48,
+            height: 48,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: radius.md,
+            backgroundColor: theme.surface,
+          }}>
+          <AppIcon name="warning" color={theme.danger} size={25} />
+        </View>
         <Text style={{ color: theme.danger, fontSize: typeScale.title, fontWeight: '800' }}>
           {t('Don’t wait if something feels wrong.')}
         </Text>
@@ -54,12 +67,12 @@ export default function DangerSignsScreen() {
         <SurfaceCard style={{ padding: 0, gap: 0, overflow: 'hidden' }}>
           {warningSigns.map((sign, index) => (
             <View
-              key={sign}
+              key={sign.label}
               style={{
-                minHeight: 68,
+                minHeight: 72,
                 padding: space.lg,
                 flexDirection: 'row',
-                alignItems: 'center',
+                alignItems: 'flex-start',
                 gap: space.md,
                 borderBottomWidth: index === warningSigns.length - 1 ? 0 : 1,
                 borderBottomColor: theme.line,
@@ -73,15 +86,56 @@ export default function DangerSignsScreen() {
                   borderRadius: radius.full,
                   backgroundColor: theme.dangerSoft,
                 }}>
-                <AppIcon name="warning" color={theme.danger} size={15} />
+                <AppIcon name={sign.icon} color={theme.danger} size={16} />
               </View>
-              <Text selectable style={{ flex: 1, color: theme.text, fontSize: typeScale.body, lineHeight: 22 }}>
-                {t(sign)}
+              <Text
+                selectable
+                style={{
+                  flex: 1,
+                  paddingTop: 2,
+                  color: theme.text,
+                  fontSize: typeScale.body,
+                  lineHeight: 22,
+                }}>
+                {t(sign.label)}
               </Text>
             </View>
           ))}
         </SurfaceCard>
       </View>
+
+      <ActionButton
+        title={t('Show urgent care guidance')}
+        icon="phone"
+        variant="danger"
+        onPress={requestUrgentHelp}
+      />
+      {showHelp ? (
+        <View
+          accessibilityLiveRegion="polite"
+          style={{
+            flexDirection: 'row',
+            alignItems: 'flex-start',
+            gap: space.md,
+            padding: space.lg,
+            borderRadius: radius.md,
+            borderCurve: 'continuous',
+            backgroundColor: theme.dangerSoft,
+          }}>
+          <AppIcon name="phone" color={theme.danger} size={18} />
+          <Text
+            selectable
+            style={{
+              flex: 1,
+              color: theme.danger,
+              fontSize: typeScale.body,
+              fontWeight: '700',
+              lineHeight: 22,
+            }}>
+            {t('Please contact your local emergency service or nearest health facility now.')}
+          </Text>
+        </View>
+      ) : null}
 
       <SurfaceCard tone="soft">
         <Text style={{ color: theme.text, fontSize: typeScale.body, fontWeight: '700' }}>
@@ -91,21 +145,6 @@ export default function DangerSignsScreen() {
           {t('This list is not complete. If you feel something is seriously wrong, contact your care team or seek urgent help. This app cannot assess emergencies.')}
         </Text>
       </SurfaceCard>
-
-      <ActionButton
-        title={t('Show urgent care guidance')}
-        icon="phone"
-        variant="danger"
-        onPress={requestUrgentHelp}
-      />
-      {showHelp ? (
-        <Text
-          accessibilityLiveRegion="polite"
-          selectable
-          style={{ color: theme.danger, fontSize: typeScale.small, fontWeight: '600', textAlign: 'center' }}>
-          {t('Please contact your local emergency service or nearest health facility now.')}
-        </Text>
-      ) : null}
     </ScrollView>
   );
 }

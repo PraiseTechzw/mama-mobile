@@ -10,6 +10,7 @@ export function ActionButton({
   onPress,
   variant = 'primary',
   icon,
+  brandIcon,
   style,
   disabled = false,
 }: {
@@ -17,6 +18,7 @@ export function ActionButton({
   onPress: () => void;
   variant?: 'primary' | 'secondary' | 'danger' | 'outline';
   icon?: IconName;
+  brandIcon?: 'whatsapp';
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
 }) {
@@ -60,6 +62,32 @@ export function ActionButton({
         style,
       ]}>
       {icon ? <AppIcon name={icon} color={foregroundColor} size={18} /> : null}
+      {brandIcon === 'whatsapp' ? (
+        <View
+          accessibilityElementsHidden
+          importantForAccessibility="no-hide-descendants"
+          style={{
+            width: 20,
+            height: 20,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 10,
+            backgroundColor: '#25D366',
+          }}>
+          <View
+            style={{
+              position: 'absolute',
+              bottom: 1,
+              left: 1,
+              width: 6,
+              height: 6,
+              backgroundColor: '#25D366',
+              transform: [{ rotate: '35deg' }],
+            }}
+          />
+          <AppIcon name="phone" color="#FFFFFF" size={13} />
+        </View>
+      ) : null}
       <View>
         <Text style={{ color: foregroundColor, fontSize: typeScale.body, fontWeight: '700' }}>
           {title}

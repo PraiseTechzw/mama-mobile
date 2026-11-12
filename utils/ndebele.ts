@@ -130,8 +130,6 @@ export const ndebeleTranslations: Record<string, string> = {
     'Yehlulekile ukuthola i-AI eku-inthanethi; impendulo le isebenzise ulwazi olusefonini.',
   'MamaBot is replying…': 'UMamaBot uyaphendula…',
   'Connecting to online AI…': 'Sixhumana le-AI eku-inthanethi…',
-  'Online chat uses your pregnancy week and recent messages for context. Your name and phone number are not sent.':
-    'Ingxoxo eku-inthanethi isebenzisa iviki lokukhulelwa lengxoxo zakamuva. Ibizo lenombolo yakho yefoni akuthunyelwa.',
   'This could need urgent medical attention. Please contact your local emergency service or go to the nearest health facility now. Do not wait for a reply in this app. If you can, ask someone nearby to help you get care.':
     'Lokhu kungadinga usizo lwezempilakahle ngokuphangisa. Thinta usizo oluphuthumayo kumbe uye esibhedlela esiseduze khathesi. Ungalindi impendulo ku-app le. Nxa usenelisa, cela umuntu oseduze lawe akuncedise uthole usizo.',
   'Seek urgent in-person care for heavy bleeding, severe abdominal pain, a severe headache or blurred vision, difficulty breathing, fainting or seizures, high fever, fluid leaking, or reduced baby movement. Contact your local emergency service or nearest health facility now; do not wait for a reply in this app.':
