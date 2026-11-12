@@ -16,6 +16,7 @@ import { SurfaceCard } from '@/components/surface-card';
 import { useTranslation } from '@/utils/i18n';
 import {
   distanceToFacility,
+  facilityRecordYearRange,
   getHealthcareFacility,
   healthcareFacilities,
   type HealthcareFacility,
@@ -252,8 +253,8 @@ export function FacilityPicker({
             ) : null}
             <Text style={{ color: theme.muted, fontSize: typeScale.caption, lineHeight: 18 }}>
               {t('Source: supplied Zimbabwe health facilities master dataset. Record years range from {startYear} to {endYear}; source and current operating status are not verified. Confirm details before traveling.', {
-                startYear: '1998',
-                endYear: '2013',
+                startYear: facilityRecordYearRange.startYear,
+                endYear: facilityRecordYearRange.endYear,
               })}
             </Text>
           </View>
@@ -304,9 +305,13 @@ export function FacilityPicker({
                 .filter(Boolean)
                 .join(' · ');
               const distanceLabel =
-                distanceKm === null
-                  ? t('Location unavailable')
-                  : t('{distance} km away', { distance: distanceKm.toFixed(1) });
+                !coordinates
+                  ? ''
+                  : distanceKm === null
+                    ? t('Facility coordinates not provided')
+                    : t('Approx. {distance} km straight-line', {
+                        distance: distanceKm.toFixed(1),
+                      });
 
               return (
                 <Pressable
@@ -342,14 +347,16 @@ export function FacilityPicker({
                       }}>
                       {facility.name}
                     </Text>
-                    <Text
-                      style={{
-                        color: coordinates ? theme.primary : theme.muted,
-                        fontSize: typeScale.caption,
-                        fontWeight: '700',
-                      }}>
-                      {distanceLabel}
-                    </Text>
+                    {distanceLabel ? (
+                      <Text
+                        style={{
+                          color: coordinates ? theme.primary : theme.muted,
+                          fontSize: typeScale.caption,
+                          fontWeight: '700',
+                        }}>
+                        {distanceLabel}
+                      </Text>
+                    ) : null}
                   </View>
                   <Text style={{ color: theme.muted, fontSize: typeScale.small }}>
                     {locationDetails || t('Facility details not listed')}

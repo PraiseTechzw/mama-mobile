@@ -16,6 +16,15 @@ export type HealthcareFacility = {
 };
 
 export const healthcareFacilities: readonly HealthcareFacility[] = facilityRecords;
+const facilityRecordYears = healthcareFacilities
+  .map((facility) => facility.updated)
+  .filter((year): year is string => year !== null && /^\d{4}$/.test(year))
+  .map(Number);
+
+export const facilityRecordYearRange = {
+  startYear: Math.min(...facilityRecordYears),
+  endYear: Math.max(...facilityRecordYears),
+};
 
 export function getHealthcareFacility(id: string | null | undefined) {
   return id ? healthcareFacilities.find((facility) => facility.id === id) : undefined;

@@ -156,6 +156,48 @@ export const ndebeleTranslations: Record<string, string> = {
     'Ingxoxo yehlulekile ukususwa. Zama njalo.',
   'Your pregnancy, one step at a time': 'Uhambo lwakho lokukhulelwa, inyathelo ngalinye',
   'PREGNANCY CARE': 'UKUNAKEKELWA KOKUKHULELWA',
+  'Clinic or health facility (optional)': 'Ikilinika kumbe indawo yezempilakahle (akudingakali)',
+  'Choose the actual clinic for this visit, or search by name, district or province.':
+    'Khetha ikilinika ozayivakatshela, kumbe udinge ngebizo, isabelo kumbe isifundazwe.',
+  'Find a clinic or health facility': 'Dinga ikilinika kumbe indawo yezempilakahle',
+  'Health facility': 'Indawo yezempilakahle',
+  'Health facility: {name} · {district}, {province}':
+    'Indawo yezempilakahle: {name} · {district}, {province}',
+  'Choose a clinic or health facility': 'Khetha ikilinika kumbe indawo yezempilakahle',
+  '{count} facilities in Zimbabwe': 'Izindawo zezempilakahle ezingu-{count} eZimbabwe',
+  'Close facility list': 'Vala uhlu lwezindawo zezempilakahle',
+  'Search facilities by name, type, district or province':
+    'Dinga izindawo ngebizo, uhlobo, isabelo kumbe isifundazwe',
+  'Search facility, district or province': 'Dinga indawo, isabelo kumbe isifundazwe',
+  'Location access was not granted. You can still search all facilities by name, district or province.':
+    'Awuvumelanga ukusetshenziswa kwendawo okuyo. Usengadinga zonke izindawo ngebizo, isabelo kumbe isifundazwe.',
+  'Your location could not be determined': 'Indawo yakho yehlulekile ukutholakala',
+  'Your location could not be determined. Search by name, district or province instead.':
+    'Indawo yakho yehlulekile ukutholakala. Dinga ngebizo, isabelo kumbe isifundazwe.',
+  'Finding nearby facilities…': 'Kudingwa izindawo zezempilakahle eziseduze…',
+  'Use my location to find nearby facilities':
+    'Sebenzisa indawo yami ukudinga ezempilakahle eziseduze',
+  'Your location is used only to sort this list. It is not saved or sent anywhere.':
+    'Indawo yakho isetshenziswa ukuhlela lolu hlu kuphela. Ayigcinwa njalo ayithunyelwa kwenye indawo.',
+  'Source: supplied Zimbabwe health facilities master dataset. Record years range from {startYear} to {endYear}; source and current operating status are not verified. Confirm details before traveling.':
+    'Umthombo: uhlu lwezempilakahle eZimbabwe olunikwe lolu hlelo. Iminyaka yamarekhodi isukela ku-{startYear} kusiya ku-{endYear}; umthombo lokusebenza kwamanje akuqinisekiswanga. Qinisekisa ungakayi.',
+  'Remove selected facility': 'Susa indawo ekhethiweyo',
+  'No matching facilities': 'Akulazindawo zezempilakahle ezitholakeleyo',
+  'Try a different facility name, district or province.':
+    'Zama elinye ibizo lendawo, isabelo kumbe isifundazwe.',
+  'Facility coordinates not provided': 'Izixhumanisi zendawo kazinikwanga',
+  'Approx. {distance} km straight-line':
+    'Kungaba ngamakhilomitha angu-{distance} ngomugqa oqondileyo',
+  'Select {name}, {details}': 'Khetha {name}, {details}',
+  'Facility details not listed': 'Imininingwane yendawo kayibhalwanga',
+  'Facility record updated {year}': 'Irekhodi yendawo yalungiswa ngo-{year}',
+  'Facility record year not provided': 'Umnyaka werekhodi awunikwanga',
+  'Clinics and health facilities': 'Amakilinika lezindawo zezempilakahle',
+  'Browse the supplied Zimbabwe health facilities dataset. Records date from {startYear} to {endYear} and have not been verified for current operating status.':
+    'Bona uhlu lwezempilakahle eZimbabwe olunikezwe lolu hlelo. Amarekhodi asukela ku-{startYear} kusiya ku-{endYear} njalo ukusebenza kwamanje akuqinisekiswanga.',
+  'Find a nearby clinic or health facility': 'Dinga ikilinika kumbe indawo yezempilakahle eseduze',
+  'Allow location access to sort by distance, or search by facility, district or province.':
+    'Vumela ukusebenzisa indawo yakho ukuze kuhlelwe ngebanga, kumbe dinga ngebizo lendawo, isabelo kumbe isifundazwe.',
   'Gentle, general information to help you prepare for conversations with your ANC provider.':
     'Ulwazi oluvamileyo olukunceda ulungiselele ukukhuluma lomhlinzeki wakho we-ANC.',
   'Browse by trimester': 'Khangela ngezigaba zokukhulelwa',

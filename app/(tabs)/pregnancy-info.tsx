@@ -12,6 +12,7 @@ import { useAppState } from '@/contexts/app-state';
 import { useTranslation } from '@/utils/i18n';
 import prenatalCareImage from '@/assets/illustrations/prenatal-care-consultation.png';
 import { pregnancyWeekFromDueDate } from '@/utils/pregnancy';
+import { facilityRecordYearRange } from '@/utils/facilities';
 import { radius, space, typeScale, useAppTheme } from '@/theme';
 
 const stages = [
@@ -282,7 +283,10 @@ export default function PregnancyInfoScreen() {
           {t('Clinics and health facilities')}
         </Text>
         <Text style={{ color: theme.muted, fontSize: typeScale.small, lineHeight: 20 }}>
-          {t('Browse the supplied Zimbabwe health facilities dataset. Records date from 1998 to 2013 and have not been verified for current operating status.')}
+          {t('Browse the supplied Zimbabwe health facilities dataset. Records date from {startYear} to {endYear} and have not been verified for current operating status.', {
+            startYear: facilityRecordYearRange.startYear,
+            endYear: facilityRecordYearRange.endYear,
+          })}
         </Text>
         <FacilityPicker
           facilityId={facilityId}

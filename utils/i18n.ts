@@ -176,6 +176,49 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     'Choose a stage to explore guidance for that part of pregnancy.':
       'Sarudza chikamu kuti uone mazano enguva iyoyo yepamuviri.',
     'Stage guidance': 'Mazano echikamu ichi',
+    'Clinic or health facility (optional)': 'Kiriniki kana nzvimbo yehutano (zvisingadiwi)',
+    'Choose the actual clinic for this visit, or search by name, district or province.':
+      'Sarudza kiriniki yekushanyira, kana tsvaga nezita, dunhu kana purovhinzi.',
+    'Find a clinic or health facility': 'Tsvaga kiriniki kana nzvimbo yehutano',
+    'Health facility': 'Nzvimbo yehutano',
+    'Health facility: {name} · {district}, {province}':
+      'Nzvimbo yehutano: {name} · {district}, {province}',
+    'Choose a clinic or health facility': 'Sarudza kiriniki kana nzvimbo yehutano',
+    '{count} facilities in Zimbabwe': 'Nzvimbo dzehutano {count} muZimbabwe',
+    'Close facility list': 'Vhara runyorwa rwenzvimbo dzehutano',
+    'Search facilities by name, type, district or province':
+      'Tsvaga nzvimbo nezita, rudzi, dunhu kana purovhinzi',
+    'Search facility, district or province': 'Tsvaga nzvimbo, dunhu kana purovhinzi',
+    'Location access was not granted. You can still search all facilities by name, district or province.':
+      'Hauna kupa mvumo yekushandisa nzvimbo yako. Unogona kutsvaga nzvimbo dzese nezita, dunhu kana purovhinzi.',
+    'Your location could not be determined':
+      'Nzvimbo yako haina kukwanisa kuzivikanwa',
+    'Your location could not be determined. Search by name, district or province instead.':
+      'Nzvimbo yako haina kukwanisa kuzivikanwa. Tsvaga nezita, dunhu kana purovhinzi.',
+    'Finding nearby facilities…': 'Kutsvaga nzvimbo dzehutano dziri pedyo…',
+    'Use my location to find nearby facilities':
+      'Shandisa nzvimbo yangu kutsvaga nzvimbo dzehutano dziri pedyo',
+    'Your location is used only to sort this list. It is not saved or sent anywhere.':
+      'Nzvimbo yako inoshandiswa kuronga runyorwa urwu chete. Haichengetwi kana kutumirwa kumwe.',
+    'Source: supplied Zimbabwe health facilities master dataset. Record years range from {startYear} to {endYear}; source and current operating status are not verified. Confirm details before traveling.':
+      'Kwabva: runyorwa rwenzvimbo dzehutano rweZimbabwe rwakapihwa. Makore ezvinyorwa anobva {startYear} kusvika {endYear}; kwakabva mashoko uye kushanda kwenzvimbo izvozvi hazvina kusimbiswa. Simbisa usati waenda.',
+    'Remove selected facility': 'Bvisa nzvimbo yasarudzwa',
+    'No matching facilities': 'Hapana nzvimbo dzehutano dzawanikwa',
+    'Try a different facility name, district or province.':
+      'Edza rimwe zita renzvimbo, dunhu kana purovhinzi.',
+    'Facility coordinates not provided': 'Marongero enzvimbo haana kupihwa',
+    'Approx. {distance} km straight-line':
+      'Makiromita anosvika {distance} nemutsara wakatwasuka',
+    'Select {name}, {details}': 'Sarudza {name}, {details}',
+    'Facility details not listed': 'Mashoko enzvimbo haana kunyorwa',
+    'Facility record updated {year}': 'Chinyorwa chenzvimbo chakagadziridzwa muna {year}',
+    'Facility record year not provided': 'Gore rechinyorwa chenzvimbo harina kupihwa',
+    'Clinics and health facilities': 'Makiriniki nenzvimbo dzehutano',
+    'Browse the supplied Zimbabwe health facilities dataset. Records date from {startYear} to {endYear} and have not been verified for current operating status.':
+      'Ongorora runyorwa rwenzvimbo dzehutano rweZimbabwe rwakapihwa. Zvinyorwa zvinobva muna {startYear} kusvika {endYear} uye kushanda kwenzvimbo izvozvi hakuna kusimbiswa.',
+    'Find a nearby clinic or health facility': 'Tsvaga kiriniki kana nzvimbo yehutano iri pedyo',
+    'Allow location access to sort by distance, or search by facility, district or province.':
+      'Bvumira kushandisa nzvimbo yako kuronga nedaro, kana tsvaga nezita renzvimbo, dunhu kana purovhinzi.',
     'First trimester': 'Chikamu chekutanga chemimba',
     'Second trimester': 'Chikamu chechipiri chemimba',
     'Third trimester': 'Chikamu chechitatu chemimba',
@@ -555,6 +598,47 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     'Choose a stage to explore guidance for that part of pregnancy.':
       'Khetha isigaba ukuze ubone izeluleko zaleso sikhathi sokukhulelwa.',
     'Stage guidance': 'Izeluleko zesigaba',
+    'Clinic or health facility (optional)': 'Ikilinika kumbe indawo yezempilakahle (akudingakali)',
+    'Choose the actual clinic for this visit, or search by name, district or province.':
+      'Khetha ikilinika ozayivakatshela, kumbe udinge ngebizo, isabelo kumbe isifundazwe.',
+    'Find a clinic or health facility': 'Dinga ikilinika kumbe indawo yezempilakahle',
+    'Health facility': 'Indawo yezempilakahle',
+    'Health facility: {name} · {district}, {province}':
+      'Indawo yezempilakahle: {name} · {district}, {province}',
+    'Choose a clinic or health facility': 'Khetha ikilinika kumbe indawo yezempilakahle',
+    '{count} facilities in Zimbabwe': 'Izindawo zezempilakahle ezingu-{count} eZimbabwe',
+    'Close facility list': 'Vala uhlu lwezindawo zezempilakahle',
+    'Search facilities by name, type, district or province':
+      'Dinga izindawo ngebizo, uhlobo, isabelo kumbe isifundazwe',
+    'Search facility, district or province': 'Dinga indawo, isabelo kumbe isifundazwe',
+    'Location access was not granted. You can still search all facilities by name, district or province.':
+      'Awuvumelanga ukusetshenziswa kwendawo okuyo. Usengadinga zonke izindawo ngebizo, isabelo kumbe isifundazwe.',
+    'Your location could not be determined': 'Indawo yakho yehlulekile ukutholakala',
+    'Your location could not be determined. Search by name, district or province instead.':
+      'Indawo yakho yehlulekile ukutholakala. Dinga ngebizo, isabelo kumbe isifundazwe.',
+    'Finding nearby facilities…': 'Kudingwa izindawo zezempilakahle eziseduze…',
+    'Use my location to find nearby facilities':
+      'Sebenzisa indawo yami ukudinga ezempilakahle eziseduze',
+    'Your location is used only to sort this list. It is not saved or sent anywhere.':
+      'Indawo yakho isetshenziswa ukuhlela lolu hlu kuphela. Ayigcinwa njalo ayithunyelwa kwenye indawo.',
+    'Source: supplied Zimbabwe health facilities master dataset. Record years range from {startYear} to {endYear}; source and current operating status are not verified. Confirm details before traveling.':
+      'Umthombo: uhlu lwezempilakahle eZimbabwe olunikwe lolu hlelo. Iminyaka yamarekhodi isukela ku-{startYear} kusiya ku-{endYear}; umthombo lokusebenza kwamanje akuqinisekiswanga. Qinisekisa ungakayi.',
+    'Remove selected facility': 'Susa indawo ekhethiweyo',
+    'No matching facilities': 'Akulazindawo zezempilakahle ezitholakeleyo',
+    'Try a different facility name, district or province.':
+      'Zama elinye ibizo lendawo, isabelo kumbe isifundazwe.',
+    'Facility coordinates not provided': 'Izixhumanisi zendawo kazinikwanga',
+    'Approx. {distance} km straight-line': 'Kungaba ngamakhilomitha angu-{distance} ngomugqa oqondileyo',
+    'Select {name}, {details}': 'Khetha {name}, {details}',
+    'Facility details not listed': 'Imininingwane yendawo kayibhalwanga',
+    'Facility record updated {year}': 'Irekhodi yendawo yalungiswa ngo-{year}',
+    'Facility record year not provided': 'Umnyaka werekhodi awunikwanga',
+    'Clinics and health facilities': 'Amakilinika lezindawo zezempilakahle',
+    'Browse the supplied Zimbabwe health facilities dataset. Records date from {startYear} to {endYear} and have not been verified for current operating status.':
+      'Bona uhlu lwezempilakahle eZimbabwe olunikezwe lolu hlelo. Amarekhodi asukela ku-{startYear} kusiya ku-{endYear} njalo ukusebenza kwamanje akuqinisekiswanga.',
+    'Find a nearby clinic or health facility': 'Dinga ikilinika kumbe indawo yezempilakahle eseduze',
+    'Allow location access to sort by distance, or search by facility, district or province.':
+      'Vumela ukusebenzisa indawo yakho ukuze kuhlelwe ngebanga, kumbe dinga ngebizo lendawo, isabelo kumbe isifundazwe.',
     'First trimester': 'Isigaba sokuqala sokukhulelwa',
     'Second trimester': 'Isigaba sesibili sokukhulelwa',
     'Third trimester': 'Isigaba sesithathu sokukhulelwa',
