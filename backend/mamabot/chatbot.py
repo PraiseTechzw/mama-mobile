@@ -1,5 +1,7 @@
 import json
+import math
 import re
+from collections import Counter
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
@@ -56,6 +58,34 @@ def _read_catalog() -> tuple[list[Intent], dict[str, dict[str, str]], dict[str, 
 
 INTENTS, RESPONSES, LANGUAGE_PREFIXES = _read_catalog()
 IntentClassifier = Callable[[str], tuple[str, str] | None]
+_TOKEN_PATTERN = re.compile(r"[a-z0-9]+")
+_BM25_K1 = 1.2
+_BM25_B = 0.75
+
+
+def _tokens(text: str) -> list[str]:
+    return _TOKEN_PATTERN.findall(text.casefold())
+
+
+_SEARCH_DOCUMENTS = [
+    (
+        intent,
+        order,
+        language,
+        Counter(_tokens(" ".join(intent.patterns[language]))),
+    )
+    for order, intent in enumerate(INTENTS)
+    for language in LANGUAGES
+]
+_DOCUMENT_FREQUENCIES = Counter(
+    token
+    for _intent, _order, _language, frequencies in _SEARCH_DOCUMENTS
+    for token in frequencies
+)
+_AVERAGE_DOCUMENT_LENGTH = (
+    sum(sum(frequencies.values()) for _intent, _order, _language, frequencies in _SEARCH_DOCUMENTS)
+    / max(1, len(_SEARCH_DOCUMENTS))
+)
 
 
 def _normalize(message: str) -> str:
@@ -79,40 +109,85 @@ def classify_question(
         if explicit_language:
             break
 
-    language_scores = {language: 0 for language in LANGUAGES}
-    intent_scores: list[tuple[int, float, Intent]] = []
-    for order, intent in enumerate(INTENTS):
-        score = 0.0
-        for language in LANGUAGES:
-            for phrase in intent.patterns[language]:
-                if phrase in normalized:
-                    evidence = max(1, len(phrase.split()))
-                    score += evidence + len(phrase) / 100
-                    language_scores[language] += evidence
-        intent_scores.append((order, score, intent))
+    urgent_intent = next(intent for intent in INTENTS if intent.id == "urgent_symptoms")
+    urgent_languages = {
+        language: sum(
+            1
+            for phrase in urgent_intent.patterns[language]
+            if _normalize(phrase) in normalized
+        )
+        for language in LANGUAGES
+    }
+    if any(urgent_languages.values()):
+        best_urgent_score = max(urgent_languages.values())
+        detected_language = explicit_language or next(
+            (
+                language
+                for language in (preferred, *LANGUAGES)
+                if urgent_languages[language] == best_urgent_score
+            ),
+            preferred,
+        )
+        return "urgent_symptoms", detected_language
 
-    intent_scores.sort(
-        key=lambda item: (
-            item[1] > 0 and item[2].id == "urgent_symptoms",
-            item[1],
-            -item[0],
+    query_tokens = Counter(_tokens(normalized))
+    if not query_tokens:
+        return "fallback", explicit_language or preferred
+
+    intent_language_scores: dict[str, dict[str, float]] = {}
+    for intent, _order, language, frequencies in _SEARCH_DOCUMENTS:
+        document_length = sum(frequencies.values())
+        score = 0.0
+        for token, query_frequency in query_tokens.items():
+            term_frequency = frequencies.get(token, 0)
+            if not term_frequency:
+                continue
+            document_frequency = _DOCUMENT_FREQUENCIES[token]
+            inverse_frequency = math.log(
+                1 + (len(_SEARCH_DOCUMENTS) - document_frequency + 0.5)
+                / (document_frequency + 0.5)
+            )
+            denominator = term_frequency + _BM25_K1 * (
+                1 - _BM25_B + _BM25_B * document_length / _AVERAGE_DOCUMENT_LENGTH
+            )
+            score += (
+                inverse_frequency
+                * term_frequency
+                * (_BM25_K1 + 1)
+                / denominator
+                * min(query_frequency, 2)
+            )
+        for phrase in intent.patterns[language]:
+            normalized_phrase = _normalize(phrase)
+            if normalized_phrase and normalized_phrase in normalized:
+                score += 1 + min(len(normalized_phrase.split()), 3) * 0.25
+        language_scores = intent_language_scores.setdefault(
+            intent.id,
+            {candidate: 0.0 for candidate in LANGUAGES},
+        )
+        language_scores[language] = score
+
+    intent_order = {intent.id: order for order, intent in enumerate(INTENTS)}
+    matched_intent = max(
+        INTENTS,
+        key=lambda intent: (
+            max(intent_language_scores[intent.id].values()),
+            -intent_order[intent.id],
         ),
-        reverse=True,
     )
-    matched_intent = intent_scores[0][2] if intent_scores[0][1] > 0 else None
+    best_intent_score = max(intent_language_scores[matched_intent.id].values())
+    if best_intent_score <= 0:
+        return "fallback", explicit_language or preferred
+
+    language_scores = intent_language_scores[matched_intent.id]
     best_language_score = max(language_scores.values())
     tied_languages = [
-        language
-        for language, score in language_scores.items()
-        if score == best_language_score
+        language for language, score in language_scores.items() if score == best_language_score
     ]
     detected_language = explicit_language or (
-        preferred
-        if best_language_score == 0 or preferred in tied_languages
-        else tied_languages[0]
+        preferred if preferred in tied_languages else tied_languages[0]
     )
-
-    return (matched_intent.id if matched_intent else "fallback", detected_language)
+    return matched_intent.id, detected_language
 
 
 def _render_response(

@@ -143,6 +143,7 @@ def create_app(test_config: Mapping[str, object] | None = None) -> Flask:
                 preferred_language=language,
                 context=classification_context,
             ),
+            force_language=True,
             context=classification_context,
         )
         return jsonify(reply=reply, mode=mode)

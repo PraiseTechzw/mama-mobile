@@ -1,6 +1,7 @@
 import io
 import json
 import unittest
+from urllib.error import HTTPError
 from unittest.mock import patch
 
 from backend.mamabot.openrouter import classify_with_openrouter
@@ -37,6 +38,7 @@ class OpenRouterTests(unittest.TestCase):
         )
         self.assertEqual(result, ("nutrition", "sn"))
         request = mocked_urlopen.call_args.args[0]
+        self.assertEqual(request.get_header("Authorization"), "Bearer test-key")
         payload = json.loads(request.data)
         self.assertEqual(payload["provider"], {"data_collection": "deny", "zdr": True})
         self.assertEqual(payload["response_format"]["type"], "json_schema")
@@ -95,6 +97,29 @@ class OpenRouterTests(unittest.TestCase):
             )
         )
         self.assertEqual(mocked_urlopen.call_count, 1)
+
+    @patch("backend.mamabot.openrouter.urlopen")
+    def test_http_error_logs_status_and_provider_message_without_question(self, mocked_urlopen) -> None:
+        question = "private health question"
+        body = json.dumps(
+            {"error": {"message": "No endpoints found matching your data policy"}}
+        ).encode()
+        mocked_urlopen.side_effect = HTTPError(
+            "https://openrouter.ai/api/v1/chat/completions",
+            404,
+            "Not Found",
+            {},
+            io.BytesIO(body),
+        )
+
+        with self.assertLogs("backend.mamabot.openrouter", level="WARNING") as logs:
+            result = classify_with_openrouter(question, "test-key", "openrouter/free")
+
+        self.assertIsNone(result)
+        message = "\n".join(logs.output)
+        self.assertIn("HTTP 404", message)
+        self.assertIn("No endpoints found matching your data policy", message)
+        self.assertNotIn(question, message)
 
 
 if __name__ == "__main__":

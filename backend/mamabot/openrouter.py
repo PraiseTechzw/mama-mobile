@@ -131,7 +131,23 @@ def classify_with_openrouter(
         if confidence < MIN_CLASSIFICATION_CONFIDENCE:
             return "clarify", language
         return intent_id, language
-    except (HTTPError, URLError, TimeoutError, UnicodeDecodeError, json.JSONDecodeError,
+    except HTTPError as error:
+        try:
+            response_data = json.loads(error.read().decode("utf-8"))
+            error_data = response_data.get("error", {})
+            detail = error_data.get("message", "") if isinstance(error_data, dict) else ""
+            detail = " ".join(detail.split())
+            detail = detail.replace(api_key, "[redacted]").replace(message, "[question redacted]")
+            detail = detail[:240]
+        except (UnicodeDecodeError, json.JSONDecodeError, OSError):
+            detail = ""
+        LOGGER.warning(
+            "OpenRouter classification rejected with HTTP %d%s; using local matching.",
+            error.code,
+            f": {detail}" if detail else "",
+        )
+        return None
+    except (URLError, TimeoutError, UnicodeDecodeError, json.JSONDecodeError,
             OSError, KeyError, IndexError, TypeError, ValueError) as error:
         LOGGER.warning(
             "OpenRouter classification unavailable; using local matching (%s).",

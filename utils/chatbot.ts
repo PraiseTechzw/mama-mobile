@@ -23,6 +23,37 @@ function normalizeMessage(message: string) {
     .replace(/\s+/g, ' ');
 }
 
+function tokenize(message: string) {
+  return message.toLowerCase().match(/[a-z0-9]+/g) ?? [];
+}
+
+function termFrequencies(tokens: string[]) {
+  const frequencies = new Map<string, number>();
+  tokens.forEach((token) => frequencies.set(token, (frequencies.get(token) ?? 0) + 1));
+  return frequencies;
+}
+
+const searchDocuments = chatbotIntents.intents.flatMap((intent, order) =>
+  languages.map((language) => {
+    const tokens = tokenize(intent.patterns[language].join(' '));
+    return {
+      intentId: intent.id,
+      order,
+      language,
+      frequencies: termFrequencies(tokens),
+      length: tokens.length,
+    };
+  }),
+);
+const documentFrequencies = termFrequencies(
+  searchDocuments.flatMap((document) => [...document.frequencies.keys()]),
+);
+const averageDocumentLength =
+  searchDocuments.reduce((total, document) => total + document.length, 0) /
+  Math.max(1, searchDocuments.length);
+const bm25K1 = 1.2;
+const bm25B = 0.75;
+
 function findLanguagePrefix(message: string) {
   for (const language of languages) {
     const prefix = chatbotIntents.languagePrefixes[language].find((candidate) =>
@@ -42,42 +73,104 @@ export function classifyOfflineQuestion(
   const normalized = normalizeMessage(message);
   const prefixed = findLanguagePrefix(normalized);
   const query = prefixed?.message ?? normalized;
-  const languageScores: Record<AppLanguage, number> = { en: 0, sn: 0, nd: 0 };
-  const intentScores = chatbotIntents.intents.map((intent, order) => {
+  const urgentIntent = chatbotIntents.intents.find(
+    (intent) => intent.id === 'urgent_symptoms',
+  );
+  const urgentLanguageScores = languages.reduce<Record<AppLanguage, number>>(
+    (scores, language) => {
+      scores[language] =
+        urgentIntent?.patterns[language].filter((phrase) =>
+          query.includes(normalizeMessage(phrase)),
+        ).length ?? 0;
+      return scores;
+    },
+    { en: 0, sn: 0, nd: 0 },
+  );
+  const bestUrgentScore = Math.max(...Object.values(urgentLanguageScores));
+  if (bestUrgentScore > 0) {
+    const urgentLanguages = languages.filter(
+      (language) => urgentLanguageScores[language] === bestUrgentScore,
+    );
+    return {
+      intent: 'urgent_symptoms',
+      language:
+        prefixed?.language ??
+        (urgentLanguages.includes(preferredLanguage) ? preferredLanguage : urgentLanguages[0]),
+      message: query,
+    };
+  }
+
+  const queryFrequencies = termFrequencies(tokenize(query));
+  if (queryFrequencies.size === 0) {
+    return {
+      intent: 'fallback',
+      language: prefixed?.language ?? preferredLanguage,
+      message: query,
+    };
+  }
+
+  const intentScores = new Map<
+    string,
+    { order: number; scores: Record<AppLanguage, number> }
+  >();
+  for (const document of searchDocuments) {
     let score = 0;
-    for (const language of languages) {
-      for (const phrase of intent.patterns[language]) {
-        const normalizedPhrase = normalizeMessage(phrase);
-        if (query.includes(normalizedPhrase)) {
-          const evidence = Math.max(1, normalizedPhrase.split(' ').length);
-          score += evidence + normalizedPhrase.length / 100;
-          languageScores[language] += evidence;
-        }
+    for (const [token, queryFrequency] of queryFrequencies) {
+      const frequency = document.frequencies.get(token) ?? 0;
+      if (!frequency) continue;
+
+      const documentFrequency = documentFrequencies.get(token) ?? 0;
+      const inverseFrequency = Math.log(
+        1 + (searchDocuments.length - documentFrequency + 0.5) / (documentFrequency + 0.5),
+      );
+      const denominator =
+        frequency +
+        bm25K1 *
+          (1 - bm25B + (bm25B * document.length) / averageDocumentLength);
+      score +=
+        (inverseFrequency * frequency * (bm25K1 + 1) / denominator) *
+        Math.min(queryFrequency, 2);
+    }
+
+    const intent = chatbotIntents.intents[document.order];
+    for (const phrase of intent.patterns[document.language]) {
+      const normalizedPhrase = normalizeMessage(phrase);
+      if (normalizedPhrase && query.includes(normalizedPhrase)) {
+        score += 1 + Math.min(normalizedPhrase.split(' ').length, 3) * 0.25;
       }
     }
-    return { intent, order, score };
-  });
 
-  const rankedIntents = intentScores.sort((left, right) => {
-    if (left.intent.id === 'urgent_symptoms' && left.score > 0) return -1;
-    if (right.intent.id === 'urgent_symptoms' && right.score > 0) return 1;
-    return right.score - left.score || left.order - right.order;
-  });
-  const matchedIntent = rankedIntents[0]?.score ? rankedIntents[0].intent : undefined;
+    const scores = intentScores.get(document.intentId) ?? {
+      order: document.order,
+      scores: { en: 0, sn: 0, nd: 0 },
+    };
+    scores.scores[document.language] = score;
+    intentScores.set(document.intentId, scores);
+  }
+
+  const rankedIntents = [...intentScores.entries()].sort(
+    ([, left], [, right]) =>
+      Math.max(...Object.values(right.scores)) -
+        Math.max(...Object.values(left.scores)) ||
+      left.order - right.order,
+  );
+  const [matchedIntent, ranked] = rankedIntents[0] ?? [];
+  const bestIntentScore = ranked ? Math.max(...Object.values(ranked.scores)) : 0;
+  const languageScores = ranked?.scores ?? { en: 0, sn: 0, nd: 0 };
   const bestLanguageScore = Math.max(...Object.values(languageScores));
   const tiedLanguages = languages.filter(
     (language) => languageScores[language] === bestLanguageScore,
   );
   const detectedLanguage =
     prefixed?.language ??
-    (bestLanguageScore === 0
+    (bestIntentScore === 0
       ? preferredLanguage
       : tiedLanguages.includes(preferredLanguage)
         ? preferredLanguage
         : tiedLanguages[0]);
 
   return {
-    intent: matchedIntent?.id ?? 'fallback',
+    intent: bestIntentScore > 0 ? matchedIntent : 'fallback',
     language: detectedLanguage,
     message: query,
   };
@@ -93,8 +186,8 @@ export function getOfflineReply(
   nextReminder: Reminder | undefined,
   language: AppLanguage,
 ) {
-  const { intent, language: replyLanguage } = classifyOfflineQuestion(message, language);
-  const responseLanguage = replyLanguage;
+  const { intent } = classifyOfflineQuestion(message, language);
+  const responseLanguage = language;
   let responseId = intent;
   const values: Record<string, string> = {};
 

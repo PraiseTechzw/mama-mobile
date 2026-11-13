@@ -147,7 +147,7 @@ export default function ChatScreen() {
       let reply = getLocalReply(replyMessage, week, nextReminder, data.profile.language);
       if (isOnlineChatConfigured && !isUrgent) {
         try {
-          const onlineResult = await getOnlineReply(text, data.profile.language, {
+          const onlineResult = await getOnlineReply(replyMessage.trim(), data.profile.language, {
             pregnancyWeek: week,
             recentMessages,
           });

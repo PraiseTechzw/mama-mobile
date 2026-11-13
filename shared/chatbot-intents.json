@@ -57,9 +57,9 @@
     {
       "id": "body_changes",
       "patterns": {
-        "en": ["body changes", "changes might i notice", "changes in my body", "nausea", "morning sickness", "heartburn", "back pain", "tiredness", "fatigue", "swelling", "discomfort"],
-        "sn": ["kusvotwa", "kuneta", "chirungurira", "kurwadziwa musana", "kuzvimba", "shanduko dzemuviri"],
-        "nd": ["ukuhlanza", "ukukhathala", "ukutshisa esifubeni", "ubuhlungu bomhlane", "ukuvuvukala", "inguquko emzimbeni", "utshintsho"]
+        "en": ["body changes", "changes might i notice", "changes in my body", "heartburn", "back pain", "tiredness", "fatigue", "swelling", "discomfort"],
+        "sn": ["kuneta", "chirungurira", "kurwadziwa musana", "kuzvimba", "shanduko dzemuviri"],
+        "nd": ["ukukhathala", "ukutshisa esifubeni", "ubuhlungu bomhlane", "ukuvuvukala", "inguquko emzimbeni", "utshintsho"]
       },
       "response": "body_changes"
     },
@@ -152,6 +152,86 @@
         "nd": ["imibuzo yomhlanzi", "ngingabuza", "imibuzo engingayibuza"]
       },
       "response": "provider_questions"
+    },
+    {
+      "id": "antenatal_care",
+      "patterns": {
+        "en": ["when should i start antenatal care", "how often should i go to antenatal clinic", "how many pregnancy checkups", "when is my next prenatal visit", "why go to anc", "clinic visit schedule"],
+        "sn": ["ndinofanira kutanga riini kushanyira anc", "ndinofanira kudzokera riini kuanc", "kushanya kangani kukiriniki", "chirongwa chekushanya kuanc", "sei ndichifanira kuenda kuanc"],
+        "nd": ["ngiqale nini ukuvakatshela i-anc", "ngibuye nini ku-anc", "ngihambe kangaki eklinika", "uhlelo lokuvakatshela i-anc", "kungani ngiye e-anc"]
+      },
+      "response": "antenatal_care",
+      "sources": ["https://www.who.int/publications/i/item/9789241549912", "https://www.who.int/health-topics/maternal-health"]
+    },
+    {
+      "id": "supplements",
+      "patterns": {
+        "en": ["iron and folic acid", "prenatal vitamins", "should i take vitamins", "what supplements are safe", "supplements during pregnancy"],
+        "sn": ["iron ne folic acid", "mavhitamini epamuviri", "ndinofanira kutora mavhitamini", "zvinowedzerwa pamuviri"],
+        "nd": ["i-iron le-folic acid", "amavithamini okukhulelwa", "ngithathe amavithamini", "izakhamzimba ezikhulelweni"]
+      },
+      "response": "supplements",
+      "sources": ["https://www.who.int/publications/i/item/9789241549912", "https://www.who.int/news-room/fact-sheets/detail/anaemia"]
+    },
+    {
+      "id": "nausea",
+      "patterns": {
+        "en": ["nausea during pregnancy", "morning sickness", "vomiting while pregnant", "cannot keep food down", "cannot keep fluids down"],
+        "sn": ["kusvotwa pamuviri", "kuda kurutsa pamuviri", "kurutsa ndine pamuviri", "handikwanisi kuchengetedza mvura mudumbu"],
+        "nd": ["ukuhlanza ngikhulelwe", "ukuzizwa ngihlanza ngesikhathi sokukhulelwa", "angigcini ukudla esiswini", "ukuhlanza ekuseni"]
+      },
+      "response": "nausea",
+      "sources": ["https://www.who.int/publications/i/item/9789241549912"]
+    },
+    {
+      "id": "food_safety",
+      "patterns": {
+        "en": ["food safety during pregnancy", "is this food safe", "wash fruits and vegetables", "undercooked meat", "safe drinking water"],
+        "sn": ["kuchengetedza chikafu pamuviri", "chikafu chakachengeteka", "kugeza miriwo nemichero", "kubika nyama zvakanaka", "mvura yakachena"],
+        "nd": ["ukuphepha kokudla ngesikhathi sokukhulelwa", "ukudla okuphephileyo", "ukugeza izithelo", "ukupheka inyama kuze kuphele", "amanzi ahlanzekileyo"]
+      },
+      "response": "food_safety",
+      "sources": ["https://www.who.int/news-room/fact-sheets/detail/healthy-diet"]
+    },
+    {
+      "id": "emotional_wellbeing",
+      "patterns": {
+        "en": ["emotional wellbeing during pregnancy", "pregnancy anxiety support", "feel down while pregnant", "stress while pregnant", "mental health support in pregnancy"],
+        "sn": ["kushushikana pamuviri", "kusuruvara pamuviri", "rubatsiro rwepfungwa pamuviri", "ndiri kutya pamuviri"],
+        "nd": ["ukukhathazeka ngokukhulelwa", "ukudana ngesikhathi sokukhulelwa", "usizo lwempilo yengqondo", "ukuzizwa ngidanile ngikhulelwe"]
+      },
+      "response": "emotional_wellbeing",
+      "sources": ["https://www.who.int/news-room/fact-sheets/detail/mental-health-strengthening-our-response"]
+    },
+    {
+      "id": "birth_plan",
+      "patterns": {
+        "en": ["make a birth plan", "where should i give birth", "plan for labour and birth", "prepare transport for delivery", "who can support me during birth"],
+        "sn": ["urongwa hwangu hwekusununguka", "ndisunungukire kupi", "kugadzirira zvekufambisa pakusununguka", "munhu achanditsigira pakusununguka"],
+        "nd": ["uhlelo lwami lokubeletha", "ngibeletele ngaphi", "ukulungiselela ezokuthutha kokubeletha", "ngubani ozangisekela ekubeletheni"]
+      },
+      "response": "birth_plan",
+      "sources": ["https://www.who.int/health-topics/maternal-health"]
+    },
+    {
+      "id": "postpartum_care",
+      "patterns": {
+        "en": ["care after birth", "postnatal checkup", "postpartum recovery", "health after childbirth", "when should i return after delivery"],
+        "sn": ["kuchengetwa mushure mekusununguka", "kuongororwa mushure mekusununguka", "utano mushure mekusununguka", "ndinofanira kudzokera riini mushure mekusununguka"],
+        "nd": ["ukunakekelwa ngemva kokubeletha", "ukuhlolwa ngemva kokubeletha", "impilo ngemva kokubeletha", "ngibuye nini ngemva kokuzala"]
+      },
+      "response": "postpartum_care",
+      "sources": ["https://www.who.int/health-topics/maternal-health"]
+    },
+    {
+      "id": "breastfeeding",
+      "patterns": {
+        "en": ["how to breastfeed", "help with breastfeeding", "breastfeeding support", "baby is not latching", "breastfeeding is painful"],
+        "sn": ["kuyamwisa mwana", "rubatsiro rwekuyamwisa", "mwana haasi kuyamwa zvakanaka", "kuyamwisa kunorwadza"],
+        "nd": ["ukuncelisa usane", "usizo ngokuncelisa", "usane alunceli kuhle", "ukuncelisa kubuhlungu"]
+      },
+      "response": "breastfeeding",
+      "sources": ["https://www.who.int/health-topics/breastfeeding"]
     },
     {
       "id": "greeting",

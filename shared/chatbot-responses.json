@@ -129,6 +129,46 @@
     "sn": "Unogona kubvunza mupi wako mafambiro epamuviri, kuongororwa kwakarongwa, zviratidzo zvekutarisa, kana mishonga yako yakakodzera, nguva yekudzoka, uye kuwana rubatsiro pakati pekushanya. Nyora zvinokunetsa kuti muzokurukura.",
     "nd": "Ungabuza umhlanzi wakho ukuthi ukukhulelwa kuqhubeka njani, yikuphi ukuhlolwa okuhleliweyo, izibonakaliso zokunanzelela, nxa imithi yakho ikufanele, isikhathi sokubuya, lokuthola usizo phakathi kokuvakatshela. Bhala izinto ezikukhathazayo ukuze lizikhulume."
   },
+  "antenatal_care": {
+    "en": "Arrange antenatal care as soon as you can and follow the visit schedule your clinic gives you. Visits help your care team check on you and your baby and answer questions. Ask your provider when to return and how to get help between visits.",
+    "sn": "Ronga kushanyira ANC nokukurumidza sezvaunokwanisa uye tevera nguva dzekudzoka dzaunopiwa kukiriniki. Kushanya uku kunobatsira timu yako yezveutano kutarisa iwe nemwana uye kupindura mibvunzo. Bvunza mupi wako nguva yekudzoka uye nzira yekuwana rubatsiro pakati pekushanya.",
+    "nd": "Hlela ukuvakatshela i-ANC masinyane ngangoba ungenelisa njalo ulandele izikhathi zokubuya ozinikezwa yikilinika. Ukuvakatshela kunceda ithimba lakho lezempilakahle likuhlole wena losane njalo liphendule imibuzo. Buza umhlanzi wakho ukuthi ubuye nini lokuthi ungaluthola njani usizo phakathi kokuvakatshela."
+  },
+  "supplements": {
+    "en": "Ask your ANC provider which vitamins or supplements, if any, are right for you and how to take them. Do not start several products together, take high doses, or stop prescribed medicine without checking with a health professional.",
+    "sn": "Bvunza mupi wako weANC kuti ndeapi mavhitamini kana zvinowedzerwa, kana zvichidiwa, zvakakukodzera uye kuti uzvitore sei. Usatanga zvigadzirwa zvakawanda pamwe chete, kutora madosi akawandisa, kana kurega mushonga wawakatemerwa usina kubvunza nyanzvi yezveutano.",
+    "nd": "Buza umhlanzi wakho we-ANC ukuthi ngawaphi amavithamini kumbe izakhamzimba ezenezelwayo, nxa kudingeka, ezikufaneleyo lokuthi uzisebenzise njani. Ungaqali izithako ezinengi ndawonye, uthathe umthamo omkhulu, kumbe utshiye umuthi owawuphiwe ungakakhulumi lengcitshi yezempilakahle."
+  },
+  "nausea": {
+    "en": "Mild nausea can happen during pregnancy. Small, frequent meals and sipping fluids may feel easier for some people. If you cannot keep fluids down, feel faint, or are worried, contact a health provider promptly. Severe pain, heavy bleeding, or trouble breathing needs urgent in-person care.",
+    "sn": "Kusvotwa kuduku kunogona kuitika pamuviri. Kudya zvishoma kakawanda uye kunwa zvinwiwa zvishoma nezvishoma kungabatsira vamwe. Kana usingakwanisi kuchengetedza zvinwiwa mudumbu, uchinzwa sokufenda, kana uchinetseka, taura nemupi wezveutano nokukurumidza. Kurwadziwa zvikuru, kubuda ropa rakawanda kana kutadza kufema zvinoda rubatsiro rwechimbichimbi kuchipatara.",
+    "nd": "Ukuzizwa uhlanza kancane kungavela ngesikhathi sokukhulelwa. Ukudla okuncane kanengi lokunatha amanzi kancane kunganceda abanye. Nxa ungagcini amanzi esiswini, usizwa angathi uzakuwa isithuli, kumbe ukhathazekile, xhumana lomsebenzi wezempilakahle masinyane. Ubuhlungu obukhulu, ukopha kakhulu kumbe ukuphefumula nzima kudinga usizo ngokuphangisa esibhedlela."
+  },
+  "food_safety": {
+    "en": "For safer food, wash your hands and fresh produce, use clean water, cook food thoroughly, and store it safely. Ask your clinic about local food-safety advice or support if safe water or food is hard to access.",
+    "sn": "Kuti chikafu chive chakachengeteka, geza maoko nezvibereko zvitsva, shandisa mvura yakachena, bika chikafu zvakanaka, uye chichengete zvakachengeteka. Bvunza kukiriniki nezvemazano ekuchengetedza chikafu kana rubatsiro kana mvura kana chikafu chakachengeteka chichinetsa kuwana.",
+    "nd": "Ukuze ukudla kuphephe, geza izandla lezithelo kumbe imibhida, sebenzisa amanzi ahlanzekileyo, kupheka ukudla kuze kuphele, njalo ukugcine kuhle. Buza ekilinika ngezeluleko zokuphepha kokudla kumbe usizo nxa kunzima ukuthola amanzi kumbe ukudla okuphephileyo."
+  },
+  "emotional_wellbeing": {
+    "en": "Pregnancy can bring many feelings. Consider talking with someone you trust and tell your ANC provider if worry, sadness, or stress is affecting daily life. If you might harm yourself or someone else, seek urgent help from a trusted person or health service now.",
+    "sn": "Pamuviri panogona kuuya nemanzwiro akasiyana-siyana. Taura nemunhu waunovimba naye uye udza mupi wako weANC kana kunetseka, kusuruvara kana kushushikana zvichikanganisa upenyu hwako hwezuva nezuva. Kana uchifunga kuzvikuvadza kana kukuvadza mumwe munhu, tsvaga rubatsiro rwechimbichimbi kumunhu waunovimba naye kana kuchipatara izvozvi.",
+    "nd": "Ukukhulelwa kungaletha imizwa eminengi. Khuluma lomuntu omthembayo njalo utshele umhlanzi wakho we-ANC nxa ukukhathazeka, usizi kumbe ukucindezeleka kuphazamisa impilo yakho yansuku zonke. Nxa ucabanga ukuzilimaza kumbe ukulimaza omunye umuntu, dinga usizo ngokuphangisa kumuntu omthembayo kumbe emsebenzini wezempilakahle khathesi."
+  },
+  "birth_plan": {
+    "en": "Talk with your ANC provider about where to give birth, who will provide skilled care, transport, a support person, and how to get help in an emergency. Plans can change; ask what to do if labour starts or you have a warning sign.",
+    "sn": "Taura nemupi wako weANC nezvenzvimbo yekusunungukira, nyanzvi ichakubatsira, zvekufambisa, munhu achakutsigira, uye nzira yekuwana rubatsiro kana paine dambudziko rechimbichimbi. Zvirongwa zvinogona kuchinja; bvunza zvekuita kana kurwadziwa kwekusununguka kwatanga kana ukaona chiratidzo chengozi.",
+    "nd": "Khuluma lomhlanzi wakho we-ANC ngendawo ozabeletha kuyo, ukuthi ngubani ozakunika ukunakekelwa okufaneleyo, ezokuthutha, umuntu ozakusekela, lokuthi ungaluthola njani usizo nxa kulokuphuthuma. Amalungiselelo angatshintsha; buza ukuthi wenzeni nxa inhlungu zokuqala kumbe ubona isibonakaliso sengozi."
+  },
+  "postpartum_care": {
+    "en": "Care for you and your baby continues after birth. Follow the check-up plan from your health facility and ask for help with recovery, feeding, or mood changes. Heavy bleeding, fever, severe headache, trouble breathing, or feeling seriously unwell after birth needs urgent medical care.",
+    "sn": "Kuchengetwa kwako nemwana kunoenderera mushure mekusununguka. Tevera hurongwa hwekuongororwa hwaunopiwa kuchipatara uye kumbira rubatsiro pakupora, pakuyamwisa kana pakuchinja kwemanzwiro. Kubuda ropa rakawanda, kupisa muviri, kurwadziwa musoro zvikuru, kutadza kufema kana kurwara zvakanyanya mushure mekusununguka zvinoda rubatsiro rwechimbichimbi.",
+    "nd": "Ukunakekelwa kwakho losane kuyaqhubeka ngemva kokubeletha. Landela uhlelo lokuhlolwa olunikwa yisibhedlela njalo ucele usizo ngokusila, ukuncelisa kumbe ukuntshintsha kwemizwa. Ukopha kakhulu, umkhuhlane, ikhanda elibuhlungu kakhulu, ukuphefumula nzima kumbe ukuzizwa ugula kakhulu ngemva kokubeletha kudinga usizo ngokuphangisa."
+  },
+  "breastfeeding": {
+    "en": "If you plan to breastfeed, ask your midwife or health worker for practical support with positioning and feeding. Every family’s situation is different; ask for individual advice if feeding is painful, the baby is not feeding well, or you have questions about medicines or your health.",
+    "sn": "Kana uchida kuyamwisa, kumbira nyamukuta kana mushandi wezveutano akuratidze nzira yekubata nekuyamwisa mwana. Mamiriro emhuri imwe neimwe akasiyana; kumbira mazano anoenderana newe kana kuyamwisa kuchirwadza, mwana asingayamwi zvakanaka, kana uine mibvunzo nezvemishonga kana utano hwako.",
+    "nd": "Nxa uhlela ukuncelisa, cela umhlengikazi kumbe umsebenzi wezempilakahle akuncedise ngokubamba losane lokuluncelisa. Isimo semuli ngayinye sitshiyene; cela iseluleko esiqondene lawe nxa ukuncelisa kubuhlungu, usane lunganceli kuhle, kumbe ulombuzo ngemithi kumbe ngempilakahle yakho."
+  },
   "fallback": {
     "en": "I’m an offline information guide and don’t have a specific answer for that. Please ask your ANC provider for advice about your situation. If you have severe pain, heavy bleeding, trouble breathing, or another urgent concern, seek in-person care now.",
     "sn": "Ndiri nhungamiro yeruzivo isingashandisi internet uye handina mhinduro chaiyo yeizvozvo. Bvunza mupi wako weANC nezvemamiriro ako. Kana uchirwadziwa zvikuru, uchibuda ropa rakawanda, uchitadza kufema, kana uine rimwe dambudziko rechimbichimbi, tsvaga rubatsiro rwechiso nechiso izvozvi.",
@@ -145,8 +185,8 @@
     "nd": "Angilaqiniseki ukuthi ngizwisisile. Ungaphinda ubeke umbuzo wakho kumbe utsho ukuthi umayelana lezinguquko zokukhulelwa, ukuvakatshela ikilinika, ukudla, imithi kumbe izibonakaliso zengozi? Ukuze uthole izeluleko ngesimo sakho, khuluma lomhlanzi wakho we-ANC."
   },
   "greeting": {
-    "en": "Hello, I’m MamaBot. I can share general pregnancy information in English, Shona, or Ndebele. Ask about antenatal visits, food, medicines, pregnancy changes, or warning signs. I’ll try to reply in the language you use. I’m not a clinician. For urgent concerns, contact a health facility now.",
-    "sn": "Mhoro, ndini MamaBot. Ndinogona kupa ruzivo rwakajairika rwepamuviri muChirungu, Shona kana Ndebele. Bvunza nezvekushanya kuANC, kudya, mishonga, shanduko dzepamuviri kana zviratidzo zvengozi. Ndichaedza kupindura nemutauro waunoshandisa. Handisi chiremba. Kana dambudziko richikurumidzira, enda kuchipatara izvozvi.",
-    "nd": "Salibonani, nginguMamaBot. Ngingabelana ngolwazi olujayelekileyo ngokukhulelwa ngesiNgisi, iShona kumbe isiNdebele. Buza ngokuvakatshela i-ANC, ukudla, imithi, izinguquko zokukhulelwa kumbe izibonakaliso zengozi. Ngizazama ukuphendula ngolimi olusebenzisayo. Angisiyo ingcitshi yezempilakahle. Nxa kulohlupho oluphuthumayo, yana esibhedlela khathesi."
+    "en": "Hello, I’m MamaBot. I can share general pregnancy information in English, Shona, or Ndebele. Ask about antenatal visits, food, medicines, pregnancy changes, or warning signs. I reply in your selected app language. I’m not a clinician. For urgent concerns, contact a health facility now.",
+    "sn": "Mhoro, ndini MamaBot. Ndinogona kupa ruzivo rwakajairika rwepamuviri muChirungu, Shona kana Ndebele. Bvunza nezvekushanya kuANC, kudya, mishonga, shanduko dzepamuviri kana zviratidzo zvengozi. Ndinopindura nemutauro wawakasarudza muapp. Handisi chiremba. Kana dambudziko richikurumidzira, enda kuchipatara izvozvi.",
+    "nd": "Salibonani, nginguMamaBot. Ngingabelana ngolwazi olujayelekileyo ngokukhulelwa ngesiNgisi, iShona kumbe isiNdebele. Buza ngokuvakatshela i-ANC, ukudla, imithi, izinguquko zokukhulelwa kumbe izibonakaliso zengozi. Ngiphendula ngolimi olukhethileyo ku-app. Angisiyo ingcitshi yezempilakahle. Nxa kulohlupho oluphuthumayo, yana esibhedlela khathesi."
   }
 }

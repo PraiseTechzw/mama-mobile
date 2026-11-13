@@ -1,9 +1,42 @@
 import unittest
 
-from backend.mamabot.chatbot import answer_question, answer_question_with_mode, classify_question
+from backend.mamabot.chatbot import (
+    LANGUAGES,
+    RESPONSES,
+    answer_question,
+    answer_question_with_mode,
+    classify_question,
+)
 
 
 class ChatbotTests(unittest.TestCase):
+    def test_every_offline_response_has_all_supported_languages(self) -> None:
+        for response_id, translations in RESPONSES.items():
+            with self.subTest(response_id=response_id):
+                self.assertEqual(set(translations), set(LANGUAGES))
+                self.assertTrue(all(translations[language].strip() for language in LANGUAGES))
+
+    def test_expanded_offline_topics_are_searchable_in_all_supported_languages(self) -> None:
+        examples = (
+            ("When should I start antenatal care?", "antenatal_care", "en"),
+            ("Ndinofanira kutanga riini kushanyira ANC?", "antenatal_care", "sn"),
+            ("How should I plan transport for delivery?", "birth_plan", "en"),
+            ("Usizo ngokuncelisa", "breastfeeding", "nd"),
+            ("Kuchengetwa mushure mekusununguka", "postpartum_care", "sn"),
+        )
+        for question, expected_intent, expected_language in examples:
+            with self.subTest(question=question):
+                self.assertEqual(
+                    classify_question(question),
+                    (expected_intent, expected_language),
+                )
+
+    def test_ranked_search_handles_paraphrased_antenatal_question(self) -> None:
+        self.assertEqual(
+            classify_question("How often must I visit the clinic while expecting?"),
+            ("antenatal_care", "en"),
+        )
+
     def test_english_danger_sign_question(self) -> None:
         self.assertEqual(classify_question("Which warning signs need urgent care?"), ("danger_signs", "en"))
         reply = answer_question("Which warning signs need urgent care?")
@@ -52,6 +85,16 @@ class ChatbotTests(unittest.TestCase):
         self.assertEqual(mode, "offline")
         self.assertIn("around week 6", reply)
         self.assertIn("first trimester", reply)
+
+    def test_selected_language_is_used_for_english_questions(self) -> None:
+        for language, expected in (("sn", "Edza kudya"), ("nd", "Zama ukudla")):
+            with self.subTest(language=language):
+                reply, _mode = answer_question_with_mode(
+                    "What foods should I eat?",
+                    preferred_language=language,
+                    force_language=True,
+                )
+                self.assertIn(expected, reply)
 
     def test_pregnancy_basics_reply_uses_saved_week_context(self) -> None:
         reply, _mode = answer_question_with_mode(
