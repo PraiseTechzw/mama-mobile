@@ -61,6 +61,7 @@ const averageDocumentLength =
   Math.max(1, searchDocuments.length);
 const bm25K1 = 1.2;
 const bm25B = 0.75;
+const minIntentScore = 3;
 
 function findLanguagePrefix(message: string) {
   for (const language of languages) {
@@ -184,26 +185,26 @@ export function classifyOfflineQuestion(
         Math.max(...Object.values(left.scores)) ||
       left.order - right.order,
   );
-  const [matchedIntent, ranked] = rankedIntents[0] ?? [];
+  const [matchedIntent = 'fallback', ranked] = rankedIntents[0] ?? [];
   const bestIntentScore = ranked ? Math.max(...Object.values(ranked.scores)) : 0;
   const languageScores = ranked?.scores ?? { en: 0, sn: 0, nd: 0 };
   const bestLanguageScore = Math.max(...Object.values(languageScores));
   const tiedLanguages = languages.filter(
     (language) => languageScores[language] === bestLanguageScore,
   );
+  if (bestIntentScore < minIntentScore) {
+    return {
+      intent: 'fallback',
+      language: inferredLanguage ?? preferredLanguage,
+      message: query,
+    };
+  }
+
   const detectedLanguage =
     inferredLanguage ??
-    (bestIntentScore === 0
-      ? preferredLanguage
-      : tiedLanguages.includes(preferredLanguage)
-        ? preferredLanguage
-        : tiedLanguages[0]);
+    (tiedLanguages.includes(preferredLanguage) ? preferredLanguage : tiedLanguages[0]);
 
-  return {
-    intent: bestIntentScore > 0 ? matchedIntent : 'fallback',
-    language: detectedLanguage,
-    message: query,
-  };
+  return { intent: matchedIntent, language: detectedLanguage, message: query };
 }
 
 function interpolate(template: string, values: Record<string, string>) {

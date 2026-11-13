@@ -70,6 +70,7 @@ IntentClassifier = Callable[[str], tuple[str, str] | None]
 _TOKEN_PATTERN = re.compile(r"[a-z0-9]+")
 _BM25_K1 = 1.2
 _BM25_B = 0.75
+_MIN_INTENT_SCORE = 3.0
 _STOP_WORDS = frozenset(
     "a an and are as at be been but by can could did do does for from had has have he her "
     "how i if in is it me my of on or our please she should so tell that the their them "
@@ -226,7 +227,7 @@ def classify_question(
         ),
     )
     best_intent_score = max(intent_language_scores[matched_intent.id].values())
-    if best_intent_score <= 0:
+    if best_intent_score < _MIN_INTENT_SCORE:
         return "fallback", inferred_language or preferred
 
     language_scores = intent_language_scores[matched_intent.id]

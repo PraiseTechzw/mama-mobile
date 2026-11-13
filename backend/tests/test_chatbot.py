@@ -57,12 +57,33 @@ class ChatbotTests(unittest.TestCase):
                 self.assertEqual(mode, "offline")
                 self.assertIn("Edza kudya", reply)
 
+    def test_ndebele_and_unmatched_shona_questions_keep_their_language(self) -> None:
+        self.assertEqual(classify_question("Ngifuna ukudla", "en"), ("nutrition", "nd"))
+        self.assertIn("Zama ukudla", answer_question("Ngifuna ukudla", "en"))
+        self.assertEqual(
+            classify_question("Handina chokwadi chekuti ndingaita sei", "en"),
+            ("fallback", "sn"),
+        )
+        self.assertIn(
+            "Handina mhinduro",
+            answer_question("Handina chokwadi chekuti ndingaita sei", "en"),
+        )
+
     def test_nonurgent_general_help_does_not_use_urgent_safety_response(self) -> None:
         reply, mode = answer_question_with_mode("Ndinoda rubatsiro nezvekudya", "en")
         self.assertEqual(mode, "offline")
         self.assertIn("Edza kudya", reply)
         self.assertNotIn("Usamirire imwe meseji", reply)
 
+    def test_online_language_result_cannot_override_clear_shona_input(self) -> None:
+        reply, mode = answer_question_with_mode(
+            "Ndinofanira kudyei?",
+            "en",
+            classifier=lambda _message: ("nutrition", "en"),
+        )
+
+        self.assertEqual(mode, "online")
+        self.assertIn("Edza kudya", reply)
     def test_english_danger_sign_question(self) -> None:
         self.assertEqual(classify_question("Which warning signs need urgent care?"), ("danger_signs", "en"))
         reply = answer_question("Which warning signs need urgent care?")
@@ -123,12 +144,12 @@ class ChatbotTests(unittest.TestCase):
 
     def test_online_classifier_selects_catalog_reply_but_not_freeform_advice(self) -> None:
         reply, mode = answer_question_with_mode(
-            "How should I prepare before the clinic?",
+            "Ndinofanira kudyei?",
             classifier=lambda _message: ("visit_preparation", "sn"),
         )
         self.assertEqual(mode, "online")
-        self.assertIn("kuongororwa kwepamuviri", reply)
-        self.assertNotIn("How should I prepare", reply)
+        self.assertIn("Pakuongororwa", reply)
+        self.assertNotIn("Ndinofanira kudyei", reply)
 
     def test_pregnancy_week_context_personalizes_backend_reply(self) -> None:
         reply, mode = answer_question_with_mode(

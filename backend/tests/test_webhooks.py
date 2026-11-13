@@ -133,7 +133,7 @@ class WebhookTests(unittest.TestCase):
         response = app.test_client().post(
             "/api/chat",
             json={
-                "message": "What foods should I eat?",
+                "message": "Ndinofanira kudyei?",
                 "language": "en",
                 "use_online": True,
             },
@@ -307,7 +307,7 @@ class WebhookTests(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(classifier_calls, ["What foods should I eat?"])
-        self.assertIn("Edza kudya", response.text)
+        self.assertIn("Aim for a varied diet", response.text)
 
     def test_whatsapp_auto_detects_shona_for_non_urgent_question(self) -> None:
         classifier_calls: list[str] = []

@@ -93,7 +93,7 @@
     {
       "id": "nutrition",
       "patterns": {
-        "en": ["food", "nutrition", "what should i eat", "safe water", "what can i drink", "diet"],
+        "en": ["food", "nutrition", "what should i eat", "safe water", "what can i drink", "diet", "what foods and drinks are helpful", "what foods are helpful"],
         "sn": ["kudya", "zvekudya", "zvinovaka muviri", "mvura", "ndinofanira kudyei", "ndidyei", "chii chandingadye", "ndinoda rubatsiro nezvekudya"],
         "nd": ["ukudla", "amanzi", "okwakha umzimba", "ngidle", "nginatheni"]
       },
