@@ -25,7 +25,6 @@ import { classifyOfflineQuestion, getOfflineReply } from '@/utils/chatbot';
 import {
   facilityRecordYearRange,
   getNearestHealthcareFacilities,
-  healthcareFacilities,
 } from '@/utils/facilities';
 import { localeForLanguage, translate, useTranslation } from '@/utils/i18n';
 import { messagingChannels } from '@/utils/messaging-channels';
@@ -210,7 +209,7 @@ export default function ChatScreen() {
     return saved;
   };
 
-  const formatUpcomingReminders = (userText: string) => {
+  const formatUpcomingReminders = () => {
     const upcoming = data.reminders
       .filter((reminder) => new Date(reminder.scheduledAt).getTime() >= now)
       .sort((left, right) => left.scheduledAt.localeCompare(right.scheduledAt))
@@ -276,7 +275,7 @@ export default function ChatScreen() {
     if (action === 'show_reminders') {
       setError('');
       setStatus(t('Your reminders stay on this phone and are not sent to online AI.'));
-      saveExchange(message.trim(), formatUpcomingReminders(message.trim()), true);
+      saveExchange(message.trim(), formatUpcomingReminders(), true);
       return;
     }
     if (action === 'create_reminder') {

@@ -130,7 +130,7 @@ export default function WelcomeScreen() {
                 id: 'privacy',
                 author: 'mama' as const,
                 text: t(
-                  'Your profile stays on this device. If online classification is enabled, your question and recent chat are sent to Perplexity through OpenRouter, where the provider may process or retain them. Do not include names or contact details.',
+                  'Your name, phone number, and reminders stay on this device. If online AI is used, your question, up to 6 recent chat messages, and saved pregnancy week are sent through OpenRouter to an AI model provider, which may process or retain them. Nearby-facility search checks your location on this phone; it is not sent online. Do not include names or contact details in chat.',
                 ),
               },
             ]
