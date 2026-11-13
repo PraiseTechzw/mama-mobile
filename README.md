@@ -74,7 +74,7 @@ The root `.env.example` documents the supported public app settings:
 
 | Variable | Purpose |
 | --- | --- |
-| `EXPO_PUBLIC_MAMABOT_API_URL` | HTTPS origin of the optional Flask backend, without a trailing slash. Leave blank for offline-only chat. |
+| `EXPO_PUBLIC_MAMABOT_API_URL` | Optional HTTPS origin override for the Flask backend. Defaults to `https://mama-backend-fg8v.onrender.com`; leave unset to use that default. |
 | `EXPO_PUBLIC_MAMABOT_WHATSAPP_NUMBER` | Optional public WhatsApp contact number in international digits, without `+`. |
 | `EXPO_PUBLIC_MAMABOT_SMS_NUMBER` | Optional public SMS contact number in international digits, without `+`. |
 

@@ -10,7 +10,9 @@ export type OnlineChatContext = {
   recentMessages: { author: 'mama' | 'you'; text: string }[];
 };
 
-const backendUrl = process.env.EXPO_PUBLIC_MAMABOT_API_URL?.trim().replace(/\/+$/, '') ?? '';
+const backendUrl = (
+  process.env.EXPO_PUBLIC_MAMABOT_API_URL?.trim() || 'https://mama-backend-fg8v.onrender.com'
+).replace(/\/+$/, '');
 
 export const isOnlineChatConfigured =
   /^https:\/\/[^/]+(?:\/.*)?$/i.test(backendUrl) ||
