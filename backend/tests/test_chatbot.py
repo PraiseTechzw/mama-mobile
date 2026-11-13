@@ -16,6 +16,15 @@ class ChatbotTests(unittest.TestCase):
                 self.assertEqual(set(translations), set(LANGUAGES))
                 self.assertTrue(all(translations[language].strip() for language in LANGUAGES))
 
+    def test_pregnancy_guidance_avoids_anc_jargon(self) -> None:
+        for response_id, translations in RESPONSES.items():
+            with self.subTest(response_id=response_id):
+                for language in LANGUAGES:
+                    self.assertNotRegex(
+                        translations[language].casefold(),
+                        r"\b(?:anc|antenatal)\b",
+                    )
+
     def test_expanded_offline_topics_are_searchable_in_all_supported_languages(self) -> None:
         examples = (
             ("When should I start antenatal care?", "antenatal_care", "en"),
@@ -62,7 +71,8 @@ class ChatbotTests(unittest.TestCase):
                 self.assertEqual(classify_question(question), ("headache", "sn"))
                 reply, mode = answer_question_with_mode(question)
                 self.assertEqual(mode, "offline")
-                self.assertIn("mushandi wako weANC", reply)
+                self.assertIn("mushandi", reply)
+                self.assertNotIn("ANC", reply)
                 self.assertIn("Kana uchirwadza zvikuru", reply)
 
     def test_uncertain_online_result_keeps_local_shona_headache_match(self) -> None:
@@ -72,7 +82,8 @@ class ChatbotTests(unittest.TestCase):
         )
 
         self.assertEqual(mode, "offline")
-        self.assertIn("mushandi wako weANC", reply)
+        self.assertIn("mushandi", reply)
+        self.assertNotIn("ANC", reply)
         self.assertNotIn("Handina kunyatsonzwisisa", reply)
 
     def test_ndebele_urgent_symptom_is_prioritized(self) -> None:
@@ -99,7 +110,7 @@ class ChatbotTests(unittest.TestCase):
             classifier=lambda _message: ("visit_preparation", "sn"),
         )
         self.assertEqual(mode, "online")
-        self.assertIn("ANC", reply)
+        self.assertIn("kuongororwa kwepamuviri", reply)
         self.assertNotIn("How should I prepare", reply)
 
     def test_pregnancy_week_context_personalizes_backend_reply(self) -> None:
@@ -161,7 +172,7 @@ class ChatbotTests(unittest.TestCase):
     def test_unknown_question_uses_safe_localized_fallback(self) -> None:
         self.assertEqual(classify_question("Can you tell me a story?"), ("fallback", "en"))
         reply = answer_question("ND: random question")
-        self.assertIn("umhlanzi wakho", reply)
+        self.assertIn("umsebenzi wezempilakahle", reply)
         self.assertNotIn("intanethi", reply)
         self.assertNotIn("app", reply)
 

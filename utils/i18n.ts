@@ -10,14 +10,14 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     'Get trusted information, reminders and support through your phone.':
       'Wana ruzivo rwakavimbika, zviyeuchidzo nerutsigiro pafoni yako.',
     'Ask health questions': 'Bvunza mibvunzo yezveutano',
-    'Set ANC reminders': 'Isa zviyeuchidzo zveANC',
+    'Set ANC reminders': 'Isa zviyeuchidzo zvekuongororwa kwepamuviri',
     'Know danger signs': 'Ziva zviratidzo zvengozi',
     'CARE AT EVERY STAGE': 'RUTSIGIRO PAKATI PAKWESE',
     'Stay close to your care': 'Ramba uri pedyo nerubatsiro rwako',
     'Explore helpful pregnancy guidance and keep your antenatal visits in view.':
       'Wana mazano anobatsira epamuviri uye rangarira kushanya kwako kukiriniki.',
     'Guidance for each trimester': 'Mazano echikamu chimwe nechimwe chemimba',
-    'Gentle ANC visit reminders': 'Zviyeuchidzo zvinyoro zvekushanya kuANC',
+    'Gentle ANC visit reminders': 'Zviyeuchidzo zvinyoro zvekushanya kukiriniki kunoongororwa pamuviri',
     'SUPPORT WITH CARE': 'RUTSIGIRO NERUDO',
     'Know when to get help': 'Ziva nguva yekutsvaga rubatsiro',
     'Ask MamaBot common pregnancy questions and learn which danger signs need urgent medical attention.':
@@ -58,7 +58,7 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
       'Isa vhiki repamuviri kubva pa1 kusvika pa42, kana kuti siya risina chinhu.',
     'Enter a valid due date in YYYY-MM-DD format.':
       'Isa zuva rakarurama nenzira yeYYYY-MM-DD.',
-    'ANC notifications': 'Zviziviso zveANC',
+    'ANC notifications': 'Zviziviso zvekuongororwa kwepamuviri',
     'Optional alerts for saved reminders. Permission is requested on this device.':
       'Zviziviso zvingasarudzwa zvezviyeuchidzo zvawakachengeta. Mvumo inokumbirwa pafoni iyi.',
     'Device notifications are available in the Android and iOS app.':
@@ -92,7 +92,7 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     'Week {week} of 40': 'Vhiki {week} pamavhiki 40',
     'Pregnancy progress': 'Kufambira mberi kwepamuviri',
     'Your ANC provider can confirm your dates.':
-      'Mupi wako weANC anogona kusimbisa mazuva ako.',
+      'Mupi wako wekukiriniki anogona kusimbisa mazuva ako.',
     'Make your guidance personal': 'Wana mazano anoenderana newe',
     'Add your pregnancy week or due date to see guidance for your stage.':
       'Isa vhiki repamuviri kana zuva rekusununguka kuti uone mazano echikamu chako.',
@@ -100,21 +100,21 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     'A midwife supporting an expectant mother': 'Nyamukuta achibatsira amai vane pamuviri',
     'Your next step': 'Danho rako rinotevera',
     'Keep your antenatal care close at hand.':
-      'Ramba uchitevera rubatsiro rwako rweANC.',
+      'Ramba uchitevera rubatsiro rwako rwekukiriniki.',
     Info: 'Ruzivo',
     Chat: 'Nhaurirano',
     Reminders: 'Zviyeuchidzo',
     'Pregnancy Info': 'Ruzivo rwepamuviri',
-    'ANC reminders': 'Zviyeuchidzo zveANC',
+    'ANC reminders': 'Zviyeuchidzo zvekuongororwa kwepamuviri',
     'Personalized offline guide': 'Nhungamiro yako isingashandisi internet',
-    'Open ANC reminders': 'Vhura zviyeuchidzo zveANC',
+    'Open ANC reminders': 'Vhura zviyeuchidzo zvekuongororwa kwepamuviri',
     'Chat with MamaBot': 'Kurukura naMamaBot',
     'Hello, {name}': 'Mhoro, {name}',
     'You’re around week {week}. How can we help today?':
       'Une mavhiki angangoita {week}. Tingakubatsira sei nhasi?',
     'How can we help today?': 'Tingakubatsira sei nhasi?',
-    'Your next ANC reminder': 'Chiyeuchidzo chako chinotevera cheANC',
-    'Next ANC appointment': 'Kushanya kunotevera kuANC',
+    'Your next ANC reminder': 'Chiyeuchidzo chako chinotevera chekuongororwa kwepamuviri',
+    'Next ANC appointment': 'Kushanya kunotevera kukiriniki kunoongororwa pamuviri',
     'Plan your next visit': 'Ronga kushanya kwako kunotevera',
     'Add a reminder to keep your care on track.':
       'Isa chiyeuchidzo kuti urambe uchitevera rubatsiro rwako.',
@@ -171,7 +171,7 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     'Your pregnancy, one step at a time': 'Rwendo rwako rwepamuviri, danho nedanho',
     'PREGNANCY CARE': 'RUBATSIRO RWEPAMUVIRI',
     'Gentle, general information to help you prepare for conversations with your ANC provider.':
-      'Ruzivo rwakajairika rwekukubatsira kugadzirira kutaura nemupi wako werubatsiro rweANC.',
+      'Ruzivo rwakajairika rwekukubatsira kugadzirira kutaura nemupi wako werubatsiro rwekukiriniki.',
     'Browse by trimester': 'Tarisa nezvikamu zvemimba',
     'Choose a stage to explore guidance for that part of pregnancy.':
       'Sarudza chikamu kuti uone mazano enguva iyoyo yepamuviri.',
@@ -229,23 +229,23 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     'Weeks 28–40': 'Vhiki 28–40',
     'YOUR STAGE': 'CHIKAMU CHAKO',
     'Helpful topics': 'Misoro inobatsira',
-    'Antenatal care visits': 'Kushanya kweANC',
+    'Antenatal care visits': 'Kushanya kwekukiriniki',
     'Food, water and rest': 'Chikafu, mvura nekuzorora',
     'Medicines and supplements': 'Mishonga nezvinowedzerwa',
     'Questions for your provider': 'Mibvunzo yemupi werubatsiro',
     'Need help with a question?': 'Unoda rubatsiro nemubvunzo here?',
     'MamaBot is an offline information guide, not a medical professional. For personal advice, speak with your ANC provider.':
-      'MamaBot inopa ruzivo isingashandisi internet, haisi nyanzvi yezveutano. Kuti uwane mazano ako pachako, taura nemupi wako werubatsiro rweANC.',
+      'MamaBot inopa ruzivo isingashandisi internet, haisi nyanzvi yezveutano. Kuti uwane mazano ako pachako, taura nemupi wako werubatsiro rwekukiriniki.',
     'Make room for your care': 'Tsvaga nguva yekuzvichengeta',
     'Save ANC visits and personal care reminders on this device.':
-      'Chengeta kushanya kuANC nezviyeuchidzo zvekuzvichengeta pafoni iyi.',
+      'Chengeta kushanya kukiriniki kunoongororwa pamuviri nezviyeuchidzo zvekuzvichengeta pafoni iyi.',
     'Your next appointment': 'Kushanya kwako kunotevera',
     'Add a visit to keep it in view.': 'Isa zuva rekushanya kuti urirangarire.',
     'Add a reminder': 'Isa chiyeuchidzo',
     'Your reminders': 'Zviyeuchidzo zvako',
     'No reminders yet': 'Hapana zviyeuchidzo',
     'Add your next ANC visit or a note for yourself. It will be saved on this device.':
-      'Isa kushanya kwako kunotevera kuANC kana chinyorwa chako. Zvichachengetwa pafoni iyi.',
+      'Isa kushanya kwako kunotevera kukiriniki kunoongororwa pamuviri kana chinyorwa chako. Zvichachengetwa pafoni iyi.',
     'Device notifications are optional. Turn them on in Settings and allow notifications when asked. Always follow the timing given by your clinic.':
       'Zviziviso zvefoni hazvidiwi. Zvivhure muZvirongwa uye bvumidza zviziviso kana wakumbirwa. Gara uchitevera nguva yawakapihwa kukiriniki.',
     'No device alert scheduled': 'Hapana chiziviso chefoni chakarongwa',
@@ -304,7 +304,7 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     'Add a clinic visit or a note for yourself. Your clinic’s advice comes first.':
       'Isa kushanya kukiriniki kana chinyorwa chako. Mazano ekiriniki yako ndiwo anotanga.',
     'Reminder title': 'Musoro wechiyeuchidzo',
-    'For example, ANC appointment': 'Semuenzaniso, kushanya kuANC',
+    'For example, ANC appointment': 'Semuenzaniso, kushanya kukiriniki kunoongororwa pamuviri',
     'Note (optional)': 'Chinyorwa (hazvidiwi)',
     'What would you like to remember?': 'Chii chaunoda kuyeuka?',
     'Date (YYYY-MM-DD)': 'Zuva (YYYY-MM-DD)',
@@ -353,7 +353,7 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     'What should I expect during pregnancy?': 'Chii chandingatarisira panguva yepamuviri?',
     'What changes might I notice in my body?': 'Shanduko dzipi dzandingangoona mumuviri wangu?',
     'How can I prepare for {title}?': 'Ndingagadzirira sei {title}?',
-    'What should I expect at an ANC visit?': 'Chii chandingatarisira pakushanya kuANC?',
+    'What should I expect at an ANC visit?': 'Chii chandingatarisira pakushanya kukiriniki kunoongororwa pamuviri?',
     'Can I take medicines or supplements?': 'Ndingatora mishonga kana zvinowedzerwa here?',
     'How can I prepare for birth?': 'Ndingagadzirira sei kusununguka?',
     'What foods and drinks are helpful?': 'Ndezvipi zvekudya nezvinwiwa zvinobatsira?',
@@ -361,26 +361,26 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     'Hi {name}, I’m MamaBot. What would you like help with today?':
       'Mhoro {name}, ndini MamaBot. Ungada kubatsirwa nei nhasi?',
     'Next reminder: {title}, {date}': 'Chiyeuchidzo chinotevera: {title}, {date}',
-    'Add your first ANC reminder': 'Isa chiyeuchidzo chako chekutanga cheANC',
+    'Add your first ANC reminder': 'Isa chiyeuchidzo chako chekutanga chekuongororwa kwepamuviri',
     'Opens {title}': 'Inovhura {title}',
     'Healthy pregnancy, brighter future': 'Pamuviri une utano, ramangwana rakajeka',
     'One step at a time, Mama.': 'Danho rimwe panguva, Amai.',
     'Mama': 'Amai',
     'Early pregnancy can bring many changes. Your ANC provider can help you understand what to expect and which care is right for you.':
-      'Pamuviri pekutanga panogona kuva neshanduko dzakawanda. Mupi wako werubatsiro rweANC anogona kukutsanangurira zvaungatarisira uye rubatsiro rwakakunakira.',
+      'Pamuviri pekutanga panogona kuva neshanduko dzakawanda. Mupi wako werubatsiro rwekukiriniki anogona kukutsanangurira zvaungatarisira uye rubatsiro rwakakunakira.',
     'Keep attending the visits recommended by your clinic. Ask your provider about changes in your body and any medicines or supplements.':
       'Ramba uchishanyira kiriniki sezvawakakurudzirwa. Bvunza mupi wako nezveshanduko mumuviri uye mishonga kana zvinowedzerwa.',
     'Talk with your care team about birth planning, when to seek help, and how to contact your clinic if you have concerns.':
       'Taura netimu yako yezveutano nezvekuronga kusununguka, nguva yekutsvaga rubatsiro, uye nzira yekubata kiriniki kana uine zvinokunetsa.',
     'At ANC, a health worker can check on you and your baby, answer questions, and help plan any care you may need. Ask your clinic when to return and what to bring.':
-      'PaANC, mushandi wezveutano anogona kukuongorora iwe nemwana, kupindura mibvunzo, uye kuronga rubatsiro rwaungade. Bvunza kiriniki kuti udzoke riini uye uuye nei.',
+      'Pakuongororwa kwepamuviri, mushandi wezveutano anogona kukuongorora iwe nemwana, kupindura mibvunzo, uye kuronga rubatsiro rwaungade. Bvunza kiriniki kuti udzoke riini uye uuye nei.',
     'Choose a variety of nourishing foods, drink safe water, and rest when you can. Your provider can advise you about nutrition, supplements, or food needs that are specific to you.':
       'Idya zvekudya zvakasiyana zvinovaka muviri, inwa mvura yakachengeteka, uye zorora paunokwanisa. Mupi wako anogona kukupa mazano ezvekudya kana zvinowedzerwa zvakakukodzera.',
     'Check with a qualified health worker before starting, stopping, or changing medicines or supplements. Bring a list of what you take to your next visit.':
       'Bvunza mushandi wezveutano ane hunyanzvi usati watanga, wamisa, kana kushandura mishonga kana zvinowedzerwa. Enda nerondedzero yezvaunotora pakushanya kunotevera.',
     'Write down symptoms, medicines, and questions before a visit. If you have a concern between visits, contact your clinic rather than waiting for the next appointment.':
       'Nyora zviratidzo, mishonga, nemibvunzo usati washanya. Kana uine zviri kukunetsa pakati pekushanya, bata kiriniki pane kumirira kushanya kunotevera.',
-    'ANC appointment': 'Kushanya kuANC',
+    'ANC appointment': 'Kushanya kukiriniki kunoongororwa pamuviri',
     'Reminder date in year-month-day format': 'Zuva rechiyeuchidzo nenzira yeYYYY-MM-DD',
     'Reminder time in 24-hour format': 'Nguva yechiyeuchidzo nemaawa 24',
     'You have a reminder from MamaBot.': 'Une chiyeuchidzo kubva kunaMamaBot.',
@@ -402,42 +402,42 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     'second': 'chechipiri',
     'third': 'chechitatu',
     'Your saved profile puts you at around week {week}, in the {trimester} trimester. Pregnancy dates can be adjusted by your provider, so use your ANC visits to confirm your dates and ask which care is right for this stage.':
-      'Mashoko ako akachengetwa anoratidza kuti une vhiki rinenge riri {week}, muchikamu {trimester} chemimba. Mazuva epamuviri anogona kugadziriswa nemupi wako wezveutano, saka simbisa mazuva ako paANC uye bvunza rubatsiro rwakakodzera panguva iyi.',
+      'Mashoko ako akachengetwa anoratidza kuti une vhiki rinenge riri {week}, muchikamu {trimester} chemimba. Mazuva epamuviri anogona kugadziriswa nemupi wako wezveutano, saka simbisa mazuva ako pakiriniki panovhenekwa pamuviri uye bvunza rubatsiro rwakakodzera panguva iyi.',
     'I don’t have your pregnancy dates yet. Your ANC provider can help estimate how far along you are. You can also add your due date or pregnancy week in your profile for more tailored suggestions.':
-      'Handisati ndine mazuva ako epamuviri. Mupi wako weANC anogona kukubatsira kuziva nguva yepamuviri. Unogonawo kuisa zuva rako rekusununguka kana vhiki repamuviri mumashoko ako kuti uwane mazano akakukodzera.',
+      'Handisati ndine mazuva ako epamuviri. Mupi wako wekukiriniki anogona kukubatsira kuziva nguva yepamuviri. Unogonawo kuisa zuva rako rekusununguka kana vhiki repamuviri mumashoko ako kuti uwane mazano akakukodzera.',
     'Pregnancy is commonly described in three trimesters: weeks 1–13, 14–27, and 28 onward. Bodies and pregnancies differ, so use regular ANC visits to discuss changes, check-ups, nutrition, medicines, and questions for your stage.{savedWeek} Your provider can confirm your dates and give advice for your situation.':
-      'Pamuviri panowanzopatsanurwa kuita zvikamu zvitatu: vhiki 1–13, 14–27, uye kubva pavhiki 28 zvichienda mberi. Miviri nepamuviri zvinosiyana, saka taura nezveshanduko, kuongororwa, kudya, mishonga nemibvunzo yako paANC nguva dzose.{savedWeek} Mupi wako anogona kusimbisa mazuva ako nekupa mazano anoenderana nemamiriro ako.',
+      'Pamuviri panowanzopatsanurwa kuita zvikamu zvitatu: vhiki 1–13, 14–27, uye kubva pavhiki 28 zvichienda mberi. Miviri nepamuviri zvinosiyana, saka taura nezveshanduko, kuongororwa, kudya, mishonga nemibvunzo yako pakiriniki panovhenekwa pamuviri nguva dzose.{savedWeek} Mupi wako anogona kusimbisa mazuva ako nekupa mazano anoenderana nemamiriro ako.',
     'Your saved profile estimates around week {week}.': 'Mashoko ako akachengetwa anoratidza vhiki rinenge riri {week}.',
     'Your next saved reminder is “{title}” on {date}. You could note any questions or symptoms and bring your medicines or supplements list. Your clinic can tell you if you need to bring anything else.':
       'Chiyeuchidzo chako chinotevera ndechekuti “{title}” musi wa{date}. Unogona kunyora mibvunzo kana zviratidzo zvako, uye kuuya nerondedzero yemishonga kana zvinowedzerwa zvaunotora. Kiriniki yako inogona kukuudza zvimwe zvaunofanira kuuya nazvo.',
     'It is okay to start collecting questions about birth early. As your pregnancy progresses, ask your ANC provider about your birth plan, where to go when labour starts, transport, support people, and what to do if a concern comes up.':
-      'Zvakanaka kutanga kuunganidza mibvunzo yekusununguka pachine nguva. Pamuviri paunenge uchikura, bvunza mupi wako weANC nezveurongwa hwekusununguka, kwekuenda kana kurwadziwa kwatanga, zvekufambisa, vanhu vanokutsigira, uye zvekuita kana paine chikunetsa.',
+      'Zvakanaka kutanga kuunganidza mibvunzo yekusununguka pachine nguva. Pamuviri paunenge uchikura, bvunza mushandi wezveutano wekukiriniki nezveurongwa hwekusununguka, kwekuenda kana kurwadziwa kwatanga, zvekufambisa, vanhu vanokutsigira, uye zvekuita kana paine chikunetsa.',
     'Talk with your ANC provider about where to give birth, how to get there, who can support you, what to bring, and how to contact the facility. Plans may need to change, so ask what to do if labour starts unexpectedly or you have a warning sign.':
-      'Taura nemupi wako weANC nezvekusunungukira, nzira yekusvika ikoko, munhu angakutsigira, zvekuuya nazvo, uye nzira yekubata chipatara. Urongwa hunogona kuchinja, saka bvunza zvekuita kana kurwadziwa kwatanga usingatarisiri kana ukaona chiratidzo chengozi.',
+      'Taura nemushandi wezveutano wekukiriniki nezvekusunungukira, nzira yekusvika ikoko, munhu angakutsigira, zvekuuya nazvo, uye nzira yekubata chipatara. Urongwa hunogona kuchinja, saka bvunza zvekuita kana kurwadziwa kwatanga usingatarisiri kana ukaona chiratidzo chengozi.',
     'Pregnancy can bring changes such as nausea, tiredness, heartburn, or back discomfort, and experiences differ. Mention symptoms at ANC, especially if they are severe, new, worsening, or worrying. Sudden swelling with a severe headache or vision changes needs urgent assessment.':
-      'Pamuviri panogona kuuya nekusvotwa, kuneta, chirungurira, kana kurwadziwa musana; vanhu vanosiyana. Udza mushandi weANC nezvezviratidzo, kunyanya kana zvakanyanya, zvitsva, zvichiwedzera, kana zvichikunetsa. Kuzvimba kamwe chete pamwe nemusoro unorwadza zvikuru kana kusaona zvakanaka zvinoda kuongororwa nechimbichimbi.',
+      'Pamuviri panogona kuuya nekusvotwa, kuneta, chirungurira, kana kurwadziwa musana; vanhu vanosiyana. Udza mushandi wekukiriniki nezvezviratidzo, kunyanya kana zvakanyanya, zvitsva, zvichiwedzera, kana zvichikunetsa. Kuzvimba kamwe chete pamwe nemusoro unorwadza zvikuru kana kusaona zvakanaka zvinoda kuongororwa nechimbichimbi.',
     'At an antenatal care (ANC) visit, a health worker can talk with you about your health, check on you and your baby, answer questions, and plan care. The checks and visit schedule can vary, so ask your clinic what is planned, when to return, and what to bring. It can help to write down questions and medicines you take.':
-      'Pakushanya kuANC, mushandi wezveutano anogona kutaura newe nezveutano hwako, kukuongorora iwe nemwana, kupindura mibvunzo, uye kuronga rubatsiro. Kuongororwa nenguva dzekushanya zvinogona kusiyana, saka bvunza kiriniki zvakarongwa, nguva yekudzoka, uye zvekuuya nazvo. Zvinobatsira kunyora mibvunzo nemishonga yaunotora.',
+      'Pakushanya kukiriniki kunoongororwa pamuviri, mushandi wezveutano anogona kutaura newe nezveutano hwako, kukuongorora iwe nemwana, kupindura mibvunzo, uye kuronga rubatsiro. Kuongororwa nenguva dzekushanya zvinogona kusiyana, saka bvunza kiriniki zvakarongwa, nguva yekudzoka, uye zvekuuya nazvo. Zvinobatsira kunyora mibvunzo nemishonga yaunotora.',
     'The checks offered at ANC depend on your stage of pregnancy, health history, and local care guidance. Ask what each check is for, what the result means, and when you will hear back. Your provider can explain which tests or scans are recommended for you.':
-      'Kuongororwa kunoitwa paANC kunoenderana nechikamu chepamuviri, nhoroondo yeutano, uye mazano emunzvimbo yako. Bvunza chinangwa chekuongororwa kwega kwega, zvinorehwa nemhinduro, uye nguva yauchazoziva mhinduro. Mupi wako anogona kutsanangura bvunzo kana scan dzakakukodzera.',
+      'Kuongororwa kunoitwa pakiriniki panovhenekwa pamuviri kunoenderana nechikamu chepamuviri, nhoroondo yeutano, uye mazano emunzvimbo yako. Bvunza chinangwa chekuongororwa kwega kwega, zvinorehwa nemhinduro, uye nguva yauchazoziva mhinduro. Mupi wako anogona kutsanangura bvunzo kana scan dzakakukodzera.',
     'Aim for a varied diet with nourishing foods available to you, and drink safe water. Food needs can differ, so ask your ANC provider about local nutrition support, food safety, or any dietary needs. Avoid starting restrictive diets or supplements without professional advice.':
-      'Edza kudya zvakasiyana uye zvinovaka muviri zviripo kwauri, uye inwa mvura yakachengeteka. Zvinodiwa pakudya zvinosiyana, saka bvunza mupi wako weANC nezverubatsiro rwekudya uye kuchengetedzwa kwezvekudya. Usatanga kudya kunorambidza zvimwe zvekudya kana kutora zvinowedzerwa usina kubvunza nyanzvi.',
+      'Edza kudya zvakasiyana uye zvinovaka muviri zviripo kwauri, uye inwa mvura yakachengeteka. Zvinodiwa pakudya zvinosiyana, saka bvunza mushandi wezveutano wekukiriniki nezverubatsiro rwekudya uye kuchengetedzwa kwezvekudya. Usatanga kudya kunorambidza zvimwe zvekudya kana kutora zvinowedzerwa usina kubvunza nyanzvi.',
     'Check with a qualified health worker or pharmacist before starting, stopping, or changing any medicine, vitamin, or supplement during pregnancy. Do not stop a prescribed medicine without advice. Bring the package or a list of what you take to ANC.':
-      'Bvunza mushandi wezveutano ane hunyanzvi kana mufemesi usati watanga, wamisa, kana kushandura mushonga, vhitamini, kana zvinowedzerwa pamuviri. Usamisa mushonga wawakarayirwa usina kubvunza. Enda nemudziyo wemushonga kana rondedzero yezvaunotora kuANC.',
+      'Bvunza mushandi wezveutano ane hunyanzvi kana mufemesi usati watanga, wamisa, kana kushandura mushonga, vhitamini, kana zvinowedzerwa pamuviri. Usamisa mushonga wawakarayirwa usina kubvunza. Enda nemudziyo wemushonga kana rondedzero yezvaunotora kukiriniki kunoongororwa pamuviri.',
     'If you feel well, gentle everyday movement and rest when needed can support general wellbeing. What is suitable depends on your health and pregnancy; ask your ANC provider before starting a new or strenuous activity, especially if you have symptoms or have been advised to limit activity.':
-      'Kana uchinzwa zvakanaka, kufamba zvishoma zuva nezuva uye kuzorora paunoda zvinogona kubatsira. Zvakakukodzera zvinoenderana neutano nepamuviri pako; bvunza mupi weANC usati watanga maekisesaizi matsva kana akaoma, kunyanya kana uine zviratidzo kana wakaudzwa kuti udzikise kufamba.',
+      'Kana uchinzwa zvakanaka, kufamba zvishoma zuva nezuva uye kuzorora paunoda zvinogona kubatsira. Zvakakukodzera zvinoenderana neutano nepamuviri pako; bvunza mushandi wezveutano wekukiriniki usati watanga maekisesaizi matsva kana akaoma, kunyanya kana uine zviratidzo kana wakaudzwa kuti udzikise kufamba.',
     'Avoiding alcohol, tobacco, vaping, and non-prescribed drugs is the safest choice during pregnancy. If stopping is difficult, tell your ANC provider without fear of judgement; they can help you find support. Ask a health worker before using any medicine or substance.':
-      'Kusashandisa doro, fodya, vape, kana zvinodhaka zvisina kunyorerwa ndiko kwakachengeteka zvikuru pamuviri. Kana zvakaoma kurega, udza mupi wako weANC usingatyi kutongwa; anogona kukubatsira kuwana rubatsiro. Bvunza mushandi wezveutano usati washandisa mushonga kana chimwe chinhu.',
+      'Kusashandisa doro, fodya, vape, kana zvinodhaka zvisina kunyorerwa ndiko kwakachengeteka zvikuru pamuviri. Kana zvakaoma kurega, udza mushandi wezveutano wekukiriniki usingatyi kutongwa; anogona kukubatsira kuwana rubatsiro. Bvunza mushandi wezveutano usati washandisa mushonga kana chimwe chinhu.',
     'It is okay to ask for support with stress, worry, or low mood during pregnancy. Consider telling someone you trust and speaking with your ANC provider, who can help connect you with support. If you may harm yourself or are in immediate danger, contact local emergency services or go to a health facility now.':
-      'Zvakanaka kukumbira rubatsiro kana uchinetseka, uchitya, kana kusuruvara pamuviri. Funga kuudza munhu waunovimba naye uye kutaura nemupi wako weANC, anogona kukubatanidza nerubatsiro. Kana ungazvikuvadza kana uri munjodzi izvozvi, fonera rubatsiro rwechimbichimbi kana enda kuchipatara izvozvi.',
+      'Zvakanaka kukumbira rubatsiro kana uchinetseka, uchitya, kana kusuruvara pamuviri. Funga kuudza munhu waunovimba naye uye kutaura nemushandi wezveutano wekukiriniki, anogona kukubatanidza nerubatsiro. Kana ungazvikuvadza kana uri munjodzi izvozvi, fonera rubatsiro rwechimbichimbi kana enda kuchipatara izvozvi.',
     'Your baby grows and changes throughout pregnancy, and your ANC team can explain what to expect at your stage. Once you are feeling regular movements, contact your maternity care team promptly if movement is noticeably reduced or different from your baby’s usual pattern; do not wait until the next visit.':
-      'Mwana wako anokura nekuchinja pamuviri pese, uye timu yako yeANC inogona kutsanangura zvaungatarisira panguva iyi. Kana wava kunzwa mwana achifamba nguva nenguva, bata timu yako yezveutano nekukurumidza kana mafambiro akaderera kana kuchinja kubva pane zvaajaira; usamirira kushanya kunotevera.',
+      'Mwana wako anokura nekuchinja pamuviri pese, uye vashandi vekukiriniki inogona kutsanangura zvaungatarisira panguva iyi. Kana wava kunzwa mwana achifamba nguva nenguva, bata timu yako yezveutano nekukurumidza kana mafambiro akaderera kana kuchinja kubva pane zvaajaira; usamirira kushanya kunotevera.',
     'Signs and timing of labour can differ. Ask your maternity team when and where to contact them, especially if you are before 37 weeks. Contact a health facility urgently for fluid leaking, bleeding, severe pain, or a noticeable change in your baby’s movement.':
       'Zviratidzo nenguva yekutanga kurwadziwa zvinogona kusiyana. Bvunza timu yako yezveutano nguva nenzvimbo yekuvabata, kunyanya kana usati wasvitsa mavhiki 37. Bata chipatara nechimbichimbi kana mvura ichibuda, uchibuda ropa, uchirwadziwa zvikuru, kana mafambiro emwana achichinja zvinooneka.',
     'You can ask your provider how your pregnancy is progressing, which checks are planned, what symptoms to watch for, whether your medicines are suitable, when to return, and how to get help between visits. Write down any personal concerns so you can discuss them.':
       'Unogona kubvunza mupi wako mafambiro epamuviri, kuongororwa kwakarongwa, zviratidzo zvekutarisa, kana mishonga yako yakakodzera, nguva yekudzoka, uye kuwana rubatsiro pakati pekushanya. Nyora zvinokunetsa kuti muzokurukura.',
     'I’m an offline information guide and don’t have a specific answer for that. Please ask your ANC provider for advice about your situation. If you have severe pain, heavy bleeding, trouble breathing, or another urgent concern, seek in-person care now.':
-      'Ndiri nhungamiro yeruzivo isingashandisi internet uye handina mhinduro chaiyo yeizvozvo. Bvunza mupi wako weANC nezvemamiriro ako. Kana uchirwadziwa zvikuru, uchibuda ropa rakawanda, uchitadza kufema, kana uine rimwe dambudziko rechimbichimbi, tsvaga rubatsiro rwechiso nechiso izvozvi.',
+      'Ndiri nhungamiro yeruzivo isingashandisi internet uye handina mhinduro chaiyo yeizvozvo. Bvunza mushandi wezveutano wekukiriniki nezvemamiriro ako. Kana uchirwadziwa zvikuru, uchibuda ropa rakawanda, uchitadza kufema, kana uine rimwe dambudziko rechimbichimbi, tsvaga rubatsiro rwechiso nechiso izvozvi.',
     'Let’s start with a language that feels like yours.':
       'Ngatitange nemutauro waunonzwa wakasununguka nawo.',
     'Choose a language. Then MamaBot will chat with you, one small question at a time.':
@@ -486,14 +486,14 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     'Get trusted information, reminders and support through your phone.':
       'Thola ulwazi oluthembekileyo, izikhumbuzo losizo ngocingo lwakho.',
     'Ask health questions': 'Buza ngemibuzo yezempilakahle',
-    'Set ANC reminders': 'Hlela izikhumbuzo ze-ANC',
+    'Set ANC reminders': 'Hlela izikhumbuzo ze-kuongororwa kwepamuviri',
     'Know danger signs': 'Yazi izibonakaliso zengozi',
     'CARE AT EVERY STAGE': 'UKUNAKEKELWA KUZO ZONKE IZIGABA',
     'Stay close to your care': 'Hlala useduze lokunakekelwa kwakho',
     'Explore helpful pregnancy guidance and keep your antenatal visits in view.':
       'Thola izeluleko ngokukhulelwa njalo ukhumbule ukuvakatshela ikilinika.',
     'Guidance for each trimester': 'Izeluleko zesigaba ngasinye sokukhulelwa',
-    'Gentle ANC visit reminders': 'Izikhumbuzo ezithambileyo zokuvakatshela i-ANC',
+    'Gentle ANC visit reminders': 'Izikhumbuzo ezithambileyo zokuvakatshela i-kuongororwa kwepamuviri',
     'SUPPORT WITH CARE': 'USIZO NGOKUNAKEKELA',
     'Know when to get help': 'Yazi isikhathi sokudinga usizo',
     'Ask MamaBot common pregnancy questions and learn which danger signs need urgent medical attention.':
@@ -534,7 +534,7 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
       'Faka iviki lokukhulelwa kusukela ku-1 kusiya ku-42, loba utshiye kungelalutho.',
     'Enter a valid due date in YYYY-MM-DD format.':
       'Faka usuku oluqondileyo ngendlela ethi YYYY-MM-DD.',
-    'ANC notifications': 'Izaziso ze-ANC',
+    'ANC notifications': 'Izaziso ze-kuongororwa kwepamuviri',
     'Optional alerts for saved reminders. Permission is requested on this device.':
       'Izaziso ongazikhetha ngezikhumbuzo ezigciniweyo. Imvumo izacelwa kule foni.',
     'Device notifications are available in the Android and iOS app.':
@@ -566,16 +566,16 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     Chat: 'Ingxoxo',
     Reminders: 'Izikhumbuzo',
     'Pregnancy Info': 'Ulwazi ngokukhulelwa',
-    'ANC reminders': 'Izikhumbuzo ze-ANC',
+    'ANC reminders': 'Izikhumbuzo ze-kuongororwa kwepamuviri',
     'Personalized offline guide': 'Umhlahlandlela wakho ongadingi intanethi',
-    'Open ANC reminders': 'Vula izikhumbuzo ze-ANC',
+    'Open ANC reminders': 'Vula izikhumbuzo ze-kuongororwa kwepamuviri',
     'Chat with MamaBot': 'Xoxa loMamaBot',
     'Hello, {name}': 'Salibonani, {name}',
     'You’re around week {week}. How can we help today?':
       'Ususevikweni elingaba ngu-{week}. Singakusiza ngani lamuhla?',
     'How can we help today?': 'Singakusiza ngani lamuhla?',
-    'Your next ANC reminder': 'Isikhumbuzo sakho esilandelayo se-ANC',
-    'Next ANC appointment': 'Ukuvakatshela i-ANC okulandelayo',
+    'Your next ANC reminder': 'Isikhumbuzo sakho esilandelayo se-kuongororwa kwepamuviri',
+    'Next ANC appointment': 'Ukuvakatshela i-kuongororwa kwepamuviri okulandelayo',
     'Plan your next visit': 'Hlela ukuvakatshela kwakho okulandelayo',
     'Add a reminder to keep your care on track.':
       'Faka isikhumbuzo ukuze ungakhohlwa ukunakekelwa kwakho.',
@@ -624,13 +624,13 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     'Your pregnancy, one step at a time': 'Uhambo lwakho lokukhulelwa, inyathelo ngalinye',
     'PREGNANCY CARE': 'UKUNAKEKELWA KOKUKHULELWA',
     'Gentle, general information to help you prepare for conversations with your ANC provider.':
-      'Ulwazi oluvamileyo olukunceda ulungiselele ukukhuluma lomhlinzeki wakho we-ANC.',
+      'Ulwazi oluvamileyo olukunceda ulungiselele ukukhuluma lomhlinzeki wakho we-kuongororwa kwepamuviri.',
     'Browse by trimester': 'Khangela ngezigaba zokukhulelwa',
     'Choose a stage to explore guidance for that part of pregnancy.':
       'Khetha isigaba ukuze ubone izeluleko zaleso sikhathi sokukhulelwa.',
     'Stage guidance': 'Izeluleko zesigaba',
     'Clinic or health facility (optional)': 'Ikilinika kumbe indawo yezempilakahle (akudingakali)',
-    'ANC appointment': 'Ukuvakatshela i-ANC',
+    'ANC appointment': 'Ukuvakatshela i-kuongororwa kwepamuviri',
     'Choose the actual clinic for this visit, or search by name, district or province.':
       'Khetha ikilinika ozayivakatshela, kumbe udinge ngebizo, isabelo kumbe isifundazwe.',
     'Find a clinic or health facility': 'Dinga ikilinika kumbe indawo yezempilakahle',
@@ -687,17 +687,17 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     'Questions for your provider': 'Imibuzo yomhlanzi wakho',
     'Need help with a question?': 'Udinga usizo ngombuzo?',
     'MamaBot is an offline information guide, not a medical professional. For personal advice, speak with your ANC provider.':
-      'UMamaBot unikeza ulwazi ngaphandle kwentanethi, kasisiyo ingcitshi yezempilakahle. Ngezaluleko zakho, khuluma lomhlinzeki wakho we-ANC.',
+      'UMamaBot unikeza ulwazi ngaphandle kwentanethi, kasisiyo ingcitshi yezempilakahle. Ngezaluleko zakho, khuluma lomhlinzeki wakho we-kuongororwa kwepamuviri.',
     'Make room for your care': 'Thola isikhathi sokuzinakekela',
     'Save ANC visits and personal care reminders on this device.':
-      'Gcina ukuvakatshela kwe-ANC lezikhumbuzo zokuzinakekela kule foni.',
+      'Gcina ukuvakatshela kwe-kuongororwa kwepamuviri lezikhumbuzo zokuzinakekela kule foni.',
     'Your next appointment': 'Ukuvakatshela kwakho okulandelayo',
     'Add a visit to keep it in view.': 'Faka ukuvakatshela ukuze ungakukhohlwa.',
     'Add a reminder': 'Faka isikhumbuzo',
     'Your reminders': 'Izikhumbuzo zakho',
     'No reminders yet': 'Akulazikhumbuzo',
     'Add your next ANC visit or a note for yourself. It will be saved on this device.':
-      'Faka ukuvakatshela kwakho okulandelayo kwe-ANC kumbe inothi lakho. Kuzagcinwa kule foni.',
+      'Faka ukuvakatshela kwakho okulandelayo kwe-kuongororwa kwepamuviri kumbe inothi lakho. Kuzagcinwa kule foni.',
     'Device notifications are optional. Turn them on in Settings and allow notifications when asked. Always follow the timing given by your clinic.':
       'Izaziso zefoni ungazikhetha. Zivule kuzilungiselelo njalo uzivumele nxa ucelwa. Hlala ulandela isikhathi osiphiwe yikilinika.',
     'No device alert scheduled': 'Akulasaziso sefonini esihleliweyo',
@@ -723,7 +723,7 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     'Add a clinic visit or a note for yourself. Your clinic’s advice comes first.':
       'Faka ukuvakatshela ikilinika kumbe inothi lakho. Izeluleko zekilinika yakho ziqakathekile.',
     'Reminder title': 'Isihloko sesikhumbuzo',
-    'For example, ANC appointment': 'Isibonelo, ukuvakatshela i-ANC',
+    'For example, ANC appointment': 'Isibonelo, ukuvakatshela i-kuongororwa kwepamuviri',
     'Note (optional)': 'Inothi (akudingakali)',
     'What would you like to remember?': 'Yini ofuna ukuyikhumbula?',
     'Date (YYYY-MM-DD)': 'Usuku (YYYY-MM-DD)',
@@ -772,7 +772,7 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     'What should I expect during pregnancy?': 'Ngingalindela ini ngesikhathi sokukhulelwa?',
     'What changes might I notice in my body?': 'Yiluphi utshintsho engingalubona emzimbeni wami?',
     'How can I prepare for {title}?': 'Ngingalilungiselela njani {title}?',
-    'What should I expect at an ANC visit?': 'Ngingalindela ini nxa ngivakatshele i-ANC?',
+    'What should I expect at an ANC visit?': 'Ngingalindela ini nxa ngivakatshele i-kuongororwa kwepamuviri?',
     'Can I take medicines or supplements?': 'Nginganatha imithi kumbe izakhamzimba ezenezelwayo?',
     'How can I prepare for birth?': 'Ngingazilungiselela njani ukubeletha?',
     'What foods and drinks are helpful?': 'Yikuphi ukudla lokunatha okungancedayo?',
@@ -783,44 +783,44 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     'second': 'sesibili',
     'third': 'sesithathu',
     'Your saved profile puts you at around week {week}, in the {trimester} trimester. Pregnancy dates can be adjusted by your provider, so use your ANC visits to confirm your dates and ask which care is right for this stage.':
-      'Imininingwane yakho itshengisa ukuthi ususevikweni elingaba ngu-{week}, kusigaba {trimester} sokukhulelwa. Umhlanzi wakho angalungisa izinsuku, ngakho qinisekisa izinsuku zakho nxa uvakatshele i-ANC ubusubuza ngokunakekelwa okufaneleyo.',
+      'Imininingwane yakho itshengisa ukuthi ususevikweni elingaba ngu-{week}, kusigaba {trimester} sokukhulelwa. Umhlanzi wakho angalungisa izinsuku, ngakho qinisekisa izinsuku zakho nxa uvakatshele i-kuongororwa kwepamuviri ubusubuza ngokunakekelwa okufaneleyo.',
     'I don’t have your pregnancy dates yet. Your ANC provider can help estimate how far along you are. You can also add your due date or pregnancy week in your profile for more tailored suggestions.':
-      'Angilalo usuku lwakho lokukhulelwa okwamanje. Umhlanzi wakho we-ANC angakunceda ubone ukuthi usukhulelwe okwesikhathi esinganani. Ungangeza usuku olulindele ukuzala kumbe iviki lokukhulelwa emininingwaneni yakho ukuze uthole izeluleko ezikufaneleyo.',
+      'Angilalo usuku lwakho lokukhulelwa okwamanje. Umhlanzi wakho we-kuongororwa kwepamuviri angakunceda ubone ukuthi usukhulelwe okwesikhathi esinganani. Ungangeza usuku olulindele ukuzala kumbe iviki lokukhulelwa emininingwaneni yakho ukuze uthole izeluleko ezikufaneleyo.',
     'Pregnancy is commonly described in three trimesters: weeks 1–13, 14–27, and 28 onward. Bodies and pregnancies differ, so use regular ANC visits to discuss changes, check-ups, nutrition, medicines, and questions for your stage.{savedWeek} Your provider can confirm your dates and give advice for your situation.':
-      'Ukukhulelwa kujayele ukuhlukaniswa ngezigaba ezintathu: amaviki 1–13, 14–27, kusukela evikini 28 kuye phambili. Imizimba lokukhulelwa kwehlukene, ngakho khuluma ngezinguquko, ukuhlolwa, ukudla, imithi lemibuzo yakho nxa uvakatshela i-ANC.{savedWeek} Umhlanzi wakho angaqinisekisa izinsuku akunike izeluleko ngesimo sakho.',
+      'Ukukhulelwa kujayele ukuhlukaniswa ngezigaba ezintathu: amaviki 1–13, 14–27, kusukela evikini 28 kuye phambili. Imizimba lokukhulelwa kwehlukene, ngakho khuluma ngezinguquko, ukuhlolwa, ukudla, imithi lemibuzo yakho nxa uvakatshela i-kuongororwa kwepamuviri.{savedWeek} Umhlanzi wakho angaqinisekisa izinsuku akunike izeluleko ngesimo sakho.',
     'Your saved profile estimates around week {week}.': 'Imininingwane yakho itshengisa iviki elingaba ngu-{week}.',
     'Your next saved reminder is “{title}” on {date}. You could note any questions or symptoms and bring your medicines or supplements list. Your clinic can tell you if you need to bring anything else.':
       'Isikhumbuzo sakho esilandelayo sithi “{title}” ngo-{date}. Ungabhala imibuzo kumbe izibonakaliso zakho njalo uphathe uhlu lwemithi kumbe izakhamzimba ozengezayo. Ikilinika ingakutshela okunye okumele ukuphathe.',
     'It is okay to start collecting questions about birth early. As your pregnancy progresses, ask your ANC provider about your birth plan, where to go when labour starts, transport, support people, and what to do if a concern comes up.':
-      'Kulungile ukuqala ukuqoqa imibuzo emayelana lokubeletha kusese lesikhathi. Njengoba ukukhulelwa kuqhubeka, buza umhlanzi wakho we-ANC ngohlelo lokubeletha, indawo yokuya nxa ususizwa yinhlungu, uhambo, abantu abazakusiza, lokumele ukwenze nxa kulokukukhathazayo.',
+      'Kulungile ukuqala ukuqoqa imibuzo emayelana lokubeletha kusese lesikhathi. Njengoba ukukhulelwa kuqhubeka, buza umhlanzi wakho we-kuongororwa kwepamuviri ngohlelo lokubeletha, indawo yokuya nxa ususizwa yinhlungu, uhambo, abantu abazakusiza, lokumele ukwenze nxa kulokukukhathazayo.',
     'Talk with your ANC provider about where to give birth, how to get there, who can support you, what to bring, and how to contact the facility. Plans may need to change, so ask what to do if labour starts unexpectedly or you have a warning sign.':
-      'Khuluma lomhlanzi wakho we-ANC ngendawo ozabeletha kuyo, ukuthi uzafika njani, ozakusiza, lokumele ukuphathe, lokuthi ungafinyelela njani esibhedlela. Uhlelo lungaguquka, ngakho buza okumele ukwenze nxa inhlungu ziqala ungalindelanga kumbe ubona isibonakaliso sengozi.',
+      'Khuluma lomhlanzi wakho we-kuongororwa kwepamuviri ngendawo ozabeletha kuyo, ukuthi uzafika njani, ozakusiza, lokumele ukuphathe, lokuthi ungafinyelela njani esibhedlela. Uhlelo lungaguquka, ngakho buza okumele ukwenze nxa inhlungu ziqala ungalindelanga kumbe ubona isibonakaliso sengozi.',
     'Pregnancy can bring changes such as nausea, tiredness, heartburn, or back discomfort, and experiences differ. Mention symptoms at ANC, especially if they are severe, new, worsening, or worrying. Sudden swelling with a severe headache or vision changes needs urgent assessment.':
-      'Ukukhulelwa kungabangela ukuhlanza, ukukhathala, ukutshisa esifubeni kumbe ubuhlungu bomhlane; okwenzakalayo kuyehluka. Tshela abe-ANC ngezibonakaliso, ikakhulu nxa zizimbi, zizintsha, ziqhubeka zisiba zimbi kumbe zikukhathaza. Ukuvuvukala okungazelelanga kulokuduma kwekhanda lokuguquka kokubona kudinga ukuhlolwa ngokuphangisa.',
+      'Ukukhulelwa kungabangela ukuhlanza, ukukhathala, ukutshisa esifubeni kumbe ubuhlungu bomhlane; okwenzakalayo kuyehluka. Tshela abe-kuongororwa kwepamuviri ngezibonakaliso, ikakhulu nxa zizimbi, zizintsha, ziqhubeka zisiba zimbi kumbe zikukhathaza. Ukuvuvukala okungazelelanga kulokuduma kwekhanda lokuguquka kokubona kudinga ukuhlolwa ngokuphangisa.',
     'At an antenatal care (ANC) visit, a health worker can talk with you about your health, check on you and your baby, answer questions, and plan care. The checks and visit schedule can vary, so ask your clinic what is planned, when to return, and what to bring. It can help to write down questions and medicines you take.':
-      'Nxa uvakatshele i-ANC, isisebenzi sezempilakahle singakhuluma lawe ngempilakahle yakho, sikuhlole wena losane, siphendule imibuzo, sihlele ukunakekelwa. Ukuhlolwa lezikhathi zokuvakatshela kungatshiyana, ngakho buza ikilinika ngokuhleliweyo, ukuthi ubuye nini, lokumele ukuphathe. Kuyanceda ukubhala imibuzo lemithi oyinathayo.',
+      'Nxa uvakatshele i-kuongororwa kwepamuviri, isisebenzi sezempilakahle singakhuluma lawe ngempilakahle yakho, sikuhlole wena losane, siphendule imibuzo, sihlele ukunakekelwa. Ukuhlolwa lezikhathi zokuvakatshela kungatshiyana, ngakho buza ikilinika ngokuhleliweyo, ukuthi ubuye nini, lokumele ukuphathe. Kuyanceda ukubhala imibuzo lemithi oyinathayo.',
     'The checks offered at ANC depend on your stage of pregnancy, health history, and local care guidance. Ask what each check is for, what the result means, and when you will hear back. Your provider can explain which tests or scans are recommended for you.':
-      'Ukuhlolwa okwenziwa e-ANC kuncike kusigaba sokukhulelwa, umlando wempilakahle, lezeluleko zendawo. Buza ukuthi ukuhlolwa ngakunye kwenzelwani, impumela itshoni, lokuthi uzayizwa nini. Umhlanzi wakho angachaza ukuthi yikuphi ukuhlolwa kumbe i-scan okudingayo.',
+      'Ukuhlolwa okwenziwa e-kuongororwa kwepamuviri kuncike kusigaba sokukhulelwa, umlando wempilakahle, lezeluleko zendawo. Buza ukuthi ukuhlolwa ngakunye kwenzelwani, impumela itshoni, lokuthi uzayizwa nini. Umhlanzi wakho angachaza ukuthi yikuphi ukuhlolwa kumbe i-scan okudingayo.',
     'Aim for a varied diet with nourishing foods available to you, and drink safe water. Food needs can differ, so ask your ANC provider about local nutrition support, food safety, or any dietary needs. Avoid starting restrictive diets or supplements without professional advice.':
-      'Zama ukudla okwehlukeneyo okwakha umzimba okutholakalayo njalo unathe amanzi ahlanzekileyo. Izidingo zokudla ziyatshiyana, ngakho buza umhlanzi wakho we-ANC mayelana losizo lokudla, ukuphepha kokudla, kumbe ezinye izidingo. Ungaqali ukuyekela okunye ukudla kumbe izakhamzimba ungakatholi iseluleko sengcitshi.',
+      'Zama ukudla okwehlukeneyo okwakha umzimba okutholakalayo njalo unathe amanzi ahlanzekileyo. Izidingo zokudla ziyatshiyana, ngakho buza umhlanzi wakho we-kuongororwa kwepamuviri mayelana losizo lokudla, ukuphepha kokudla, kumbe ezinye izidingo. Ungaqali ukuyekela okunye ukudla kumbe izakhamzimba ungakatholi iseluleko sengcitshi.',
     'Check with a qualified health worker or pharmacist before starting, stopping, or changing any medicine, vitamin, or supplement during pregnancy. Do not stop a prescribed medicine without advice. Bring the package or a list of what you take to ANC.':
-      'Buza isisebenzi sezempilakahle esilolwazi kumbe usokhemisi ungakaqali, ungakayekeli kumbe ukuguqula imithi, amavithamini loba izakhamzimba ngesikhathi sokukhulelwa. Ungayekeli umuthi owaphiwayo ungakatholi iseluleko. Phatha ibhodlela kumbe uhlu lwalokho okunathayo nxa usiya e-ANC.',
+      'Buza isisebenzi sezempilakahle esilolwazi kumbe usokhemisi ungakaqali, ungakayekeli kumbe ukuguqula imithi, amavithamini loba izakhamzimba ngesikhathi sokukhulelwa. Ungayekeli umuthi owaphiwayo ungakatholi iseluleko. Phatha ibhodlela kumbe uhlu lwalokho okunathayo nxa usiya e-kuongororwa kwepamuviri.',
     'If you feel well, gentle everyday movement and rest when needed can support general wellbeing. What is suitable depends on your health and pregnancy; ask your ANC provider before starting a new or strenuous activity, especially if you have symptoms or have been advised to limit activity.':
-      'Nxa uzizwa ungcono, ukuhamba kancinyane lokuphumula nxa kudingeka kunganceda empilweni. Okufaneleyo kuncike empilweni yakho lokukhulelwa; buza umhlanzi wakho we-ANC ungakaqali imisebenzi emitsha kumbe enzima, ikakhulu nxa ulezibonakaliso kumbe walaywa ukuthi wehlise imisebenzi.',
+      'Nxa uzizwa ungcono, ukuhamba kancinyane lokuphumula nxa kudingeka kunganceda empilweni. Okufaneleyo kuncike empilweni yakho lokukhulelwa; buza umhlanzi wakho we-kuongororwa kwepamuviri ungakaqali imisebenzi emitsha kumbe enzima, ikakhulu nxa ulezibonakaliso kumbe walaywa ukuthi wehlise imisebenzi.',
     'Avoiding alcohol, tobacco, vaping, and non-prescribed drugs is the safest choice during pregnancy. If stopping is difficult, tell your ANC provider without fear of judgement; they can help you find support. Ask a health worker before using any medicine or substance.':
-      'Ukungasebenzisi utshwala, igwayi, i-vape kumbe izidakamizwa ezingaphiwanga ngudokotela yikho okuphephe kakhulu ngesikhathi sokukhulelwa. Nxa kunzima ukuyekela, tshela umhlanzi wakho we-ANC ungalesabi ukwahlulelwa; angakunceda uthole usizo. Buza isisebenzi sezempilakahle ungakasebenzisi umuthi loba enye into.',
+      'Ukungasebenzisi utshwala, igwayi, i-vape kumbe izidakamizwa ezingaphiwanga ngudokotela yikho okuphephe kakhulu ngesikhathi sokukhulelwa. Nxa kunzima ukuyekela, tshela umhlanzi wakho we-kuongororwa kwepamuviri ungalesabi ukwahlulelwa; angakunceda uthole usizo. Buza isisebenzi sezempilakahle ungakasebenzisi umuthi loba enye into.',
     'It is okay to ask for support with stress, worry, or low mood during pregnancy. Consider telling someone you trust and speaking with your ANC provider, who can help connect you with support. If you may harm yourself or are in immediate danger, contact local emergency services or go to a health facility now.':
-      'Kulungile ukucela usizo nxa ukhathazekile, usaba kumbe uzizwa udanile ngesikhathi sokukhulelwa. Cabanga ukutshela umuntu omthembayo lokukhuluma lomhlanzi wakho we-ANC ongakuhlanganisa losizo. Nxa ungazilimaza kumbe usengozini khathesi, thinta usizo oluphuthumayo kumbe uye esibhedlela khathesi.',
+      'Kulungile ukucela usizo nxa ukhathazekile, usaba kumbe uzizwa udanile ngesikhathi sokukhulelwa. Cabanga ukutshela umuntu omthembayo lokukhuluma lomhlanzi wakho we-kuongororwa kwepamuviri ongakuhlanganisa losizo. Nxa ungazilimaza kumbe usengozini khathesi, thinta usizo oluphuthumayo kumbe uye esibhedlela khathesi.',
     'Your baby grows and changes throughout pregnancy, and your ANC team can explain what to expect at your stage. Once you are feeling regular movements, contact your maternity care team promptly if movement is noticeably reduced or different from your baby’s usual pattern; do not wait until the next visit.':
-      'Usane luyakhula luguquke ngesikhathi sokukhulelwa, njalo ithimba lakho le-ANC lingakuchasisela okulindelekileyo esigabeni sakho. Nxa ususizwa luhamba njengenjayelo, thinta ithimba lakho ngokuphangisa nxa ukuhamba kwalo kwehle kakhulu kumbe kwehlukile; ungalindi ukuvakatshela okulandelayo.',
+      'Usane luyakhula luguquke ngesikhathi sokukhulelwa, njalo ithimba lakho le-kuongororwa kwepamuviri lingakuchasisela okulindelekileyo esigabeni sakho. Nxa ususizwa luhamba njengenjayelo, thinta ithimba lakho ngokuphangisa nxa ukuhamba kwalo kwehle kakhulu kumbe kwehlukile; ungalindi ukuvakatshela okulandelayo.',
     'Signs and timing of labour can differ. Ask your maternity team when and where to contact them, especially if you are before 37 weeks. Contact a health facility urgently for fluid leaking, bleeding, severe pain, or a noticeable change in your baby’s movement.':
       'Izibonakaliso lesikhathi sokuqala kwenhlungu kuyehluka. Buza ithimba lakho lezempilakahle ukuthi ulibiza nini futhi ngaphi, ikakhulu nxa ungelamaviki angu-37. Thinta isibhedlela ngokuphangisa nxa kuphuma amanzi, wopha, usizwa ubuhlungu obukhulu kumbe ukuhamba kosane kuguquka kakhulu.',
     'You can ask your provider how your pregnancy is progressing, which checks are planned, what symptoms to watch for, whether your medicines are suitable, when to return, and how to get help between visits. Write down any personal concerns so you can discuss them.':
       'Ungabuza umhlanzi wakho ukuthi ukukhulelwa kuqhubeka njani, yikuphi ukuhlolwa okuhleliweyo, izibonakaliso zokunanzelela, nxa imithi yakho ikufanele, isikhathi sokubuya, lokuthola usizo phakathi kokuvakatshela. Bhala izinto ezikukhathazayo ukuze lizikhulume.',
     'I’m an offline information guide and don’t have a specific answer for that. Please ask your ANC provider for advice about your situation. If you have severe pain, heavy bleeding, trouble breathing, or another urgent concern, seek in-person care now.':
-      'Ngingumhlahlandlela wolwazi ongadingi intanethi njalo angilampendulo eqondileyo yalokho. Buza umhlanzi wakho we-ANC ngesimo sakho. Nxa usizwa ubuhlungu obukhulu, wopha kakhulu, uphefumula nzima kumbe ulolunye uhlupho oluphuthumayo, dinga usizo lwangempela khathesi.',
+      'Ngingumhlahlandlela wolwazi ongadingi intanethi njalo angilampendulo eqondileyo yalokho. Buza umhlanzi wakho we-kuongororwa kwepamuviri ngesimo sakho. Nxa usizwa ubuhlungu obukhulu, wopha kakhulu, uphefumula nzima kumbe ulolunye uhlupho oluphuthumayo, dinga usizo lwangempela khathesi.',
     'Next reminder: {title}, {date}': 'Isikhumbuzo esilandelayo: {title}, {date}',
-    'Add your first ANC reminder': 'Faka isikhumbuzo sakho sokuqala se-ANC',
+    'Add your first ANC reminder': 'Faka isikhumbuzo sakho sokuqala se-kuongororwa kwepamuviri',
     'Opens {title}': 'Kuvula {title}',
     'Healthy pregnancy, brighter future': 'Ukukhulelwa okuphilileyo, ikusasa elihle',
     'One step at a time, Mama.': 'Inyathelo ngalinye, Mama.',
@@ -857,7 +857,7 @@ export function translate(
 ) {
   const translated =
     language === 'en'
-      ? message
+      ? englishForDisplay(message)
       : language === 'nd'
         ? ndebeleOverrides[message] ??
           (translations.nd[message] !== translations.sn[message]
@@ -868,6 +868,30 @@ export function translate(
   return translated.replace(/\{(\w+)\}/g, (placeholder, key: string) =>
     key in values ? String(values[key]) : placeholder,
   );
+}
+
+function englishForDisplay(message: string) {
+  return message
+    .replace(/\bYour ANC provider\b/g, 'A health worker at your clinic')
+    .replace(/\byour ANC provider\b/g, 'a health worker at your clinic')
+    .replace(/\bANC provider\b/g, 'a health worker at your clinic')
+    .replace(/\byour ANC team\b/g, 'your pregnancy care team')
+    .replace(/\bYour ANC team\b/g, 'Your pregnancy care team')
+    .replace(/\bANC team\b/g, 'pregnancy care team')
+    .replace(/\bANC notifications\b/g, 'pregnancy care reminders')
+    .replace(/\bANC reminders\b/g, 'pregnancy check-up reminders')
+    .replace(/\bANC appointments?\b/g, 'pregnancy check-up')
+    .replace(/\bANC visits\b/g, 'pregnancy check-ups')
+    .replace(/\bANC visit\b/g, 'pregnancy check-up')
+    .replace(/\bat ANC\b/g, 'at a pregnancy check-up')
+    .replace(/\bto ANC\b/g, 'to a pregnancy check-up')
+    .replace(/\bANC\b/g, 'pregnancy check-up')
+    .replace(/\bantenatal care\b/gi, 'pregnancy care')
+    .replace(/\bantenatal visits\b/gi, 'pregnancy check-ups')
+    .replace(/\bantenatal visit\b/gi, 'pregnancy check-up')
+    .replace(/\bantenatal\b/gi, 'pregnancy')
+    .replace(/\ban pregnancy\b/gi, 'a pregnancy')
+    .replace(/At a pregnancy check-up visit/gi, 'At a pregnancy check-up');
 }
 
 export function useTranslation() {

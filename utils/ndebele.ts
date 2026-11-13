@@ -4,14 +4,14 @@ export const ndebeleTranslations: Record<string, string> = {
   'Get trusted information, reminders and support through your phone.':
     'Thola ulwazi oluthembekileyo, izikhumbuzo losizo ngocingo lwakho.',
   'Ask health questions': 'Buza imibuzo yezempilakahle',
-  'Set ANC reminders': 'Hlela izikhumbuzo ze-ANC',
+  'Set ANC reminders': 'Hlela izikhumbuzo zekilinika',
   'Know danger signs': 'Yazi izibonakaliso zengozi',
   'CARE AT EVERY STAGE': 'UKUNAKEKELWA KUZO ZONKE IZIGABA',
   'Stay close to your care': 'Hlala useduze lokunakekelwa kwakho',
   'Explore helpful pregnancy guidance and keep your antenatal visits in view.':
     'Thola izeluleko ngokukhulelwa njalo ukhumbule ukuvakatshela ikilinika.',
   'Guidance for each trimester': 'Izeluleko zesigaba ngasinye sokukhulelwa',
-  'Gentle ANC visit reminders': 'Izikhumbuzo zokuvakatshela i-ANC',
+  'Gentle ANC visit reminders': 'Izikhumbuzo zokuvakatshela ikilinika',
   'SUPPORT WITH CARE': 'USIZO NGOKUNAKEKELA',
   'Know when to get help': 'Yazi isikhathi sokudinga usizo',
   'Ask MamaBot common pregnancy questions and learn which danger signs need urgent medical attention.':
@@ -53,7 +53,7 @@ export const ndebeleTranslations: Record<string, string> = {
     'Faka iviki lokukhulelwa kusukela ku-1 kusiya ku-42, kumbe utshiye kungelalutho.',
   'Enter a valid due date in YYYY-MM-DD format.':
     'Faka usuku oluqondileyo ngendlela ethi YYYY-MM-DD.',
-  'ANC notifications': 'Izaziso ze-ANC',
+  'ANC notifications': 'Izaziso zekilinika',
   'Optional alerts for saved reminders. Permission is requested on this device.':
     'Izaziso ongazikhetha ngezikhumbuzo ezigciniweyo. Imvumo izacelwa kule foni.',
   'Device notifications are available in the Android and iOS app.':
@@ -78,7 +78,7 @@ export const ndebeleTranslations: Record<string, string> = {
   'Week {week} of 40': 'Iviki {week} kwangu-40',
   'Pregnancy progress': 'Ukuqhubeka kokukhulelwa',
   'Your ANC provider can confirm your dates.':
-    'Umhlanzi wakho we-ANC angaqinisekisa izinsuku zakho.',
+    'Umsebenzi wezempilakahle ekilinika angaqinisekisa izinsuku zakho.',
   'Make your guidance personal': 'Thola izeluleko ezikufaneleyo',
   'Add your pregnancy week or due date to see guidance for your stage.':
     'Faka iviki lokukhulelwa kumbe usuku lokubeletha ukuze ubone izeluleko zesigaba sakho.',
@@ -86,21 +86,21 @@ export const ndebeleTranslations: Record<string, string> = {
   'A midwife supporting an expectant mother': 'Umhlengikazi encedisa umama okhulelweyo',
   'Your next step': 'Inyathelo lakho elilandelayo',
   'Keep your antenatal care close at hand.':
-    'Hlala useduze lokunakekelwa kwakho kwe-ANC.',
+    'Hlala useduze lokunakekelwa kwakho kwekilinika.',
   Info: 'Ulwazi',
   Chat: 'Ingxoxo',
   Reminders: 'Izikhumbuzo',
   'Pregnancy Info': 'Ulwazi ngokukhulelwa',
-  'ANC reminders': 'Izikhumbuzo ze-ANC',
+  'ANC reminders': 'Izikhumbuzo zekilinika',
   'Personalized offline guide': 'Umhlahlandlela wakho ongadingi intanethi',
-  'Open ANC reminders': 'Vula izikhumbuzo ze-ANC',
+  'Open ANC reminders': 'Vula izikhumbuzo zekilinika',
   'Chat with MamaBot': 'Xoxa loMamaBot',
   'Hello, {name}': 'Salibonani, {name}',
   'You’re around week {week}. How can we help today?':
     'Ususevikweni elingaba ngu-{week}. Singakusiza ngani lamuhla?',
   'How can we help today?': 'Singakusiza ngani lamuhla?',
-  'Your next ANC reminder': 'Isikhumbuzo sakho esilandelayo se-ANC',
-  'Next ANC appointment': 'Ukuvakatshela i-ANC okulandelayo',
+  'Your next ANC reminder': 'Isikhumbuzo sakho esilandelayo sekilinika',
+  'Next ANC appointment': 'Ukuvakatshela ikilinika okulandelayo',
   'Plan your next visit': 'Hlela ukuvakatshela kwakho okulandelayo',
   'Add a reminder to keep your care on track.':
     'Faka isikhumbuzo ukuze ungakhohlwa ukunakekelwa kwakho.',
@@ -157,7 +157,7 @@ export const ndebeleTranslations: Record<string, string> = {
   'Your pregnancy, one step at a time': 'Uhambo lwakho lokukhulelwa, inyathelo ngalinye',
   'PREGNANCY CARE': 'UKUNAKEKELWA KOKUKHULELWA',
   'Clinic or health facility (optional)': 'Ikilinika kumbe indawo yezempilakahle (akudingakali)',
-  'ANC appointment': 'Ukuvakatshela i-ANC',
+  'ANC appointment': 'Ukuvakatshela ikilinika',
   'Choose the actual clinic for this visit, or search by name, district or province.':
     'Khetha ikilinika ozayivakatshela, kumbe udinge ngebizo, isabelo kumbe isifundazwe.',
   'Find a clinic or health facility': 'Dinga ikilinika kumbe indawo yezempilakahle',
@@ -202,7 +202,7 @@ export const ndebeleTranslations: Record<string, string> = {
   'Allow location access to sort by distance, or search by facility, district or province.':
     'Vumela ukusebenzisa indawo yakho ukuze kuhlelwe ngebanga, kumbe dinga ngebizo lendawo, isabelo kumbe isifundazwe.',
   'Gentle, general information to help you prepare for conversations with your ANC provider.':
-    'Ulwazi oluvamileyo olukunceda ulungiselele ukukhuluma lomhlinzeki wakho we-ANC.',
+    'Ulwazi oluvamileyo olukunceda ulungiselele ukukhuluma lomsebenzi wezempilakahle ekilinika.',
   'Browse by trimester': 'Khangela ngezigaba zokukhulelwa',
   'Choose a stage to explore guidance for that part of pregnancy.':
     'Khetha isigaba ukuze ubone izeluleko zaleso sikhathi sokukhulelwa.',
@@ -220,17 +220,17 @@ export const ndebeleTranslations: Record<string, string> = {
   'Questions for your provider': 'Imibuzo yomhlanzi wakho',
   'Need help with a question?': 'Udinga usizo ngombuzo?',
   'MamaBot is an offline information guide, not a medical professional. For personal advice, speak with your ANC provider.':
-    'UMamaBot unikeza ulwazi ngaphandle kwentanethi, kasisiyo ingcitshi yezempilakahle. Ngezaluleko zakho, khuluma lomhlinzeki wakho we-ANC.',
+    'UMamaBot unikeza ulwazi ngaphandle kwentanethi, kasisiyo ingcitshi yezempilakahle. Ngezaluleko zakho, khuluma lomsebenzi wezempilakahle ekilinika.',
   'Make room for your care': 'Thola isikhathi sokuzinakekela',
   'Save ANC visits and personal care reminders on this device.':
-    'Gcina ukuvakatshela kwe-ANC lezikhumbuzo zokuzinakekela kule foni.',
+    'Gcina ukuvakatshela kwekilinika lezikhumbuzo zokuzinakekela kule foni.',
   'Your next appointment': 'Ukuvakatshela kwakho okulandelayo',
   'Add a visit to keep it in view.': 'Faka ukuvakatshela ukuze ungakukhohlwa.',
   'Add a reminder': 'Faka isikhumbuzo',
   'Your reminders': 'Izikhumbuzo zakho',
   'No reminders yet': 'Akulazikhumbuzo',
   'Add your next ANC visit or a note for yourself. It will be saved on this device.':
-    'Faka ukuvakatshela kwakho okulandelayo kwe-ANC kumbe inothi lakho. Kuzagcinwa kule foni.',
+    'Faka ukuvakatshela kwakho okulandelayo kwekilinika kumbe inothi lakho. Kuzagcinwa kule foni.',
   'Device notifications are optional. Turn them on in Settings and allow notifications when asked. Always follow the timing given by your clinic.':
     'Izaziso zefoni ungazikhetha. Zivule kuzilungiselelo njalo uzivumele nxa ucelwa. Hlala ulandela isikhathi osiphiwe yikilinika.',
   'No device alert scheduled': 'Akulasaziso sefonini esihleliweyo',
@@ -289,7 +289,7 @@ export const ndebeleTranslations: Record<string, string> = {
   'Add a clinic visit or a note for yourself. Your clinic’s advice comes first.':
     'Faka ukuvakatshela ikilinika kumbe inothi lakho. Izeluleko zekilinika yakho ziqakathekile.',
   'Reminder title': 'Isihloko sesikhumbuzo',
-  'For example, ANC appointment': 'Isibonelo, ukuvakatshela i-ANC',
+  'For example, ANC appointment': 'Isibonelo, ukuvakatshela ikilinika',
   'Note (optional)': 'Inothi (akudingakali)',
   'What would you like to remember?': 'Yini ofuna ukuyikhumbula?',
   'Date (YYYY-MM-DD)': 'Usuku (YYYY-MM-DD)',
@@ -322,7 +322,7 @@ export const ndebeleTranslations: Record<string, string> = {
   'Expected due date in year-month-day format': 'Usuku olulindele ukuzala ngendlela ethi YYYY-MM-DD',
   'Expected due date in YYYY-MM-DD format': 'Usuku olulindele ukuzala ngendlela ethi YYYY-MM-DD',
   'Next reminder: {title}, {date}': 'Isikhumbuzo esilandelayo: {title}, {date}',
-  'Add your first ANC reminder': 'Faka isikhumbuzo sakho sokuqala se-ANC',
+  'Add your first ANC reminder': 'Faka isikhumbuzo sakho sokuqala sekilinika',
   'Opens {title}': 'Kuvula {title}',
   'Healthy pregnancy, brighter future': 'Ukukhulelwa okuphilileyo, ikusasa elihle',
   'One step at a time, Mama.': 'Inyathelo ngalinye, Mama.',
@@ -349,7 +349,7 @@ export const ndebeleTranslations: Record<string, string> = {
   'What should I expect during pregnancy?': 'Ngingalindela ini ngesikhathi sokukhulelwa?',
   'What changes might I notice in my body?': 'Yiluphi utshintsho engingalubona emzimbeni wami?',
   'How can I prepare for {title}?': 'Ngingalilungiselela njani {title}?',
-  'What should I expect at an ANC visit?': 'Ngingalindela ini nxa ngivakatshele i-ANC?',
+  'What should I expect at an ANC visit?': 'Ngingalindela ini nxa ngivakatshele ikilinika?',
   'Can I take medicines or supplements?': 'Nginganatha imithi kumbe izakhamzimba ezenezelwayo?',
   'How can I prepare for birth?': 'Ngingazilungiselela njani ukubeletha?',
   'What foods and drinks are helpful?': 'Yikuphi ukudla lokunatha okungancedayo?',
