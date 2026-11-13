@@ -101,7 +101,7 @@ function formatInlineMarkdown(text: string, color: string) {
 
 function FormattedMessage({ text, color }: { text: string; color: string }) {
   return (
-    <View style={{ gap: space.xs }}>
+    <View style={{ width: '100%', gap: space.xs }}>
       {text.split('\n').map((rawLine, index) => {
         const line = rawLine.trim();
         if (!line) return <View key={`space-${index}`} style={{ height: 4 }} />;
@@ -112,25 +112,17 @@ function FormattedMessage({ text, color }: { text: string; color: string }) {
         const prefix = bullet ? '•' : numbered?.[1] ?? '';
 
         return (
-          <View
+          <Text
             key={`${index}-${line}`}
-            style={{ flexDirection: 'row', alignItems: 'flex-start', gap: space.xs }}>
-            {prefix ? (
-              <Text style={{ color, fontSize: typeScale.body, lineHeight: 22 }}>
-                {prefix}
-              </Text>
-            ) : null}
-            <Text
-              style={{
-                flex: 1,
-                color,
-                fontSize: typeScale.body,
-                lineHeight: 22,
-                fontWeight: heading ? '800' : '400',
-              }}>
-              {formatInlineMarkdown(content, color)}
-            </Text>
-          </View>
+            style={{
+              color,
+              fontSize: typeScale.body,
+              lineHeight: 22,
+              fontWeight: heading ? '800' : '400',
+            }}>
+            {prefix ? `${prefix} ` : null}
+            {formatInlineMarkdown(content, color)}
+          </Text>
         );
       })}
     </View>
@@ -374,6 +366,8 @@ export default function ChatScreen() {
         contentInsetAdjustmentBehavior="automatic"
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={{
+          flexGrow: 1,
+          alignItems: 'stretch',
           padding: space.lg,
           paddingBottom: space.md,
         }}
@@ -522,6 +516,7 @@ export default function ChatScreen() {
           return (
             <View
               style={{
+                alignSelf: 'stretch',
                 flexDirection: 'row',
                 justifyContent: isMama ? 'flex-start' : 'flex-end',
                 alignItems: 'flex-end',
@@ -553,9 +548,11 @@ export default function ChatScreen() {
                 style={{
                   maxWidth: isMama ? '78%' : '88%',
                   flexShrink: 1,
+                  minWidth: 0,
                 }}>
                 <View
                   style={{
+                    alignSelf: 'stretch',
                     paddingHorizontal: space.md,
                     paddingVertical: space.md,
                     gap: space.xs,
@@ -569,6 +566,16 @@ export default function ChatScreen() {
                     borderColor: theme.line,
                     boxShadow: isMama ? '0 1px 3px rgba(33, 27, 56, 0.06)' : undefined,
                   }}>
+                    {!isMama ? (
+                      <Text
+                        style={{
+                          color: theme.white,
+                          fontSize: typeScale.caption,
+                          fontWeight: '800',
+                        }}>
+                        {data.profile.name.trim() || t('You')}
+                      </Text>
+                    ) : null}
                     <FormattedMessage
                       text={item.text}
                       color={isMama ? theme.text : theme.white}
