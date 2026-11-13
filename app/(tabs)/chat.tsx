@@ -236,7 +236,10 @@ export default function ChatScreen() {
     const Location = await import('expo-location');
     const permission = await Location.requestForegroundPermissionsAsync();
     if (permission.status !== 'granted') {
-      return t('Location access was not granted. Please type a town or district, or search facilities in Pregnancy Info.');
+      return {
+        reply: t('Location access was not granted. Please type a town or district, or search facilities in Pregnancy Info.'),
+        locationChecked: false,
+      };
     }
 
     const location = await Location.getCurrentPositionAsync({});
@@ -246,7 +249,10 @@ export default function ChatScreen() {
       5,
     );
     if (!nearest.length) {
-      return t('I couldn’t find facilities with location coordinates in the saved list. Search by district in Pregnancy Info or ask a local health worker.');
+      return {
+        reply: t('I couldn’t find facilities with location coordinates in the saved list. Search by district in Pregnancy Info or ask a local health worker.'),
+        locationChecked: true,
+      };
     }
 
     const facilityLines = nearest.map(({ facility, distanceKm }) => {
@@ -257,14 +263,17 @@ export default function ChatScreen() {
       startYear: facilityRecordYearRange.startYear,
       endYear: facilityRecordYearRange.endYear,
     });
-    return [
-      `**${t('Closest facilities in the saved Zimbabwe list')}**`,
-      ...facilityLines,
-      '',
-      t('Distances are approximate. {sourceYears} and do not confirm a facility is currently open. Please confirm locally before traveling. Your location was checked on this phone only.', {
-        sourceYears,
-      }),
-    ].join('\n');
+    return {
+      reply: [
+        `**${t('Closest facilities in the saved Zimbabwe list')}**`,
+        ...facilityLines,
+        '',
+        t('Distances are approximate. {sourceYears} and do not confirm a facility is currently open. Please confirm locally before traveling. Your location was checked on this phone only.', {
+          sourceYears,
+        }),
+      ].join('\n'),
+      locationChecked: true,
+    };
   };
 
   const sendMessage = async (message = draft, replyMessage = message) => {
@@ -295,9 +304,13 @@ export default function ChatScreen() {
       setError('');
       setStatus(t('Checking the saved Zimbabwe facility list on this phone…'));
       try {
-        const reply = await getNearbyFacilityReply();
-        setStatus(t('Your location was checked on this phone only; it was not sent to online AI.'));
-        saveExchange(message.trim(), reply, true);
+        const result = await getNearbyFacilityReply();
+        setStatus(
+          result.locationChecked
+            ? t('Your location was checked on this phone only; it was not sent to online AI.')
+            : t('Location access was not granted. No location was used or sent online.'),
+        );
+        saveExchange(message.trim(), result.reply, true);
       } catch (locationError) {
         setStatus('');
         setError(
