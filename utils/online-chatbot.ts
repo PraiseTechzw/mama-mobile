@@ -27,7 +27,7 @@ export async function getOnlineReply(
   }
 
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 8_000);
+  const timeout = setTimeout(() => controller.abort(), 25_000);
   try {
     const response = await fetch(`${backendUrl}/api/chat`, {
       method: 'POST',

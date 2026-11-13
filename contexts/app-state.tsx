@@ -37,6 +37,7 @@ export type ChatMessage = {
   author: 'mama' | 'you';
   text: string;
   createdAt: string;
+  localOnly?: boolean;
 };
 
 type AppData = {
@@ -148,9 +149,10 @@ function parseSavedData(value: unknown): AppData {
     if (
       !isRecord(item) ||
       typeof item.id !== 'string' ||
-      (item.author !== 'mama' && item.author !== 'you') ||
+      (item.author !== 'mama' && item.author !== 'you'      ) ||
       typeof item.text !== 'string' ||
-      typeof item.createdAt !== 'string'
+      typeof item.createdAt !== 'string' ||
+      (item.localOnly !== undefined && typeof item.localOnly !== 'boolean')
     ) {
       throw new Error('A saved chat message could not be read. Your information has not been changed.');
     }
@@ -160,6 +162,7 @@ function parseSavedData(value: unknown): AppData {
       author: item.author,
       text: item.text,
       createdAt: item.createdAt,
+      localOnly: item.localOnly === true,
     };
   });
 

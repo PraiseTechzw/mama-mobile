@@ -9,7 +9,13 @@ import psycopg
 from twilio.request_validator import RequestValidator
 from twilio.twiml.messaging_response import MessagingResponse
 
-from backend.mamabot.chatbot import IntentClassifier, answer_question_with_mode
+from backend.mamabot.chatbot import (
+    IntentClassifier,
+    answer_question,
+    answer_question_with_mode,
+    classify_question,
+)
+from backend.mamabot.chat_generation import DEFAULT_CHAT_MODEL, generate_chat_reply
 from backend.mamabot.language_sessions import (
     LanguageSessionStore,
     is_change_language_request,
@@ -33,6 +39,10 @@ def create_app(test_config: Mapping[str, object] | None = None) -> Flask:
         OPENROUTER_API_KEY=os.environ.get("OPENROUTER_API_KEY", ""),
         OPENROUTER_MODEL=os.environ.get("OPENROUTER_MODEL", "").strip(),
         OPENROUTER_TIMEOUT_SECONDS=5,
+        OPENROUTER_CHAT_MODEL=os.environ.get(
+            "OPENROUTER_CHAT_MODEL", DEFAULT_CHAT_MODEL
+        ).strip(),
+        OPENROUTER_CHAT_TIMEOUT_SECONDS=18,
         OPENROUTER_MESSAGING_ENABLED=(
             os.environ.get("OPENROUTER_MESSAGING_ENABLED", "true").strip().lower() == "true"
         ),
@@ -142,14 +152,43 @@ def create_app(test_config: Mapping[str, object] | None = None) -> Flask:
             "pregnancy_week": pregnancy_week,
             "recent_messages": recent_messages,
         }
+        local_intent, detected_language = classify_question(message.strip(), language)
+        if force_language:
+            detected_language = language
+        if local_intent == "urgent_symptoms":
+            reply, mode = answer_question_with_mode(
+                message.strip(),
+                language,
+                force_language=force_language,
+                context=classification_context,
+            )
+            return jsonify(reply=reply, mode=mode)
+
+        if use_online:
+            api_key = str(app.config["OPENROUTER_API_KEY"])
+            reviewed_guidance = (
+                answer_question(
+                    message.strip(),
+                    preferred_language=detected_language,
+                )
+                if local_intent != "fallback"
+                else None
+            )
+            online_reply = generate_chat_reply(
+                message.strip(),
+                api_key,
+                str(app.config["OPENROUTER_CHAT_MODEL"]),
+                float(app.config["OPENROUTER_CHAT_TIMEOUT_SECONDS"]),
+                detected_language,
+                classification_context,
+                reviewed_guidance,
+            )
+            if online_reply:
+                return jsonify(reply=online_reply, mode="online")
+
         reply, mode = answer_question_with_mode(
             message.strip(),
             language,
-            chatbot_classifier(
-                enabled=use_online,
-                preferred_language=language,
-                context=classification_context,
-            ),
             force_language=force_language,
             context=classification_context,
         )

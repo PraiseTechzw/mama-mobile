@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { router } from 'expo-router';
 import {
   ActivityIndicator,
   Alert,
@@ -19,7 +20,13 @@ import { ActionButton } from '@/components/action-button';
 import { AppIcon } from '@/components/app-icon';
 import { AppText as Text } from '@/components/app-text';
 import { useAppState, type AppLanguage, type ChatMessage, type Reminder } from '@/contexts/app-state';
+import { detectChatAction } from '@/utils/chat-actions';
 import { classifyOfflineQuestion, getOfflineReply } from '@/utils/chatbot';
+import {
+  facilityRecordYearRange,
+  getNearestHealthcareFacilities,
+  healthcareFacilities,
+} from '@/utils/facilities';
 import { localeForLanguage, translate, useTranslation } from '@/utils/i18n';
 import { messagingChannels } from '@/utils/messaging-channels';
 import { getOnlineReply, isOnlineChatConfigured } from '@/utils/online-chatbot';
@@ -36,7 +43,7 @@ function getSuggestedPrompts(
     : 'How can I estimate my pregnancy week?';
   const visitPrompt = nextReminder
     ? `How can I prepare for ${nextReminder.title}?`
-    : 'What should I expect at an ANC visit?';
+    : 'What happens during a pregnancy check-up?';
   const birthPrompt = week && week >= 28
     ? 'How can I prepare for birth?'
     : 'What foods and drinks are helpful?';
@@ -50,6 +57,9 @@ function getSuggestedPrompts(
     'Can I take medicines or supplements?',
     birthPrompt,
     'Which warning signs need urgent care?',
+    'Show my reminders',
+    'Set a reminder',
+    'Find health facilities near me',
   ];
   return prompts.map((message) => ({ message, label: translate(language, message) }));
 }
@@ -63,13 +73,69 @@ function getLocalReply(
   return getOfflineReply(message, week, nextReminder, language);
 }
 
-function createMessage(author: ChatMessage['author'], text: string): ChatMessage {
+function createMessage(
+  author: ChatMessage['author'],
+  text: string,
+  localOnly = false,
+): ChatMessage {
   return {
     id: `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`,
     author,
     text,
     createdAt: new Date().toISOString(),
+    localOnly,
   };
+}
+
+function formatInlineMarkdown(text: string, color: string) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, index) => {
+    const isBold = part.startsWith('**') && part.endsWith('**');
+    return (
+      <Text
+        key={`${index}-${part}`}
+        style={{ color, fontWeight: isBold ? '800' : '400' }}>
+        {isBold ? part.slice(2, -2) : part}
+      </Text>
+    );
+  });
+}
+
+function FormattedMessage({ text, color }: { text: string; color: string }) {
+  return (
+    <View style={{ gap: space.xs }}>
+      {text.split('\n').map((rawLine, index) => {
+        const line = rawLine.trim();
+        if (!line) return <View key={`space-${index}`} style={{ height: 4 }} />;
+        const bullet = line.match(/^[-*]\s+(.*)$/);
+        const numbered = line.match(/^(\d+[.)])\s+(.*)$/);
+        const heading = line.match(/^#{1,3}\s+(.*)$/);
+        const content = bullet?.[1] ?? numbered?.[2] ?? heading?.[1] ?? line;
+        const prefix = bullet ? '•' : numbered?.[1] ?? '';
+
+        return (
+          <View
+            key={`${index}-${line}`}
+            style={{ flexDirection: 'row', alignItems: 'flex-start', gap: space.xs }}>
+            {prefix ? (
+              <Text style={{ color, fontSize: typeScale.body, lineHeight: 22 }}>
+                {prefix}
+              </Text>
+            ) : null}
+            <Text
+              style={{
+                flex: 1,
+                color,
+                fontSize: typeScale.body,
+                lineHeight: 22,
+                fontWeight: heading ? '800' : '400',
+              }}>
+              {formatInlineMarkdown(content, color)}
+            </Text>
+          </View>
+        );
+      })}
+    </View>
+  );
 }
 
 export default function ChatScreen() {
@@ -105,10 +171,10 @@ export default function ChatScreen() {
       hideSubscription.remove();
     };
   }, [windowHeight]);
-  const recentMessages = data.chatMessages.slice(-6).map(({ author, text }) => ({
-    author,
-    text: text.slice(-500),
-  }));
+  const recentMessages = data.chatMessages
+    .filter((message) => !message.localOnly)
+    .slice(-6)
+    .map(({ author, text }) => ({ author, text: text.slice(-500) }));
   const whatsappUrl = messagingChannels.whatsappUrl;
   const smsUrl = messagingChannels.smsUrl;
   const openMessagingChannel = async (url: string, channel: string) => {
@@ -131,11 +197,121 @@ export default function ChatScreen() {
   };
   const messages = data.chatMessages.length ? data.chatMessages : [greeting];
 
+  const saveExchange = (userText: string, reply: string, localOnly = false) => {
+    const saved = addChatMessages([
+      createMessage('you', userText, localOnly),
+      createMessage('mama', reply, localOnly),
+    ]);
+    if (saved) {
+      setDraft('');
+    } else {
+      setError(t('Your message could not be saved. It is still in the text box—please try again.'));
+    }
+    return saved;
+  };
+
+  const formatUpcomingReminders = (userText: string) => {
+    const upcoming = data.reminders
+      .filter((reminder) => new Date(reminder.scheduledAt).getTime() >= now)
+      .sort((left, right) => left.scheduledAt.localeCompare(right.scheduledAt))
+      .slice(0, 5);
+    if (!upcoming.length) {
+      return t('You don’t have any upcoming reminders saved on this phone. I can open the reminder form for you.');
+    }
+    const locale = localeForLanguage(data.profile.language);
+    return [
+      t('Here are your upcoming reminders:'),
+      ...upcoming.map((reminder) => {
+        const date = new Date(reminder.scheduledAt);
+        return `- **${reminder.title}** — ${date.toLocaleDateString(locale)} ${date.toLocaleTimeString(locale, {
+          hour: '2-digit',
+          minute: '2-digit',
+        })}`;
+      }),
+      '',
+      t('Your reminders stay on this phone and are not sent to online AI.'),
+    ].join('\n');
+  };
+
+  const getNearbyFacilityReply = async () => {
+    const Location = await import('expo-location');
+    const permission = await Location.requestForegroundPermissionsAsync();
+    if (permission.status !== 'granted') {
+      return t('Location access was not granted. Please type a town or district, or search facilities in Pregnancy Info.');
+    }
+
+    const location = await Location.getCurrentPositionAsync({});
+    const nearest = getNearestHealthcareFacilities(
+      location.coords.latitude,
+      location.coords.longitude,
+      5,
+    );
+    if (!nearest.length) {
+      return t('I couldn’t find facilities with location coordinates in the saved list. Search by district in Pregnancy Info or ask a local health worker.');
+    }
+
+    const facilityLines = nearest.map(({ facility, distanceKm }) => {
+      const area = [facility.district, facility.province].filter(Boolean).join(', ');
+      return `- **${facility.name}** — ${area} · ${distanceKm.toFixed(1)} km`;
+    });
+    const sourceYears = t('Facility records are from {startYear}–{endYear}', {
+      startYear: facilityRecordYearRange.startYear,
+      endYear: facilityRecordYearRange.endYear,
+    });
+    return [
+      `**${t('Closest facilities in the saved Zimbabwe list')}**`,
+      ...facilityLines,
+      '',
+      t('Distances are approximate. {sourceYears} and do not confirm a facility is currently open. Please confirm locally before traveling. Your location was checked on this phone only.', {
+        sourceYears,
+      }),
+    ].join('\n');
+  };
+
   const sendMessage = async (message = draft, replyMessage = message) => {
-    const text = message.trim();
+    const text = replyMessage.trim();
     if (!text || isSending) return;
 
+    const action = detectChatAction(text);
+    if (action === 'show_reminders') {
+      setError('');
+      setStatus(t('Your reminders stay on this phone and are not sent to online AI.'));
+      saveExchange(message.trim(), formatUpcomingReminders(message.trim()), true);
+      return;
+    }
+    if (action === 'create_reminder') {
+      setError('');
+      const saved = saveExchange(
+        message.trim(),
+        t('I’ll open the reminder form. Check the title, choose the correct date and time, then save it there. Nothing has been saved yet.'),
+        true,
+      );
+      if (saved) router.push('/reminder-form');
+      return;
+    }
+
     const isUrgent = classifyOfflineQuestion(text, data.profile.language).intent === 'urgent_symptoms';
+    if (action === 'facilities_nearby' && !isUrgent) {
+      setIsSending(true);
+      setError('');
+      setStatus(t('Checking the saved Zimbabwe facility list on this phone…'));
+      try {
+        const reply = await getNearbyFacilityReply();
+        setStatus(t('Your location was checked on this phone only; it was not sent to online AI.'));
+        saveExchange(message.trim(), reply, true);
+      } catch (locationError) {
+        setStatus('');
+        setError(
+          locationError instanceof Error
+            ? `${t('Your location could not be determined. Try again or search facilities in Pregnancy Info.')} ${locationError.message}`
+            : t('Your location could not be determined. Try again or search facilities in Pregnancy Info.'),
+        );
+      } finally {
+        setIsSending(false);
+      }
+      return;
+    }
+
     setIsSending(true);
     setError('');
     setStatus(
@@ -157,7 +333,7 @@ export default function ChatScreen() {
           }, isSuggestedPrompt);
           if (onlineResult.mode === 'online') {
             reply = onlineResult.reply;
-            setStatus(t('Online AI classified this question; showing MamaBot guidance.'));
+            setStatus(t('Online AI generated this reply using MamaBot guidance.'));
           } else if (onlineResult.mode === 'safety') {
             reply = onlineResult.reply;
             setStatus(t('Safety-critical guidance was answered locally.'));
@@ -173,15 +349,7 @@ export default function ChatScreen() {
         setStatus('');
       }
 
-      const saved = addChatMessages([
-        createMessage('you', text),
-        createMessage('mama', reply),
-      ]);
-      if (saved) {
-        setDraft('');
-      } else {
-        setError(t('Your message could not be saved. It is still in the text box—please try again.'));
-      }
+      saveExchange(message.trim(), reply);
     } finally {
       setIsSending(false);
     }
@@ -345,15 +513,10 @@ export default function ChatScreen() {
                     borderColor: theme.line,
                     boxShadow: isMama ? '0 1px 3px rgba(33, 27, 56, 0.06)' : undefined,
                   }}>
-                  <Text
-                    selectable
-                    style={{
-                      color: isMama ? theme.text : theme.white,
-                      fontSize: typeScale.body,
-                      lineHeight: 22,
-                    }}>
-                    {item.text}
-                  </Text>
+                    <FormattedMessage
+                      text={item.text}
+                      color={isMama ? theme.text : theme.white}
+                    />
                   {item.id !== 'welcome' ? (
                     <Text
                       style={{

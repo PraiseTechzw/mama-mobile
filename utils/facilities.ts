@@ -48,3 +48,25 @@ export function distanceToFacility(
 
   return 6371 * 2 * Math.atan2(Math.sqrt(arc), Math.sqrt(1 - arc));
 }
+
+export function getNearestHealthcareFacilities(
+  latitude: number,
+  longitude: number,
+  limit = 5,
+) {
+  if (!Number.isFinite(latitude) || !Number.isFinite(longitude) || limit < 1) {
+    return [];
+  }
+
+  return healthcareFacilities
+    .map((facility) => ({
+      facility,
+      distanceKm: distanceToFacility(latitude, longitude, facility),
+    }))
+    .filter(
+      (item): item is { facility: HealthcareFacility; distanceKm: number } =>
+        item.distanceKm !== null,
+    )
+    .sort((left, right) => left.distanceKm - right.distanceKm)
+    .slice(0, Math.floor(limit));
+}

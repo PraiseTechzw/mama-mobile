@@ -38,7 +38,7 @@ export default function ReminderFormScreen() {
   const theme = useAppTheme();
   const t = useTranslation();
   const { data, addReminder } = useAppState();
-  const [title, setTitle] = useState(() => t('ANC appointment'));
+  const [title, setTitle] = useState(() => t('Pregnancy check-up'));
   const [notes, setNotes] = useState('');
   const [facilityId, setFacilityId] = useState<string | null>(null);
   const [date, setDate] = useState(() => addTomorrow(new Date()));
