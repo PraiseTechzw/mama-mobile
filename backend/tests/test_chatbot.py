@@ -25,6 +25,15 @@ class ChatbotTests(unittest.TestCase):
                         r"\b(?:anc|antenatal)\b",
                     )
 
+    def test_common_answers_include_practical_follow_up_details(self) -> None:
+        self.assertIn("Bring your clinic card", RESPONSES["anc_visit"]["en"])
+        self.assertIn("Kana uine kadhi rekiriniki", RESPONSES["anc_visit"]["sn"])
+        self.assertIn("Nxa ulenkhadi leklinika", RESPONSES["anc_visit"]["nd"])
+        self.assertIn("If getting enough food is difficult", RESPONSES["nutrition"]["en"])
+        self.assertIn("Kana zvichikuomera kuwana chikafu", RESPONSES["nutrition"]["sn"])
+        self.assertIn("Nxa kunzima ukuthola ukudla", RESPONSES["nutrition"]["nd"])
+        self.assertIn("herbal remedies", RESPONSES["medicines"]["en"])
+
     def test_expanded_offline_topics_are_searchable_in_all_supported_languages(self) -> None:
         examples = (
             ("When should I start antenatal care?", "antenatal_care", "en"),
@@ -84,6 +93,7 @@ class ChatbotTests(unittest.TestCase):
 
         self.assertEqual(mode, "online")
         self.assertIn("Edza kudya", reply)
+
     def test_english_danger_sign_question(self) -> None:
         self.assertEqual(classify_question("Which warning signs need urgent care?"), ("danger_signs", "en"))
         reply = answer_question("Which warning signs need urgent care?")
