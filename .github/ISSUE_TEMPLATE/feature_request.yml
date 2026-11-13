@@ -1,0 +1,38 @@
+name: Feature request
+description: Suggest an improvement to MamaBot.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include personal health information. Health-related features must not imply that MamaBot diagnoses, replaces a clinician, or responds to emergencies.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or need
+      description: What user need or problem would this address?
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: Describe the behavior you would like to see.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: false
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety and privacy
+      options:
+        - label: This request does not require sharing real patient or health information.
+          required: true
+        - label: I understand that health content requires qualified clinical review before real-world use.
+          required: true

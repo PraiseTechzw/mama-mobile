@@ -1,0 +1,51 @@
+name: Bug report
+description: Report a reproducible problem with the app or backend.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include passwords, credentials, real phone numbers, patient details, or chat transcripts. Use synthetic examples. For security vulnerabilities, follow [SECURITY.md](https://github.com/PraiseTechzw/mama-mobile/blob/main/SECURITY.md) instead of opening a public issue.
+  - type: input
+    id: version
+    attributes:
+      label: App or commit version
+      description: Include the app version or commit SHA if known.
+      placeholder: "1.0.0 or commit SHA"
+    validations:
+      required: false
+  - type: input
+    id: environment
+    attributes:
+      label: Device and OS
+      description: Include device model, OS version, and whether this is a development or release build.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Use synthetic data. List the smallest set of steps that reproduces the problem.
+      placeholder: "1. Open…\n2. Tap…\n3. Observe…"
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs or screenshots
+      description: Redact secrets and personal information before sharing. Do not upload real health information.
+    validations:
+      required: false
