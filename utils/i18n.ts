@@ -134,8 +134,8 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
       'Ruzivo rweprofile yako runogara pafoni yako. Kana kupatsanurwa kwemubvunzo neAI yepamhepo kuchishandiswa, mubvunzo wako nenhaurirano dzichangobva kuitika zvinotumirwa kuPerplexity kuburikidza neOpenRouter; mupi webasa anogona kuzvishandisa kana kuzvichengeta. Usaisa mazita kana mashoko ekukuzivisa.',
     'In-app chat works offline. WhatsApp and SMS need mobile network access, and their messages are handled by those providers.':
       'Nhaurirano iri muapp ino inoshanda isina internet. WhatsApp neSMS zvinoda network yefoni, uye mashoko zvinopfuura kumakambani iwayo.',
-    'Online AI is unavailable; this answer used on-device guidance.':
-      'AI iri online haisi kuwanikwa; mhinduro iyi yashandisa mazano ari pafoni.',
+    'Online AI did not return a clear match; this answer used MamaBot guidance.':
+      'AI yepamhepo haina kuwana mubvunzo wakafanana zvakajeka; mhinduro iyi yashandisa mazano aMamaBot ari pafoni.',
     'Online AI classified this question; showing MamaBot guidance.':
       'AI yepamhepo yakaronga mubvunzo uyu; MamaBot iri kuratidza mazano ayo.',
     'Safety-critical guidance was answered locally.':
@@ -593,8 +593,8 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
       'UMamaBot usebenza engelantanethi. Nxa ukhetha i-AI eku-inthanethi, umbuzo wakho uthunyelwa kuseva kaMamaBot le-OpenRouter. Ungafaki ibizo lakho kumbe imininingwane engakwazisa. UMamaBot kasisiyo ingcitshi yezempilakahle.',
     'In-app chat works offline. WhatsApp and SMS need mobile network access, and their messages are handled by those providers.':
       'Ingxoxo eku-app isebenza ingela-inthanethi. I-WhatsApp le-SMS kudinga inethiwekhi yefoni, lemilayezo iphathwa yizinkampani lezo.',
-    'Online AI is unavailable; this answer used on-device guidance.':
-      'I-AI eku-inthanethi ayitholakali; impendulo le isebenzise ulwazi olusefonini.',
+    'Online AI did not return a clear match; this answer used MamaBot guidance.':
+      'I-AI eku-inthanethi yehlulekile ukuthola umbuzo ohambelanayo; impendulo le isebenzise izeluleko zikaMamaBot ezisefonini.',
     'Safety-critical guidance was answered locally.':
       'Ngenxa yokuphepha, isiqondiso esiqakathekileyo siphendulwe yifoni.',
     'Could not reach MamaBot; this answer used on-device guidance.':

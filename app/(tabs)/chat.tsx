@@ -144,13 +144,17 @@ export default function ChatScreen() {
         : t('MamaBot is replying…'),
     );
     try {
-      let reply = getLocalReply(replyMessage, week, nextReminder, data.profile.language);
+      const isSuggestedPrompt = message !== replyMessage;
+      const localQuestion = isSuggestedPrompt
+        ? `${data.profile.language}: ${replyMessage}`
+        : replyMessage;
+      let reply = getLocalReply(localQuestion, week, nextReminder, data.profile.language);
       if (isOnlineChatConfigured && !isUrgent) {
         try {
           const onlineResult = await getOnlineReply(replyMessage.trim(), data.profile.language, {
             pregnancyWeek: week,
             recentMessages,
-          });
+          }, isSuggestedPrompt);
           if (onlineResult.mode === 'online') {
             reply = onlineResult.reply;
             setStatus(t('Online AI classified this question; showing MamaBot guidance.'));
@@ -158,7 +162,7 @@ export default function ChatScreen() {
             reply = onlineResult.reply;
             setStatus(t('Safety-critical guidance was answered locally.'));
           } else {
-            setStatus(t('Online AI is unavailable; this answer used on-device guidance.'));
+            setStatus(t('Online AI did not return a clear match; this answer used MamaBot guidance.'));
           }
         } catch {
           setStatus(t('Could not reach MamaBot; this answer used on-device guidance.'));

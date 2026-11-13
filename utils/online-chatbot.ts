@@ -20,6 +20,7 @@ export async function getOnlineReply(
   message: string,
   language: AppLanguage,
   context: OnlineChatContext,
+  forceLanguage = false,
 ): Promise<OnlineReply> {
   if (!isOnlineChatConfigured) {
     throw new Error('Online MamaBot service is not configured.');
@@ -34,6 +35,7 @@ export async function getOnlineReply(
       body: JSON.stringify({
         message,
         language,
+        force_language: forceLanguage,
         use_online: true,
         context: {
           pregnancy_week: context.pregnancyWeek,

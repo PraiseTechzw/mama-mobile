@@ -19,7 +19,12 @@ class Intent:
     patterns: dict[str, tuple[str, ...]]
 
 
-def _read_catalog() -> tuple[list[Intent], dict[str, dict[str, str]], dict[str, tuple[str, ...]]]:
+def _read_catalog() -> tuple[
+    list[Intent],
+    dict[str, dict[str, str]],
+    dict[str, tuple[str, ...]],
+    dict[str, tuple[str, ...]],
+]:
     intents_data: dict[str, Any] = json.loads(
         (SHARED_DIRECTORY / "chatbot-intents.json").read_text(encoding="utf-8")
     )
@@ -49,14 +54,18 @@ def _read_catalog() -> tuple[list[Intent], dict[str, dict[str, str]], dict[str, 
         language: tuple(values)
         for language, values in intents_data["languagePrefixes"].items()
     }
+    indicators = {
+        language: tuple(values)
+        for language, values in intents_data["languageIndicators"].items()
+    }
 
     if "fallback" not in responses or any(intent.response not in responses for intent in intents):
         raise ValueError("The MamaBot intent catalog references a missing response.")
 
-    return intents, responses, prefixes
+    return intents, responses, prefixes, indicators
 
 
-INTENTS, RESPONSES, LANGUAGE_PREFIXES = _read_catalog()
+INTENTS, RESPONSES, LANGUAGE_PREFIXES, LANGUAGE_INDICATORS = _read_catalog()
 IntentClassifier = Callable[[str], tuple[str, str] | None]
 _TOKEN_PATTERN = re.compile(r"[a-z0-9]+")
 _BM25_K1 = 1.2
@@ -102,6 +111,34 @@ def _normalize(message: str) -> str:
     return message.strip().casefold()
 
 
+def _detect_language(message: str, preferred_language: str) -> str | None:
+    normalized = " ".join(_TOKEN_PATTERN.findall(_normalize(message)))
+    tokens = set(normalized.split())
+
+    def matches_indicator(indicator: str) -> bool:
+        if " " in indicator:
+            return f" {indicator} " in f" {normalized} "
+        return indicator in tokens
+
+    scores = {
+        language: sum(
+            len(indicator.split()) + 1
+            for indicator in LANGUAGE_INDICATORS[language]
+            if matches_indicator(indicator)
+        )
+        for language in LANGUAGES
+    }
+    best_score = max(scores.values())
+    if best_score == 0:
+        return None
+    best_languages = [
+        language for language, score in scores.items() if score == best_score
+    ]
+    if preferred_language in best_languages:
+        return preferred_language
+    return best_languages[0] if len(best_languages) == 1 else None
+
+
 def classify_question(
     message: str,
     preferred_language: str = "en",
@@ -119,6 +156,7 @@ def classify_question(
         if explicit_language:
             break
 
+    inferred_language = explicit_language or _detect_language(normalized, preferred)
     urgent_intent = next(intent for intent in INTENTS if intent.id == "urgent_symptoms")
     urgent_languages = {
         language: sum(
@@ -130,7 +168,7 @@ def classify_question(
     }
     if any(urgent_languages.values()):
         best_urgent_score = max(urgent_languages.values())
-        detected_language = explicit_language or next(
+        detected_language = inferred_language or next(
             (
                 language
                 for language in (preferred, *LANGUAGES)
@@ -142,7 +180,7 @@ def classify_question(
 
     query_tokens = Counter(_tokens(normalized))
     if not query_tokens:
-        return "fallback", explicit_language or preferred
+        return "fallback", inferred_language or preferred
 
     intent_language_scores: dict[str, dict[str, float]] = {}
     for intent, _order, language, frequencies in _SEARCH_DOCUMENTS:
@@ -187,14 +225,14 @@ def classify_question(
     )
     best_intent_score = max(intent_language_scores[matched_intent.id].values())
     if best_intent_score <= 0:
-        return "fallback", explicit_language or preferred
+        return "fallback", inferred_language or preferred
 
     language_scores = intent_language_scores[matched_intent.id]
     best_language_score = max(language_scores.values())
     tied_languages = [
         language for language, score in language_scores.items() if score == best_language_score
     ]
-    detected_language = explicit_language or (
+    detected_language = inferred_language or (
         preferred if preferred in tied_languages else tied_languages[0]
     )
     return matched_intent.id, detected_language
@@ -256,7 +294,7 @@ def answer_question_with_mode(
         pregnancy_week = None
     if force_language and preferred_language in LANGUAGES:
         local_language = preferred_language
-    if local_intent in {"urgent_symptoms", "danger_signs"}:
+    if local_intent == "urgent_symptoms":
         return _render_response(local_intent, local_language, pregnancy_week), "safety"
 
     online_classification = classifier(message) if classifier else None

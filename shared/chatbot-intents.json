@@ -13,7 +13,7 @@
       "id": "danger_signs",
       "patterns": {
         "en": ["warning signs", "danger signs", "urgent care", "when should i seek help", "when to seek help"],
-        "sn": ["zviratidzo zvengozi", "zviratidzo zvinoda rubatsiro", "rubatsiro rwechimbichimbi", "nditsvage rubatsiro", "ndinofanira kutsvaga rubatsiro"],
+        "sn": ["zviratidzo zvengozi", "zviratidzo zvinoda rubatsiro", "rubatsiro rwechimbichimbi", "ndinofanira kutsvaga rubatsiro rwechimbichimbi"],
         "nd": ["izibonakaliso zengozi", "izibonakaliso ezidinga usizo", "usizo oluphuthumayo", "dinga usizo", "ngidinge usizo"]
       },
       "response": "danger_signs"
@@ -94,7 +94,7 @@
       "id": "nutrition",
       "patterns": {
         "en": ["food", "nutrition", "what should i eat", "safe water", "what can i drink", "diet"],
-        "sn": ["kudya", "zvekudya", "zvinovaka muviri", "mvura", "zvekudya"],
+        "sn": ["kudya", "zvekudya", "zvinovaka muviri", "mvura", "ndinofanira kudyei", "ndidyei", "chii chandingadye", "ndinoda rubatsiro nezvekudya"],
         "nd": ["ukudla", "amanzi", "okwakha umzimba", "ngidle", "nginatheni"]
       },
       "response": "nutrition"
@@ -256,5 +256,10 @@
     "en": ["en:", "english:"],
     "sn": ["sn:", "shona:"],
     "nd": ["nd:", "ndebele:"]
+  },
+  "languageIndicators": {
+    "en": ["what", "how", "when", "where", "why", "i am", "i have", "i need", "can i", "should i", "please", "my", "need help"],
+    "sn": ["ndiri", "ndinoda", "ndingada", "ndinogona", "ndinofanira", "ndinonzwa", "handina", "handisi", "ndakaita", "zvangu", "zvekudya", "nezvekudya", "pamuviri", "chii", "sei", "riini", "here", "kuti", "ari", "ndinotya", "ndingaita", "ndikumbire", "ndinoda rubatsiro"],
+    "nd": ["ngifuna", "ngicela", "ngikhulelwe", "ngiyagula", "ngizwa", "ngiphethwe", "angazi", "angila", "umntwana", "ukukhulelwa", "kwami", "yini", "njani", "nini", "ukuthi", "khathesi", "ngingathola", "ngidla", "nginatha", "ngenzenjani"]
   }
 }

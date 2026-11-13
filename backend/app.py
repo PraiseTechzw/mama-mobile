@@ -111,6 +111,9 @@ def create_app(test_config: Mapping[str, object] | None = None) -> Flask:
         use_online = payload.get("use_online", False)
         if not isinstance(use_online, bool):
             return jsonify(error="use_online must be a boolean."), 400
+        force_language = payload.get("force_language", False)
+        if not isinstance(force_language, bool):
+            return jsonify(error="force_language must be a boolean."), 400
 
         context = payload.get("context", {})
         if not isinstance(context, dict):
@@ -147,7 +150,7 @@ def create_app(test_config: Mapping[str, object] | None = None) -> Flask:
                 preferred_language=language,
                 context=classification_context,
             ),
-            force_language=True,
+            force_language=force_language,
             context=classification_context,
         )
         return jsonify(reply=reply, mode=mode)

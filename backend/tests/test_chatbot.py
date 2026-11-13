@@ -46,6 +46,23 @@ class ChatbotTests(unittest.TestCase):
             ("antenatal_care", "en"),
         )
 
+    def test_shona_language_and_nutrition_are_detected_without_app_preference(self) -> None:
+        for question in (
+            "Ndinofanira kudyei?",
+            "Ndinoda rubatsiro nezvekudya",
+        ):
+            with self.subTest(question=question):
+                self.assertEqual(classify_question(question, "en"), ("nutrition", "sn"))
+                reply, mode = answer_question_with_mode(question, "en")
+                self.assertEqual(mode, "offline")
+                self.assertIn("Edza kudya", reply)
+
+    def test_nonurgent_general_help_does_not_use_urgent_safety_response(self) -> None:
+        reply, mode = answer_question_with_mode("Ndinoda rubatsiro nezvekudya", "en")
+        self.assertEqual(mode, "offline")
+        self.assertIn("Edza kudya", reply)
+        self.assertNotIn("Usamirire imwe meseji", reply)
+
     def test_english_danger_sign_question(self) -> None:
         self.assertEqual(classify_question("Which warning signs need urgent care?"), ("danger_signs", "en"))
         reply = answer_question("Which warning signs need urgent care?")

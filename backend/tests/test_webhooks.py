@@ -81,13 +81,27 @@ class WebhookTests(unittest.TestCase):
         self.assertIn("around week 6", response.json["reply"])
         self.assertIn("first trimester", response.json["reply"])
 
-    def test_app_chat_api_uses_selected_language_for_english_question(self) -> None:
+    def test_app_chat_api_uses_question_language_over_selected_language(self) -> None:
         response = self.client.post(
             "/api/chat",
             json={
                 "message": "What foods should I eat?",
                 "language": "sn",
                 "use_online": True,
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json["mode"], "offline")
+        self.assertIn("Aim for a varied diet", response.json["reply"])
+
+    def test_app_chat_api_detects_shona_when_selected_language_is_english(self) -> None:
+        response = self.client.post(
+            "/api/chat",
+            json={
+                "message": "Ndinofanira kudyei?",
+                "language": "en",
+                "use_online": False,
             },
         )
 

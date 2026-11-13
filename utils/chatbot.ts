@@ -74,13 +74,35 @@ function findLanguagePrefix(message: string) {
   return null;
 }
 
+function detectLanguage(message: string, preferredLanguage: AppLanguage) {
+  const normalized = normalizeMessage(message);
+  const tokens = new Set(normalized.split(' '));
+  const scores = languages.map((language) => ({
+    language,
+    score: chatbotIntents.languageIndicators[language].reduce((score, indicator) => {
+      const matches = indicator.includes(' ')
+        ? ` ${normalized} `.includes(` ${indicator} `)
+        : tokens.has(indicator);
+      return matches ? score + indicator.split(' ').length + 1 : score;
+    }, 0),
+  }));
+  const bestScore = Math.max(...scores.map(({ score }) => score));
+  if (bestScore === 0) return null;
+
+  const bestLanguages = scores
+    .filter(({ score }) => score === bestScore)
+    .map(({ language }) => language);
+  if (bestLanguages.includes(preferredLanguage)) return preferredLanguage;
+  return bestLanguages.length === 1 ? bestLanguages[0] : null;
+}
+
 export function classifyOfflineQuestion(
   message: string,
   preferredLanguage: AppLanguage = 'en',
 ) {
-  const normalized = normalizeMessage(message);
-  const prefixed = findLanguagePrefix(normalized);
-  const query = prefixed?.message ?? normalized;
+  const prefixed = findLanguagePrefix(message.trim().toLowerCase());
+  const query = normalizeMessage(prefixed?.message ?? message);
+  const inferredLanguage = prefixed?.language ?? detectLanguage(query, preferredLanguage);
   const urgentIntent = chatbotIntents.intents.find(
     (intent) => intent.id === 'urgent_symptoms',
   );
@@ -102,7 +124,7 @@ export function classifyOfflineQuestion(
     return {
       intent: 'urgent_symptoms',
       language:
-        prefixed?.language ??
+        inferredLanguage ??
         (urgentLanguages.includes(preferredLanguage) ? preferredLanguage : urgentLanguages[0]),
       message: query,
     };
@@ -112,7 +134,7 @@ export function classifyOfflineQuestion(
   if (queryFrequencies.size === 0) {
     return {
       intent: 'fallback',
-      language: prefixed?.language ?? preferredLanguage,
+      language: inferredLanguage ?? preferredLanguage,
       message: query,
     };
   }
@@ -170,7 +192,7 @@ export function classifyOfflineQuestion(
     (language) => languageScores[language] === bestLanguageScore,
   );
   const detectedLanguage =
-    prefixed?.language ??
+    inferredLanguage ??
     (bestIntentScore === 0
       ? preferredLanguage
       : tiedLanguages.includes(preferredLanguage)
@@ -194,8 +216,7 @@ export function getOfflineReply(
   nextReminder: Reminder | undefined,
   language: AppLanguage,
 ) {
-  const { intent } = classifyOfflineQuestion(message, language);
-  const responseLanguage = language;
+  const { intent, language: responseLanguage } = classifyOfflineQuestion(message, language);
   let responseId = intent;
   const values: Record<string, string> = {};
 
