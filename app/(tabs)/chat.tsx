@@ -475,7 +475,7 @@ export default function ChatScreen() {
                 )}
               />
             </View>
-          ) : null
+          ) : undefined
         }
         renderItem={({ item }) => {
           const isMama = item.author === 'mama';
