@@ -350,7 +350,7 @@ export default function ChatScreen() {
             reply = onlineResult.reply;
             setStatus(t('Safety-critical guidance was answered locally.'));
           } else {
-            setStatus(t('Online AI did not return a clear match; this answer used MamaBot guidance.'));
+              setStatus(t('Online AI could not reply; showing the saved on-device response.'));
           }
         } catch {
           setStatus(t('Could not reach MamaBot; this answer used on-device guidance.'));
@@ -432,36 +432,50 @@ export default function ChatScreen() {
           </View>
         }
         ListFooterComponent={
-          <View style={{ gap: space.sm, paddingTop: space.sm, paddingBottom: space.lg }}>
-            <Text style={{ color: theme.text, fontSize: typeScale.small, fontWeight: '800' }}>
-              {week ? t('Suggested for around week {week}', { week }) : t('Suggested for you')}
-            </Text>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: space.sm }}>
-              {prompts.map((prompt) => (
-                <Pressable
-                  accessibilityRole="button"
-                  key={prompt.message}
-                  onPress={() => sendMessage(prompt.label, prompt.message)}
-                  style={({ pressed }) => ({
-                    maxWidth: '100%',
-                    minHeight: 40,
-                    justifyContent: 'center',
-                    paddingHorizontal: space.md,
-                    paddingVertical: space.sm,
-                    borderRadius: radius.lg,
-                    borderCurve: 'continuous',
-                    borderWidth: 1,
-                    borderColor: theme.primarySoft,
-                    backgroundColor: theme.surface,
-                    opacity: pressed ? 0.76 : 1,
-                  })}>
-                  <Text style={{ color: theme.primary, fontSize: typeScale.small, fontWeight: '700' }}>
-                    {prompt.label}
-                  </Text>
-                </Pressable>
-              ))}
+          data.chatMessages.length === 0 ? (
+            <View style={{ gap: space.sm, paddingTop: space.sm, paddingBottom: space.lg }}>
+              <Text style={{ color: theme.text, fontSize: typeScale.small, fontWeight: '800' }}>
+                {week ? t('Suggested for around week {week}', { week }) : t('Suggested for you')}
+              </Text>
+              <Text style={{ color: theme.muted, fontSize: typeScale.caption }}>
+                {t('Ask in your own words too — these are just ideas.')}
+              </Text>
+              <FlatList
+                horizontal
+                data={prompts}
+                keyExtractor={(prompt) => prompt.message}
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{ gap: space.sm, paddingRight: space.lg }}
+                renderItem={({ item: prompt }) => (
+                  <Pressable
+                    accessibilityRole="button"
+                    onPress={() => sendMessage(prompt.label, prompt.message)}
+                    style={({ pressed }) => ({
+                      maxWidth: 260,
+                      minHeight: 44,
+                      justifyContent: 'center',
+                      paddingHorizontal: space.md,
+                      paddingVertical: space.sm,
+                      borderRadius: radius.lg,
+                      borderCurve: 'continuous',
+                      borderWidth: 1,
+                      borderColor: theme.primarySoft,
+                      backgroundColor: theme.surface,
+                      opacity: pressed ? 0.76 : 1,
+                    })}>
+                    <Text
+                      style={{
+                        color: theme.primary,
+                        fontSize: typeScale.small,
+                        fontWeight: '700',
+                      }}>
+                      {prompt.label}
+                    </Text>
+                  </Pressable>
+                )}
+              />
             </View>
-          </View>
+          ) : null
         }
         renderItem={({ item }) => {
           const isMama = item.author === 'mama';
@@ -564,12 +578,15 @@ export default function ChatScreen() {
           style={{
             minHeight: 34,
             paddingHorizontal: space.lg,
+            paddingVertical: space.xs,
             flexDirection: 'row',
             alignItems: 'center',
             gap: space.sm,
           }}>
           {isSending ? <ActivityIndicator size="small" color={theme.primary} /> : null}
-          <Text style={{ color: theme.muted, fontSize: typeScale.caption }}>{status}</Text>
+          <Text style={{ flex: 1, color: theme.muted, fontSize: typeScale.caption }}>
+            {status}
+          </Text>
         </View>
       ) : null}
       <View

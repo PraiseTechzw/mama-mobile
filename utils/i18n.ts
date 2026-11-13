@@ -134,8 +134,8 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
       'Zita rako, nhamba yefoni nezviyeuchidzo zvinogara pafoni iyi. Kana AI yepamhepo ikashandiswa, mubvunzo wako, mameseji anosvika matanhatu achangobva kutumirwa uye vhiki repamuviri rakachengetwa zvinotumirwa nemuOpenRouter kumupi weAI, anogona kuzvishandisa kana kuzvichengeta. Kutsvaga nzvimbo dzeutano dziri pedyo kunoshandisa nzvimbo yako pafoni iyi chete; haitumirwi online. Usaisa mazita kana mashoko ekukuzivisa munhaurirano.',
     'In-app chat works offline. WhatsApp and SMS need mobile network access, and their messages are handled by those providers.':
       'Nhaurirano iri muapp ino inoshanda isina internet. WhatsApp neSMS zvinoda network yefoni, uye mashoko zvinopfuura kumakambani iwayo.',
-    'Online AI did not return a clear match; this answer used MamaBot guidance.':
-      'AI yepamhepo haina kuwana mubvunzo wakafanana zvakajeka; mhinduro iyi yashandisa mazano aMamaBot ari pafoni.',
+    'Online AI could not reply; showing the saved on-device response.':
+      'AI yepamhepo haina kukwanisa kupindura; ndiri kuratidza mhinduro yakachengetwa pafoni.',
     'Online AI classified this question; showing MamaBot guidance.':
       'AI yepamhepo yakaronga mubvunzo uyu; MamaBot iri kuratidza mazano ayo.',
     'Online AI generated this reply using MamaBot guidance.':
@@ -189,6 +189,8 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     'Clear chat': 'Bvisa nhaurirano',
     'Suggested for around week {week}': 'Zvinokurudzirwa pavhiki rinenge riri {week}',
     'Suggested for you': 'Zvinokurudzirwa kwauri',
+    'Ask in your own words too — these are just ideas.':
+      'Unogonawo kubvunza nemashoko ako — aya angori mazano.',
     'You': 'Iwe',
     'Message MamaBot': 'Tumira mashoko kunaMamaBot',
     'Ask MamaBot…': 'Bvunza MamaBot…',
@@ -626,8 +628,10 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
       'UMamaBot usebenza engelantanethi. Nxa ukhetha i-AI eku-inthanethi, umbuzo wakho uthunyelwa kuseva kaMamaBot le-OpenRouter. Ungafaki ibizo lakho kumbe imininingwane engakwazisa. UMamaBot kasisiyo ingcitshi yezempilakahle.',
     'In-app chat works offline. WhatsApp and SMS need mobile network access, and their messages are handled by those providers.':
       'Ingxoxo eku-app isebenza ingela-inthanethi. I-WhatsApp le-SMS kudinga inethiwekhi yefoni, lemilayezo iphathwa yizinkampani lezo.',
-    'Online AI did not return a clear match; this answer used MamaBot guidance.':
-      'I-AI eku-inthanethi yehlulekile ukuthola umbuzo ohambelanayo; impendulo le isebenzise izeluleko zikaMamaBot ezisefonini.',
+    'Online AI could not reply; showing the saved on-device response.':
+      'I-AI eku-inthanethi yehlulekile ukuphendula; kutshengiswa impendulo egcinwe efonini.',
+    'Ask in your own words too — these are just ideas.':
+      'Buza langawakho amazwi — lezi yimibono nje.',
     'Safety-critical guidance was answered locally.':
       'Ngenxa yokuphepha, isiqondiso esiqakathekileyo siphendulwe yifoni.',
     'Could not reach MamaBot; this answer used on-device guidance.':

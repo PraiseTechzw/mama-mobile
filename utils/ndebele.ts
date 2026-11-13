@@ -124,8 +124,10 @@ export const ndebeleTranslations: Record<string, string> = {
   'Send by SMS': 'Thumela nge-SMS',
   'Could not open {channel}. Check that it is available on your device.':
     'Yehlulekile ukuvula {channel}. Hlola ukuthi iyatholakala yini efonini yakho.',
-  'Online AI did not return a clear match; this answer used MamaBot guidance.':
-    'I-AI eku-inthanethi yehlulekile ukuthola umbuzo ohambelanayo; impendulo le isebenzise izeluleko zikaMamaBot ezisefonini.',
+  'Online AI could not reply; showing the saved on-device response.':
+    'I-AI eku-inthanethi yehlulekile ukuphendula; kutshengiswa impendulo egcinwe efonini.',
+  'Ask in your own words too — these are just ideas.':
+    'Buza langawakho amazwi — lezi yimibono nje.',
   'Online AI generated this reply using MamaBot guidance.':
     'I-AI eku-inthanethi ibumbe impendulo le isebenzisa izeluleko zikaMamaBot.',
   'Online AI classified this question; showing MamaBot guidance.':

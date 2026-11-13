@@ -111,6 +111,30 @@ class WebhookTests(unittest.TestCase):
         self.assertEqual(response.json["mode"], "safety")
         generate.assert_not_called()
 
+    @patch("backend.app.generate_chat_reply", return_value="The sky looks blue because...")
+    def test_app_chat_api_generates_reply_without_a_catalog_topic_match(
+        self, generate
+    ) -> None:
+        app = create_app(
+            {
+                "TESTING": True,
+                "OPENROUTER_API_KEY": "test-key",
+            }
+        )
+        response = app.test_client().post(
+            "/api/chat",
+            json={
+                "message": "Why does the sky look blue?",
+                "language": "en",
+                "use_online": True,
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json["mode"], "online")
+        self.assertEqual(response.json["reply"], "The sky looks blue because...")
+        self.assertIsNone(generate.call_args.args[6])
+
     def test_app_chat_api_uses_question_language_over_selected_language(self) -> None:
         response = self.client.post(
             "/api/chat",

@@ -52,6 +52,7 @@ class ChatGenerationTests(unittest.TestCase):
         self.assertEqual(payload["model"], DEFAULT_CHAT_MODEL)
         messages = payload["messages"]
         self.assertTrue(any("Write down your questions" in item["content"] for item in messages))
+        self.assertIn("Do not require the message to match", messages[0]["content"])
         self.assertEqual(
             [item["role"] for item in messages[-3:]],
             ["assistant", "system", "user"],
