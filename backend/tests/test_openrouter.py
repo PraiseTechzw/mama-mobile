@@ -11,9 +11,17 @@ class OpenRouterTests(unittest.TestCase):
     def make_response(self, result: dict[str, object]):
         data = json.dumps(
             {
-                "choices": [
-                    {"message": {"content": json.dumps(result)}},
-                ],
+                "answers": {
+                    "intent_id": {
+                        "type": "choice",
+                        "choice": result["intent_id"],
+                        "confidence": result["confidence"],
+                    },
+                    "language": {
+                        "type": "choice",
+                        "choice": result["language"],
+                    },
+                },
             }
         ).encode()
 
@@ -27,7 +35,7 @@ class OpenRouterTests(unittest.TestCase):
         return FakeResponse(data)
 
     @patch("backend.mamabot.openrouter.urlopen")
-    def test_sends_privacy_restricted_classification_and_parses_reply(self, mocked_urlopen) -> None:
+    def test_sends_decisions_classification_and_parses_reply(self, mocked_urlopen) -> None:
         mocked_urlopen.return_value = self.make_response(
             {"intent_id": "nutrition", "language": "sn", "confidence": 0.94}
         )
@@ -39,13 +47,13 @@ class OpenRouterTests(unittest.TestCase):
         self.assertEqual(result, ("nutrition", "sn"))
         request = mocked_urlopen.call_args.args[0]
         self.assertEqual(request.get_header("Authorization"), "Bearer test-key")
+        self.assertEqual(request.full_url, "https://openrouter.ai/api/alpha/decisions")
         payload = json.loads(request.data)
-        self.assertEqual(payload["provider"], {"data_collection": "deny", "zdr": True})
-        self.assertEqual(payload["response_format"]["type"], "json_schema")
-        self.assertEqual(
-            json.loads(payload["messages"][-1]["content"])["current_question"],
-            "Ndinofanira kudyei?",
-        )
+        self.assertEqual(payload["model"], "provider/test-model")
+        self.assertNotIn("provider", payload)
+        self.assertEqual(payload["questions"]["intent_id"]["type"], "choice")
+        self.assertIn("nutrition", payload["questions"]["intent_id"]["criteria"])
+        self.assertEqual(payload["state"]["current_question"], "Ndinofanira kudyei?")
         self.assertEqual(mocked_urlopen.call_args.kwargs["timeout"], 5)
 
     @patch("backend.mamabot.openrouter.urlopen")
@@ -65,10 +73,9 @@ class OpenRouterTests(unittest.TestCase):
         )
 
         payload = json.loads(mocked_urlopen.call_args.args[0].data)
-        user_content = json.loads(payload["messages"][-1]["content"])
-        self.assertEqual(user_content["current_question"], "What should I eat?")
-        self.assertEqual(user_content["context"], context)
-        self.assertNotIn("phone", user_content["context"])
+        self.assertEqual(payload["state"]["current_question"], "What should I eat?")
+        self.assertEqual(payload["state"]["context"], context)
+        self.assertNotIn("phone", payload["state"]["context"])
 
     @patch("backend.mamabot.openrouter.urlopen")
     def test_rejects_untrusted_or_low_confidence_classification(self, mocked_urlopen) -> None:
@@ -85,6 +92,31 @@ class OpenRouterTests(unittest.TestCase):
         self.assertEqual(
             classify_with_openrouter("question", "test-key", "provider/test-model"),
             ("clarify", "en"),
+        )
+
+        mocked_urlopen.return_value = self.make_response(
+            {"intent_id": "nutrition", "language": "en", "confidence": 0.94}
+        )
+        payload = {
+            "answers": {
+                "intent_id": {
+                    "type": "choice",
+                    "choice": "nutrition",
+                    "probabilities": {"nutrition": 0.94},
+                },
+                "language": {"type": "choice", "choice": "en"},
+            },
+        }
+        mocked_urlopen.return_value = self.make_response(
+            {"intent_id": "nutrition", "language": "en", "confidence": 0.94}
+        )
+        response_data = json.loads(mocked_urlopen.return_value.getvalue())
+        response_data["answers"]["intent_id"].pop("confidence")
+        response_data["answers"]["intent_id"]["probabilities"] = {"nutrition": 0.94}
+        mocked_urlopen.return_value = io.BytesIO(json.dumps(response_data).encode())
+        self.assertEqual(
+            classify_with_openrouter("question", "test-key", "provider/test-model"),
+            ("nutrition", "en"),
         )
 
     @patch("backend.mamabot.openrouter.urlopen", side_effect=TimeoutError)
@@ -105,7 +137,7 @@ class OpenRouterTests(unittest.TestCase):
             {"error": {"message": "No endpoints found matching your data policy"}}
         ).encode()
         mocked_urlopen.side_effect = HTTPError(
-            "https://openrouter.ai/api/v1/chat/completions",
+            "https://openrouter.ai/api/alpha/decisions",
             404,
             "Not Found",
             {},
