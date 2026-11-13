@@ -114,8 +114,8 @@ export const ndebeleTranslations: Record<string, string> = {
   'When to seek help': 'Isikhathi sokudinga usizo',
   'Ask MamaBot': 'Buza uMamaBot',
   'Get pregnancy guidance': 'Thola izeluleko ngokukhulelwa',
-  'MamaBot works offline. Optional online AI sends your question and recent chat to Perplexity through OpenRouter, where the provider may process or retain them. Do not include identifying information. MamaBot is not a clinician.':
-    'UMamaBot usebenza engelantanethi. I-AI eku-inthanethi ithumela umbuzo wakho lengxoxo zakutshanje kuPerplexity ngeOpenRouter, lapho umnikezi angakusebenzisa kumbe akugcine. Ungafaki ulwazi olungakuchaza. UMamaBot kasisiyo ingcitshi yezempilakahle.',
+  'MamaBot works offline. Optional online AI sends your question and recent chat to OpenRouter and its selected AI provider, where they may process or retain them. Do not include identifying information. MamaBot is not a clinician.':
+    'UMamaBot usebenza engelantanethi. Nxa ukhetha i-AI eku-inthanethi, umbuzo wakho lengxoxo zakutshanje kuthunyelwa kuOpenRouter lakumnikezi we-AI okhethiwe, abangakusebenzisa kumbe bakugcine. Ungafaki ulwazi olungakuchaza. UMamaBot kasisiyo ingcitshi yezempilakahle.',
   'Your name, phone number, and reminders stay on this device. If online AI is used, your question, up to 6 recent chat messages, and saved pregnancy week are sent through OpenRouter to an AI model provider, which may process or retain them. Nearby-facility search checks your location on this phone; it is not sent online. Do not include names or contact details in chat.':
     'Ibizo lakho, inombolo yefoni lezikhumbuzo kuhlala efonini le. Nxa kusetshenziswa i-AI eku-inthanethi, umbuzo wakho, imilayezo esanda kuthunyelwa efika ku-6 leviki lokukhulelwa eligciniweyo kuthunyelwa ngeOpenRouter kumnikezi we-AI, ongakusebenzisa kumbe akugcine. Ukudinga indawo zezempilakahle eziseduze kusebenzisa indawo yakho efonini le kuphela; ayithunyelwa ku-inthanethi. Ungafaki amabizo kumbe imininingwane engakwazisa engxoxweni.',
   'In-app chat works offline. WhatsApp and SMS need mobile network access, and their messages are handled by those providers.':
@@ -140,6 +140,8 @@ export const ndebeleTranslations: Record<string, string> = {
     'Ngihlola uhlu lwezempilakahle lweZimbabwe olugciniweyo efonini le…',
   'Location access was not granted. Please type a town or district, or search facilities in Pregnancy Info.':
     'Awuvumanga ukuthi sisebenzise indawo okuyo. Bhala ibizo ledolobho kumbe isabelo, kumbe udinge indawo zezempilakahle engxenyeni ethi Ulwazi Ngokukhulelwa.',
+  'Location access was not granted. No location was used or sent online.':
+    'Awuvumanga ukusetshenziswa kwendawo okuyo. Akukho ndawo esetshenzisiweyo kumbe ethunyelwe ku-inthanethi.',
   'Your location could not be determined. Try again or search facilities in Pregnancy Info.':
     'Yehlulekile ukuthola indawo okuyo. Zama futhi kumbe udinge indawo zezempilakahle engxenyeni ethi Ulwazi Ngokukhulelwa.',
   'I couldn’t find facilities with location coordinates in the saved list. Search by district in Pregnancy Info or ask a local health worker.':

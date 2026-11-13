@@ -65,8 +65,17 @@ class WebhookTests(unittest.TestCase):
         self.assertEqual(response.json["mode"], "safety")
         self.assertIn("chimbichimbi", response.json["reply"])
 
-    def test_app_chat_api_uses_context_when_online_classification_is_unavailable(self) -> None:
-        response = self.client.post(
+    @patch("backend.app.generate_chat_reply", return_value=None)
+    def test_app_chat_api_uses_context_when_online_generation_is_unavailable(
+        self, generate
+    ) -> None:
+        app = create_app(
+            {
+                "TESTING": True,
+                "OPENROUTER_API_KEY": "test-key",
+            }
+        )
+        response = app.test_client().post(
             "/api/chat",
             json={
                 "message": "What should I know about week 6?",
@@ -80,6 +89,27 @@ class WebhookTests(unittest.TestCase):
         self.assertEqual(response.json["mode"], "offline")
         self.assertIn("around week 6", response.json["reply"])
         self.assertIn("first trimester", response.json["reply"])
+        generate.assert_called_once()
+
+    @patch("backend.app.generate_chat_reply")
+    def test_app_chat_api_keeps_urgent_questions_local(self, generate) -> None:
+        app = create_app(
+            {
+                "TESTING": True,
+                "OPENROUTER_API_KEY": "test-key",
+            }
+        )
+        response = app.test_client().post(
+            "/api/chat",
+            json={
+                "message": "Ndiri kubuda ropa rakawanda",
+                "language": "sn",
+                "use_online": True,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json["mode"], "safety")
+        generate.assert_not_called()
 
     def test_app_chat_api_uses_question_language_over_selected_language(self) -> None:
         response = self.client.post(

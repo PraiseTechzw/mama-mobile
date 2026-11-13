@@ -128,8 +128,8 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     'When to seek help': 'Nguva yekutsvaga rubatsiro',
     'Ask MamaBot': 'Bvunza MamaBot',
     'Get pregnancy guidance': 'Wana mazano epamuviri',
-    'MamaBot works offline. Optional online AI sends your question and recent chat to Perplexity through OpenRouter, where the provider may process or retain them. Do not include identifying information. MamaBot is not a clinician.':
-      'MamaBot inoshanda isina internet. AI yepamhepo inotumira mubvunzo wako nenhaurirano dzichangobva kuitika kuPerplexity kuburikidza neOpenRouter, uko mupi webasa anogona kuzvishandisa kana kuzvichengeta. Usaisa mashoko anokuzivisa. MamaBot haisi nyanzvi yezveutano.',
+    'MamaBot works offline. Optional online AI sends your question and recent chat to OpenRouter and its selected AI provider, where they may process or retain them. Do not include identifying information. MamaBot is not a clinician.':
+      'MamaBot inoshanda isina internet. Kana ukasarudza AI yepamhepo, mubvunzo wako nenhaurirano dzichangobva kuitika zvinotumirwa kuOpenRouter nemupi weAI wakasarudzwa, vanogona kuzvishandisa kana kuzvichengeta. Usaisa mashoko anokuzivisa. MamaBot haisi nyanzvi yezveutano.',
     'Your name, phone number, and reminders stay on this device. If online AI is used, your question, up to 6 recent chat messages, and saved pregnancy week are sent through OpenRouter to an AI model provider, which may process or retain them. Nearby-facility search checks your location on this phone; it is not sent online. Do not include names or contact details in chat.':
       'Zita rako, nhamba yefoni nezviyeuchidzo zvinogara pafoni iyi. Kana AI yepamhepo ikashandiswa, mubvunzo wako, mameseji anosvika matanhatu achangobva kutumirwa uye vhiki repamuviri rakachengetwa zvinotumirwa nemuOpenRouter kumupi weAI, anogona kuzvishandisa kana kuzvichengeta. Kutsvaga nzvimbo dzeutano dziri pedyo kunoshandisa nzvimbo yako pafoni iyi chete; haitumirwi online. Usaisa mazita kana mashoko ekukuzivisa munhaurirano.',
     'In-app chat works offline. WhatsApp and SMS need mobile network access, and their messages are handled by those providers.':
@@ -150,6 +150,8 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
       'Ndiri kutarisa zvinyorwa zvenzvimbo dzeutano muZimbabwe zvakachengetwa pafoni iyi…',
     'Location access was not granted. Please type a town or district, or search facilities in Pregnancy Info.':
       'Hauna kubvumira kushandiswa kwenzvimbo yako. Nyora zita reguta kana redunhu, kana kutsvaga nzvimbo dzeutano muchikamu cheMashoko Epamuviri.',
+    'Location access was not granted. No location was used or sent online.':
+      'Hauna kubvumira kushandiswa kwenzvimbo yako. Hapana nzvimbo yakashandiswa kana kutumirwa online.',
     'Your location could not be determined. Try again or search facilities in Pregnancy Info.':
       'Handina kukwanisa kuziva nzvimbo yako. Edza zvakare kana kutsvaga nzvimbo dzeutano muchikamu cheMashoko Epamuviri.',
     'I couldn’t find facilities with location coordinates in the saved list. Search by district in Pregnancy Info or ask a local health worker.':
