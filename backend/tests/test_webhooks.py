@@ -5,7 +5,7 @@ from unittest.mock import patch
 import psycopg
 
 from backend.app import create_app
-from backend.mamabot.openrouter import DEFAULT_CLASSIFICATION_MODEL
+from backend.mamabot.chat_generation import DEFAULT_CHAT_MODEL
 from backend.mamabot.language_sessions import LanguageSession
 from twilio.request_validator import RequestValidator
 
@@ -123,11 +123,12 @@ class WebhookTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn("Edza kudya", response.json["reply"])
 
-    def test_app_chat_api_uses_model_classification_for_catalog_lookup(self) -> None:
+    @patch("backend.app.generate_chat_reply", return_value="Edza kudya zvakasiyana.")
+    def test_app_chat_api_uses_generated_answer_for_online_chat(self, generate) -> None:
         app = create_app(
             {
                 "TESTING": True,
-                "CHATBOT_CLASSIFIER": lambda _message: ("nutrition", "sn"),
+                "OPENROUTER_API_KEY": "test-key",
             }
         )
         response = app.test_client().post(
@@ -140,11 +141,12 @@ class WebhookTests(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json["mode"], "online")
-        self.assertIn("Edza kudya", response.json["reply"])
+        self.assertEqual(response.json["reply"], "Edza kudya zvakasiyana.")
+        self.assertEqual(generate.call_args.args[0], "Ndinofanira kudyei?")
+        self.assertEqual(generate.call_args.args[4], "sn")
 
-    @patch("backend.app.classify_with_openrouter")
-    def test_app_chat_api_passes_pregnancy_and_recent_chat_context(self, classify) -> None:
-        classify.return_value = ("nutrition", "en")
+    @patch("backend.app.generate_chat_reply", return_value="A varied diet can help.")
+    def test_app_chat_api_passes_pregnancy_and_recent_chat_context(self, generate) -> None:
         app = create_app(
             {
                 "TESTING": True,
@@ -171,16 +173,15 @@ class WebhookTests(unittest.TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json["mode"], "online")
-        self.assertEqual(classify.call_args.kwargs["context"], context)
+        self.assertEqual(generate.call_args.args[5], context)
 
-    @patch("backend.app.classify_with_openrouter")
-    def test_app_chat_api_selects_default_model_when_model_is_unset(self, classify) -> None:
-        classify.return_value = ("nutrition", "en")
+    @patch("backend.app.generate_chat_reply", return_value="A varied diet can help.")
+    def test_app_chat_api_selects_default_model_when_model_is_unset(self, generate) -> None:
         app = create_app(
             {
                 "TESTING": True,
                 "OPENROUTER_API_KEY": "test-key",
-                "OPENROUTER_MODEL": "",
+                "OPENROUTER_CHAT_MODEL": "",
             }
         )
         response = app.test_client().post(
@@ -193,16 +194,15 @@ class WebhookTests(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json["mode"], "online")
-        self.assertEqual(classify.call_args.args[2], DEFAULT_CLASSIFICATION_MODEL)
+        self.assertEqual(generate.call_args.args[2], DEFAULT_CHAT_MODEL)
 
-    @patch("backend.app.classify_with_openrouter")
-    def test_app_chat_api_migrates_legacy_free_router_model(self, classify) -> None:
-        classify.return_value = ("nutrition", "en")
+    @patch("backend.app.generate_chat_reply", return_value="A varied diet can help.")
+    def test_app_chat_api_allows_configured_chat_model(self, generate) -> None:
         app = create_app(
             {
                 "TESTING": True,
                 "OPENROUTER_API_KEY": "test-key",
-                "OPENROUTER_MODEL": "openrouter/free",
+                "OPENROUTER_CHAT_MODEL": "provider/model",
             }
         )
 
@@ -217,7 +217,7 @@ class WebhookTests(unittest.TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json["mode"], "online")
-        self.assertEqual(classify.call_args.args[2], DEFAULT_CLASSIFICATION_MODEL)
+        self.assertEqual(generate.call_args.args[2], "provider/model")
 
     def test_app_chat_api_validates_payload(self) -> None:
         client = create_app({"TESTING": True}).test_client()

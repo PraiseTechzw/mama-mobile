@@ -54,7 +54,7 @@ class ChatGenerationTests(unittest.TestCase):
         self.assertTrue(any("Write down your questions" in item["content"] for item in messages))
         self.assertEqual(
             [item["role"] for item in messages[-3:]],
-            ["user", "system", "user"],
+            ["assistant", "system", "user"],
         )
 
     @patch("backend.mamabot.chat_generation.urlopen")

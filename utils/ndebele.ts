@@ -116,8 +116,8 @@ export const ndebeleTranslations: Record<string, string> = {
   'Get pregnancy guidance': 'Thola izeluleko ngokukhulelwa',
   'MamaBot works offline. Optional online AI sends your question and recent chat to Perplexity through OpenRouter, where the provider may process or retain them. Do not include identifying information. MamaBot is not a clinician.':
     'UMamaBot usebenza engelantanethi. I-AI eku-inthanethi ithumela umbuzo wakho lengxoxo zakutshanje kuPerplexity ngeOpenRouter, lapho umnikezi angakusebenzisa kumbe akugcine. Ungafaki ulwazi olungakuchaza. UMamaBot kasisiyo ingcitshi yezempilakahle.',
-  'Your profile stays on this device. If online classification is enabled, your question and recent chat are sent to Perplexity through OpenRouter, where the provider may process or retain them. Do not include names or contact details.':
-    'Ulwazi lwephrofayela yakho luhlala efonini yakho. Nxa ukuhlukaniswa kombuzo nge-AI eku-inthanethi kuvuliwe, umbuzo wakho lengxoxo zakutshanje kuthunyelwa kuPerplexity ngeOpenRouter; umnikezi angakusebenzisa kumbe akugcine. Ungafaki amabizo kumbe imininingwane engakwazisa.',
+  'Your name, phone number, and reminders stay on this device. If online AI is used, your question, up to 6 recent chat messages, and saved pregnancy week are sent through OpenRouter to an AI model provider, which may process or retain them. Nearby-facility search checks your location on this phone; it is not sent online. Do not include names or contact details in chat.':
+    'Ibizo lakho, inombolo yefoni lezikhumbuzo kuhlala efonini le. Nxa kusetshenziswa i-AI eku-inthanethi, umbuzo wakho, imilayezo esanda kuthunyelwa efika ku-6 leviki lokukhulelwa eligciniweyo kuthunyelwa ngeOpenRouter kumnikezi we-AI, ongakusebenzisa kumbe akugcine. Ukudinga indawo zezempilakahle eziseduze kusebenzisa indawo yakho efonini le kuphela; ayithunyelwa ku-inthanethi. Ungafaki amabizo kumbe imininingwane engakwazisa engxoxweni.',
   'In-app chat works offline. WhatsApp and SMS need mobile network access, and their messages are handled by those providers.':
     'Ingxoxo eku-app isebenza ingela-inthanethi. I-WhatsApp le-SMS kudinga inethiwekhi yefoni, lemilayezo iphathwa yizinkampani lezo.',
   'Chat on WhatsApp': 'Xoxa kuWhatsApp',
@@ -126,8 +126,39 @@ export const ndebeleTranslations: Record<string, string> = {
     'Yehlulekile ukuvula {channel}. Hlola ukuthi iyatholakala yini efonini yakho.',
   'Online AI did not return a clear match; this answer used MamaBot guidance.':
     'I-AI eku-inthanethi yehlulekile ukuthola umbuzo ohambelanayo; impendulo le isebenzise izeluleko zikaMamaBot ezisefonini.',
+  'Online AI generated this reply using MamaBot guidance.':
+    'I-AI eku-inthanethi ibumbe impendulo le isebenzisa izeluleko zikaMamaBot.',
   'Online AI classified this question; showing MamaBot guidance.':
     'I-AI eku-inthanethi ihlukanise umbuzo lo; uMamaBot utshengisa izeluleko zakhe.',
+  'What happens during a pregnancy check-up?':
+    'Kwenziwani nxa usiyahlolwa ngesikhathi sokukhulelwa?',
+  'Show my reminders': 'Tshengisa izikhumbuzo zami',
+  'Set a reminder': 'Faka isikhumbuzo',
+  'Find health facilities near me': 'Dinga indawo zezempilakahle eziseduze lami',
+  'Pregnancy check-up': 'Ukuhlolwa ngesikhathi sokukhulelwa',
+  'Checking the saved Zimbabwe facility list on this phone…':
+    'Ngihlola uhlu lwezempilakahle lweZimbabwe olugciniweyo efonini le…',
+  'Location access was not granted. Please type a town or district, or search facilities in Pregnancy Info.':
+    'Awuvumanga ukuthi sisebenzise indawo okuyo. Bhala ibizo ledolobho kumbe isabelo, kumbe udinge indawo zezempilakahle engxenyeni ethi Ulwazi Ngokukhulelwa.',
+  'Your location could not be determined. Try again or search facilities in Pregnancy Info.':
+    'Yehlulekile ukuthola indawo okuyo. Zama futhi kumbe udinge indawo zezempilakahle engxenyeni ethi Ulwazi Ngokukhulelwa.',
+  'I couldn’t find facilities with location coordinates in the saved list. Search by district in Pregnancy Info or ask a local health worker.':
+    'Yehlulekile ukuthola indawo zezempilakahle ezilama-coordinate kuhlu olugciniweyo. Dinga ngesabelo engxenyeni ethi Ulwazi Ngokukhulelwa kumbe ubuze umsebenzi wezempilakahle wendawo.',
+  'Closest facilities in the saved Zimbabwe list':
+    'Indawo zezempilakahle eziseduze kuhlu lweZimbabwe olugciniweyo',
+  'Facility records are from {startYear}–{endYear}':
+    'Amarekhodi ezindawo avela ku-{startYear} kusiya ku-{endYear}',
+  'Distances are approximate. {sourceYears} and do not confirm a facility is currently open. Please confirm locally before traveling. Your location was checked on this phone only.':
+    'Ibanga yisilinganiso nje. {sourceYears}; lokhu akuqinisekisi ukuthi indawo isavuliwe. Qinisekisa endaweni leyo ungakayi. Indawo okuyo ihlolwe efonini le kuphela.',
+  'Your location was checked on this phone only; it was not sent to online AI.':
+    'Indawo okuyo ihlolwe efonini le kuphela; ayithunyelwanga ku-AI eku-inthanethi.',
+  'You don’t have any upcoming reminders saved on this phone. I can open the reminder form for you.':
+    'Awulazikhumbuzo ezizayo ezigciniweyo efonini le. Ngingakuvulela ifomu lesikhumbuzo.',
+  'Here are your upcoming reminders:': 'Nanzi izikhumbuzo zakho ezizayo:',
+  'Your reminders stay on this phone and are not sent to online AI.':
+    'Izikhumbuzo zakho zihlala efonini le njalo azithunyelwa ku-AI eku-inthanethi.',
+  'I’ll open the reminder form. Check the title, choose the correct date and time, then save it there. Nothing has been saved yet.':
+    'Ngizavula ifomu lesikhumbuzo. Hlola isihloko, ukhethe usuku lesikhathi esifaneleyo, ubusukugcina lapho. Akukagcinwa lutho okwamanje.',
   'Safety-critical guidance was answered locally.':
     'Ngenxa yokuphepha, isiqondiso esiqakathekileyo siphendulwe yifoni.',
   'Could not reach MamaBot; this answer used on-device guidance.':

@@ -174,10 +174,11 @@ def create_app(test_config: Mapping[str, object] | None = None) -> Flask:
                 if local_intent != "fallback"
                 else None
             )
+            chat_model = str(app.config["OPENROUTER_CHAT_MODEL"]).strip() or DEFAULT_CHAT_MODEL
             online_reply = generate_chat_reply(
                 message.strip(),
                 api_key,
-                str(app.config["OPENROUTER_CHAT_MODEL"]),
+                chat_model,
                 float(app.config["OPENROUTER_CHAT_TIMEOUT_SECONDS"]),
                 detected_language,
                 classification_context,

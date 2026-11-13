@@ -130,14 +130,45 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     'Get pregnancy guidance': 'Wana mazano epamuviri',
     'MamaBot works offline. Optional online AI sends your question and recent chat to Perplexity through OpenRouter, where the provider may process or retain them. Do not include identifying information. MamaBot is not a clinician.':
       'MamaBot inoshanda isina internet. AI yepamhepo inotumira mubvunzo wako nenhaurirano dzichangobva kuitika kuPerplexity kuburikidza neOpenRouter, uko mupi webasa anogona kuzvishandisa kana kuzvichengeta. Usaisa mashoko anokuzivisa. MamaBot haisi nyanzvi yezveutano.',
-    'Your profile stays on this device. If online classification is enabled, your question and recent chat are sent to Perplexity through OpenRouter, where the provider may process or retain them. Do not include names or contact details.':
-      'Ruzivo rweprofile yako runogara pafoni yako. Kana kupatsanurwa kwemubvunzo neAI yepamhepo kuchishandiswa, mubvunzo wako nenhaurirano dzichangobva kuitika zvinotumirwa kuPerplexity kuburikidza neOpenRouter; mupi webasa anogona kuzvishandisa kana kuzvichengeta. Usaisa mazita kana mashoko ekukuzivisa.',
+    'Your name, phone number, and reminders stay on this device. If online AI is used, your question, up to 6 recent chat messages, and saved pregnancy week are sent through OpenRouter to an AI model provider, which may process or retain them. Nearby-facility search checks your location on this phone; it is not sent online. Do not include names or contact details in chat.':
+      'Zita rako, nhamba yefoni nezviyeuchidzo zvinogara pafoni iyi. Kana AI yepamhepo ikashandiswa, mubvunzo wako, mameseji anosvika matanhatu achangobva kutumirwa uye vhiki repamuviri rakachengetwa zvinotumirwa nemuOpenRouter kumupi weAI, anogona kuzvishandisa kana kuzvichengeta. Kutsvaga nzvimbo dzeutano dziri pedyo kunoshandisa nzvimbo yako pafoni iyi chete; haitumirwi online. Usaisa mazita kana mashoko ekukuzivisa munhaurirano.',
     'In-app chat works offline. WhatsApp and SMS need mobile network access, and their messages are handled by those providers.':
       'Nhaurirano iri muapp ino inoshanda isina internet. WhatsApp neSMS zvinoda network yefoni, uye mashoko zvinopfuura kumakambani iwayo.',
     'Online AI did not return a clear match; this answer used MamaBot guidance.':
       'AI yepamhepo haina kuwana mubvunzo wakafanana zvakajeka; mhinduro iyi yashandisa mazano aMamaBot ari pafoni.',
     'Online AI classified this question; showing MamaBot guidance.':
       'AI yepamhepo yakaronga mubvunzo uyu; MamaBot iri kuratidza mazano ayo.',
+    'Online AI generated this reply using MamaBot guidance.':
+      'AI yepamhepo yagadzira mhinduro iyi ichishandisa nhungamiro yaMamaBot.',
+    'What happens during a pregnancy check-up?':
+      'Chii chinoitwa pakiriniki paunovhenekwa pamuviri?',
+    'Show my reminders': 'Ratidza zviyeuchidzo zvangu',
+    'Set a reminder': 'Isa chiyeuchidzo',
+    'Find health facilities near me': 'Tsvaga nzvimbo dzeutano dziri pedyo neni',
+    'Pregnancy check-up': 'Kuongororwa kwepamuviri kukiriniki',
+    'Checking the saved Zimbabwe facility list on this phone…':
+      'Ndiri kutarisa zvinyorwa zvenzvimbo dzeutano muZimbabwe zvakachengetwa pafoni iyi…',
+    'Location access was not granted. Please type a town or district, or search facilities in Pregnancy Info.':
+      'Hauna kubvumira kushandiswa kwenzvimbo yako. Nyora zita reguta kana redunhu, kana kutsvaga nzvimbo dzeutano muchikamu cheMashoko Epamuviri.',
+    'Your location could not be determined. Try again or search facilities in Pregnancy Info.':
+      'Handina kukwanisa kuziva nzvimbo yako. Edza zvakare kana kutsvaga nzvimbo dzeutano muchikamu cheMashoko Epamuviri.',
+    'I couldn’t find facilities with location coordinates in the saved list. Search by district in Pregnancy Info or ask a local health worker.':
+      'Handina kuwana nzvimbo dzeutano dzine makoordineti muzvinyorwa zvakachengetwa. Tsvaga nedunhu muchikamu cheMashoko Epamuviri kana kubvunza mushandi wezveutano wemunzvimbo yako.',
+    'Closest facilities in the saved Zimbabwe list':
+      'Nzvimbo dzeutano dziri pedyo muzvinyorwa zvakachengetwa zveZimbabwe',
+    'Facility records are from {startYear}–{endYear}':
+      'Zvinyorwa zvenzvimbo idzi zvinobva mugore ra{startYear} kusvika {endYear}',
+    'Distances are approximate. {sourceYears} and do not confirm a facility is currently open. Please confirm locally before traveling. Your location was checked on this phone only.':
+      'Mafambiro aya fungidziro chete. {sourceYears}; haasimbisi kuti nzvimbo ichiri kushanda. Simbisa nemunhu wemunzvimbo yacho usati wafamba. Nzvimbo yako yakatariswa pafoni iyi chete.',
+    'Your location was checked on this phone only; it was not sent to online AI.':
+      'Nzvimbo yako yakatariswa pafoni iyi chete; haina kutumirwa kuAI yepamhepo.',
+    'You don’t have any upcoming reminders saved on this phone. I can open the reminder form for you.':
+      'Hauna zviyeuchidzo zviri kuuya zvakachengetwa pafoni iyi. Ndinogona kukuvhurira fomu rekuisa chiyeuchidzo.',
+    'Here are your upcoming reminders:': 'Hezvino zviyeuchidzo zvako zviri kuuya:',
+    'Your reminders stay on this phone and are not sent to online AI.':
+      'Zviyeuchidzo zvako zvinogara pafoni iyi uye hazvitumirwi kuAI yepamhepo.',
+    'I’ll open the reminder form. Check the title, choose the correct date and time, then save it there. Nothing has been saved yet.':
+      'Ndichavhura fomu rekuisa chiyeuchidzo. Tarisa musoro, sarudza zuva nenguva yakakodzera, wobva wachengeta. Hapana chachengetwa parizvino.',
     'Safety-critical guidance was answered locally.':
       'Nekuda kwekuchengeteka, mhinduro inokosha yapihwa nefoni.',
     'Could not reach MamaBot; this answer used on-device guidance.':
