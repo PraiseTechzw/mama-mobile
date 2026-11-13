@@ -153,7 +153,7 @@ export default function ChatScreen() {
           });
           if (onlineResult.mode === 'online') {
             reply = onlineResult.reply;
-            setStatus('');
+            setStatus(t('Online AI classified this question; showing MamaBot guidance.'));
           } else if (onlineResult.mode === 'safety') {
             reply = onlineResult.reply;
             setStatus(t('Safety-critical guidance was answered locally.'));

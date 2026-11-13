@@ -136,6 +136,8 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
       'Nhaurirano iri muapp ino inoshanda isina internet. WhatsApp neSMS zvinoda network yefoni, uye mashoko zvinopfuura kumakambani iwayo.',
     'Online AI is unavailable; this answer used on-device guidance.':
       'AI iri online haisi kuwanikwa; mhinduro iyi yashandisa mazano ari pafoni.',
+    'Online AI classified this question; showing MamaBot guidance.':
+      'AI yepamhepo yakaronga mubvunzo uyu; MamaBot iri kuratidza mazano ayo.',
     'Safety-critical guidance was answered locally.':
       'Nekuda kwekuchengeteka, mhinduro inokosha yapihwa nefoni.',
     'Could not reach MamaBot; this answer used on-device guidance.':

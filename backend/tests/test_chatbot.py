@@ -49,6 +49,32 @@ class ChatbotTests(unittest.TestCase):
         self.assertEqual((intent, language), ("urgent_symptoms", "sn"))
         self.assertIn("chimbichimbi", answer_question("Ndiri kubuda ropa rakawanda"))
 
+    def test_shona_headache_variations_get_localized_safety_guidance(self) -> None:
+        for question in (
+            "ndikunzza musoro",
+            "ndikunzwa musoro",
+            "ndinonzwa musoro",
+            "ndiri kunzwa musoro",
+            "ndirikunzwa musoro",
+            "musoro unorwadza",
+        ):
+            with self.subTest(question=question):
+                self.assertEqual(classify_question(question), ("headache", "sn"))
+                reply, mode = answer_question_with_mode(question)
+                self.assertEqual(mode, "offline")
+                self.assertIn("mushandi wako weANC", reply)
+                self.assertIn("Kana uchirwadza zvikuru", reply)
+
+    def test_uncertain_online_result_keeps_local_shona_headache_match(self) -> None:
+        reply, mode = answer_question_with_mode(
+            "ndikunzza musoro",
+            classifier=lambda _message: ("clarify", "sn"),
+        )
+
+        self.assertEqual(mode, "offline")
+        self.assertIn("mushandi wako weANC", reply)
+        self.assertNotIn("Handina kunyatsonzwisisa", reply)
+
     def test_ndebele_urgent_symptom_is_prioritized(self) -> None:
         intent, language = classify_question("Ngiyopha kakhulu")
         self.assertEqual((intent, language), ("urgent_symptoms", "nd"))

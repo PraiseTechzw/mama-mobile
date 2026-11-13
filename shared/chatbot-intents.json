@@ -64,6 +64,15 @@
       "response": "body_changes"
     },
     {
+      "id": "headache",
+      "patterns": {
+        "en": ["headache", "my head hurts", "head is hurting"],
+        "sn": ["ndikunzza musoro", "ndikunzwa musoro", "ndinonzwa musoro", "ndiri kunzwa musoro", "ndirikunzwa musoro", "musoro unorwadza", "kurwadziwa musoro"],
+        "nd": ["ikhanda libuhlungu", "ngizwa ikhanda", "ngiphethwe yikhanda"]
+      },
+      "response": "headache"
+    },
+    {
       "id": "anc_visit",
       "patterns": {
         "en": ["antenatal", "anc visit", "clinic visit", "health worker", "appointment"],

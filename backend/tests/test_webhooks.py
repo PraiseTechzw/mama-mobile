@@ -281,7 +281,7 @@ class WebhookTests(unittest.TestCase):
         self.assertEqual(classifier_calls, ["What foods should I eat?"])
         self.assertIn("Edza kudya", response.text)
 
-    def test_whatsapp_auto_detects_shona_without_a_language_prefix(self) -> None:
+    def test_whatsapp_auto_detects_shona_for_non_urgent_question(self) -> None:
         classifier_calls: list[str] = []
         app = create_app(
             {
@@ -290,17 +290,17 @@ class WebhookTests(unittest.TestCase):
                 "TWILIO_WEBHOOK_BASE_URL": "https://mamabot.example",
                 "OPENROUTER_MESSAGING_ENABLED": True,
                 "CHATBOT_CLASSIFIER": lambda message: (
-                    classifier_calls.append(message) or ("body_changes", "sn")
+                    classifier_calls.append(message) or ("nutrition", "sn")
                 ),
             }
         )
         response = app.test_client().post(
             "/twilio/whatsapp",
-            data={"Body": "ndikuzwa Musoro"},
+            data={"Body": "Ndinofanira kudyei?"},
         )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(classifier_calls, ["ndikuzwa Musoro"])
-        self.assertIn("zviratidzo", response.text)
+        self.assertEqual(classifier_calls, ["Ndinofanira kudyei?"])
+        self.assertIn("Edza kudya", response.text)
         self.assertNotIn("EN:", response.text)
 
     def test_first_messaging_contact_is_asked_to_choose_a_language(self) -> None:
