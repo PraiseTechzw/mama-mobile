@@ -92,7 +92,7 @@ export const ndebeleTranslations: Record<string, string> = {
   Reminders: 'Izikhumbuzo',
   'Pregnancy Info': 'Ulwazi ngokukhulelwa',
   'ANC reminders': 'Izikhumbuzo zekilinika',
-  'Personalized offline guide': 'Umhlahlandlela wakho ongadingi intanethi',
+  'Here to help you': 'Ngilapha ukukunceda',
   'Open ANC reminders': 'Vula izikhumbuzo zekilinika',
   'Chat with MamaBot': 'Xoxa loMamaBot',
   'Hello, {name}': 'Salibonani, {name}',
@@ -124,14 +124,10 @@ export const ndebeleTranslations: Record<string, string> = {
   'Send by SMS': 'Thumela nge-SMS',
   'Could not open {channel}. Check that it is available on your device.':
     'Yehlulekile ukuvula {channel}. Hlola ukuthi iyatholakala yini efonini yakho.',
-  'Online AI could not reply; showing the saved on-device response.':
-    'I-AI eku-inthanethi yehlulekile ukuphendula; kutshengiswa impendulo egcinwe efonini.',
+  'Could not get a reply right now. Please try again.':
+    'Yehlulekile ukuthola impendulo khathesi. Zama futhi.',
   'Ask in your own words too — these are just ideas.':
     'Buza langawakho amazwi — lezi yimibono nje.',
-  'Online AI generated this reply using MamaBot guidance.':
-    'I-AI eku-inthanethi ibumbe impendulo le isebenzisa izeluleko zikaMamaBot.',
-  'Online AI classified this question; showing MamaBot guidance.':
-    'I-AI eku-inthanethi ihlukanise umbuzo lo; uMamaBot utshengisa izeluleko zakhe.',
   'What happens during a pregnancy check-up?':
     'Kwenziwani nxa usiyahlolwa ngesikhathi sokukhulelwa?',
   'Show my reminders': 'Tshengisa izikhumbuzo zami',
@@ -163,12 +159,7 @@ export const ndebeleTranslations: Record<string, string> = {
     'Izikhumbuzo zakho zihlala efonini le njalo azithunyelwa ku-AI eku-inthanethi.',
   'I’ll open the reminder form. Check the title, choose the correct date and time, then save it there. Nothing has been saved yet.':
     'Ngizavula ifomu lesikhumbuzo. Hlola isihloko, ukhethe usuku lesikhathi esifaneleyo, ubusukugcina lapho. Akukagcinwa lutho okwamanje.',
-  'Safety-critical guidance was answered locally.':
-    'Ngenxa yokuphepha, isiqondiso esiqakathekileyo siphendulwe yifoni.',
-  'Could not reach MamaBot; this answer used on-device guidance.':
-    'Yehlulekile ukuxhumana loMamaBot; impendulo le isebenzise ulwazi olusefonini.',
   'MamaBot is replying…': 'UMamaBot uyaphendula…',
-  'Connecting to online AI…': 'Sixhumana le-AI eku-inthanethi…',
   'This could need urgent medical attention. Please contact your local emergency service or go to the nearest health facility now. Do not wait for a reply in this app. If you can, ask someone nearby to help you get care.':
     'Lokhu kungadinga usizo lwezempilakahle ngokuphangisa. Thinta usizo oluphuthumayo kumbe uye esibhedlela esiseduze khathesi. Ungalindi impendulo ku-app le. Nxa usenelisa, cela umuntu oseduze lawe akuncedise uthole usizo.',
   'Seek urgent in-person care for heavy bleeding, severe abdominal pain, a severe headache or blurred vision, difficulty breathing, fainting or seizures, high fever, fluid leaking, or reduced baby movement. Contact your local emergency service or nearest health facility now; do not wait for a reply in this app.':

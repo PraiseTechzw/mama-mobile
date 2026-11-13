@@ -158,7 +158,7 @@ export default function TabLayout() {
                     MamaBot
                   </Text>
                   <Text style={{ color: theme.white, fontSize: typeScale.caption, opacity: 0.82 }}>
-                    {t('Personalized offline guide')}
+                    {t('Here to help you')}
                   </Text>
                 </View>
               </View>

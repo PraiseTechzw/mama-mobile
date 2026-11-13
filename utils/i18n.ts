@@ -106,7 +106,7 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     Reminders: 'Zviyeuchidzo',
     'Pregnancy Info': 'Ruzivo rwepamuviri',
     'ANC reminders': 'Zviyeuchidzo zvekuongororwa kwepamuviri',
-    'Personalized offline guide': 'Nhungamiro yako isingashandisi internet',
+    'Here to help you': 'Ndiri pano kuti ndikubatsire',
     'Open ANC reminders': 'Vhura zviyeuchidzo zvekuongororwa kwepamuviri',
     'Chat with MamaBot': 'Kurukura naMamaBot',
     'Hello, {name}': 'Mhoro, {name}',
@@ -134,12 +134,8 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
       'Zita rako, nhamba yefoni nezviyeuchidzo zvinogara pafoni iyi. Kana AI yepamhepo ikashandiswa, mubvunzo wako, mameseji anosvika matanhatu achangobva kutumirwa uye vhiki repamuviri rakachengetwa zvinotumirwa nemuOpenRouter kumupi weAI, anogona kuzvishandisa kana kuzvichengeta. Kutsvaga nzvimbo dzeutano dziri pedyo kunoshandisa nzvimbo yako pafoni iyi chete; haitumirwi online. Usaisa mazita kana mashoko ekukuzivisa munhaurirano.',
     'In-app chat works offline. WhatsApp and SMS need mobile network access, and their messages are handled by those providers.':
       'Nhaurirano iri muapp ino inoshanda isina internet. WhatsApp neSMS zvinoda network yefoni, uye mashoko zvinopfuura kumakambani iwayo.',
-    'Online AI could not reply; showing the saved on-device response.':
-      'AI yepamhepo haina kukwanisa kupindura; ndiri kuratidza mhinduro yakachengetwa pafoni.',
-    'Online AI classified this question; showing MamaBot guidance.':
-      'AI yepamhepo yakaronga mubvunzo uyu; MamaBot iri kuratidza mazano ayo.',
-    'Online AI generated this reply using MamaBot guidance.':
-      'AI yepamhepo yagadzira mhinduro iyi ichishandisa nhungamiro yaMamaBot.',
+    'Could not get a reply right now. Please try again.':
+      'Handina kukwanisa kuwana mhinduro parizvino. Edza zvakare.',
     'What happens during a pregnancy check-up?':
       'Chii chinoitwa pakiriniki paunovhenekwa pamuviri?',
     'Show my reminders': 'Ratidza zviyeuchidzo zvangu',
@@ -171,12 +167,7 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
       'Zviyeuchidzo zvako zvinogara pafoni iyi uye hazvitumirwi kuAI yepamhepo.',
     'I’ll open the reminder form. Check the title, choose the correct date and time, then save it there. Nothing has been saved yet.':
       'Ndichavhura fomu rekuisa chiyeuchidzo. Tarisa musoro, sarudza zuva nenguva yakakodzera, wobva wachengeta. Hapana chachengetwa parizvino.',
-    'Safety-critical guidance was answered locally.':
-      'Nekuda kwekuchengeteka, mhinduro inokosha yapihwa nefoni.',
-    'Could not reach MamaBot; this answer used on-device guidance.':
-      'Hatina kukwanisa kubatana naMamaBot; mhinduro iyi yashandisa mazano ari pafoni.',
     'MamaBot is replying…': 'MamaBot iri kupindura…',
-    'Connecting to online AI…': 'Tiri kubatana neAI iri online…',
     'Chat on WhatsApp': 'Kurukura paWhatsApp',
     'Send by SMS': 'Tumira neSMS',
     'Could not open {channel}. Check that it is available on your device.':
@@ -602,7 +593,7 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     Reminders: 'Izikhumbuzo',
     'Pregnancy Info': 'Ulwazi ngokukhulelwa',
     'ANC reminders': 'Izikhumbuzo ze-kuongororwa kwepamuviri',
-    'Personalized offline guide': 'Umhlahlandlela wakho ongadingi intanethi',
+    'Here to help you': 'Ngilapha ukukunceda',
     'Open ANC reminders': 'Vula izikhumbuzo ze-kuongororwa kwepamuviri',
     'Chat with MamaBot': 'Xoxa loMamaBot',
     'Hello, {name}': 'Salibonani, {name}',
@@ -628,16 +619,11 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
       'UMamaBot usebenza engelantanethi. Nxa ukhetha i-AI eku-inthanethi, umbuzo wakho uthunyelwa kuseva kaMamaBot le-OpenRouter. Ungafaki ibizo lakho kumbe imininingwane engakwazisa. UMamaBot kasisiyo ingcitshi yezempilakahle.',
     'In-app chat works offline. WhatsApp and SMS need mobile network access, and their messages are handled by those providers.':
       'Ingxoxo eku-app isebenza ingela-inthanethi. I-WhatsApp le-SMS kudinga inethiwekhi yefoni, lemilayezo iphathwa yizinkampani lezo.',
-    'Online AI could not reply; showing the saved on-device response.':
-      'I-AI eku-inthanethi yehlulekile ukuphendula; kutshengiswa impendulo egcinwe efonini.',
+    'Could not get a reply right now. Please try again.':
+      'Yehlulekile ukuthola impendulo khathesi. Zama futhi.',
     'Ask in your own words too — these are just ideas.':
       'Buza langawakho amazwi — lezi yimibono nje.',
-    'Safety-critical guidance was answered locally.':
-      'Ngenxa yokuphepha, isiqondiso esiqakathekileyo siphendulwe yifoni.',
-    'Could not reach MamaBot; this answer used on-device guidance.':
-      'Yehlulekile ukuxhumana loMamaBot; impendulo le isebenzise ulwazi olusefonini.',
     'MamaBot is replying…': 'UMamaBot uyaphendula…',
-    'Connecting to online AI…': 'Sixhumana le-AI eku-inthanethi…',
     'This could need urgent medical attention. Please contact your local emergency service or go to the nearest health facility now. Do not wait for a reply in this app. If you can, ask someone nearby to help you get care.':
       'Lokhu kungadinga usizo lwezempilakahle ngokuphangisa. Thinta usizo oluphuthumayo kumbe uye esibhedlela esiseduze khathesi. Ungalindi impendulo ku-app le. Nxa usenelisa, cela umuntu oseduze lawe akuncedise uthole usizo.',
     'Seek urgent in-person care for heavy bleeding, severe abdominal pain, a severe headache or blurred vision, difficulty breathing, fainting or seizures, high fever, fluid leaking, or reduced baby movement. Contact your local emergency service or nearest health facility now; do not wait for a reply in this app.':

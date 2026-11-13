@@ -143,12 +143,12 @@ export default function ChatScreen() {
   const { data, addChatMessages, clearChat } = useAppState();
   const [draft, setDraft] = useState('');
   const [error, setError] = useState('');
-  const [status, setStatus] = useState('');
   const [isSending, setIsSending] = useState(false);
   const [keyboardInset, setKeyboardInset] = useState(0);
   const [now] = useState(() => Date.now());
   const { height: windowHeight } = useWindowDimensions();
   const listRef = useRef<FlatList<ChatMessage>>(null);
+  const initializedScroll = useRef(false);
   const week =
     pregnancyWeekFromDueDate(data.profile.dueDate) ?? data.profile.pregnancyWeek;
   const nextReminder = data.reminders
@@ -170,6 +170,19 @@ export default function ChatScreen() {
       hideSubscription.remove();
     };
   }, [windowHeight]);
+  useEffect(() => {
+    if (!initializedScroll.current) {
+      initializedScroll.current = true;
+      if (data.chatMessages.length > 0) {
+        requestAnimationFrame(() => listRef.current?.scrollToEnd({ animated: false }));
+      }
+      return;
+    }
+
+    if (isSending || data.chatMessages.length > 0) {
+      requestAnimationFrame(() => listRef.current?.scrollToEnd({ animated: true }));
+    }
+  }, [data.chatMessages.length, isSending]);
   const recentMessages = data.chatMessages
     .filter((message) => !message.localOnly)
     .slice(-6)
@@ -236,10 +249,7 @@ export default function ChatScreen() {
     const Location = await import('expo-location');
     const permission = await Location.requestForegroundPermissionsAsync();
     if (permission.status !== 'granted') {
-      return {
-        reply: t('Location access was not granted. Please type a town or district, or search facilities in Pregnancy Info.'),
-        locationChecked: false,
-      };
+      return t('Location access was not granted. Please type a town or district, or search facilities in Pregnancy Info.');
     }
 
     const location = await Location.getCurrentPositionAsync({});
@@ -249,10 +259,7 @@ export default function ChatScreen() {
       5,
     );
     if (!nearest.length) {
-      return {
-        reply: t('I couldn’t find facilities with location coordinates in the saved list. Search by district in Pregnancy Info or ask a local health worker.'),
-        locationChecked: true,
-      };
+      return t('I couldn’t find facilities with location coordinates in the saved list. Search by district in Pregnancy Info or ask a local health worker.');
     }
 
     const facilityLines = nearest.map(({ facility, distanceKm }) => {
@@ -263,17 +270,14 @@ export default function ChatScreen() {
       startYear: facilityRecordYearRange.startYear,
       endYear: facilityRecordYearRange.endYear,
     });
-    return {
-      reply: [
-        `**${t('Closest facilities in the saved Zimbabwe list')}**`,
-        ...facilityLines,
-        '',
-        t('Distances are approximate. {sourceYears} and do not confirm a facility is currently open. Please confirm locally before traveling. Your location was checked on this phone only.', {
-          sourceYears,
-        }),
-      ].join('\n'),
-      locationChecked: true,
-    };
+    return [
+      `**${t('Closest facilities in the saved Zimbabwe list')}**`,
+      ...facilityLines,
+      '',
+      t('Distances are approximate. {sourceYears} and do not confirm a facility is currently open. Please confirm locally before traveling. Your location was checked on this phone only.', {
+        sourceYears,
+      }),
+    ].join('\n');
   };
 
   const sendMessage = async (message = draft, replyMessage = message) => {
@@ -283,7 +287,6 @@ export default function ChatScreen() {
     const action = detectChatAction(text);
     if (action === 'show_reminders') {
       setError('');
-      setStatus(t('Your reminders stay on this phone and are not sent to online AI.'));
       saveExchange(message.trim(), formatUpcomingReminders(), true);
       return;
     }
@@ -302,17 +305,10 @@ export default function ChatScreen() {
     if (action === 'facilities_nearby' && !isUrgent) {
       setIsSending(true);
       setError('');
-      setStatus(t('Checking the saved Zimbabwe facility list on this phone…'));
       try {
         const result = await getNearbyFacilityReply();
-        setStatus(
-          result.locationChecked
-            ? t('Your location was checked on this phone only; it was not sent to online AI.')
-            : t('Location access was not granted. No location was used or sent online.'),
-        );
-        saveExchange(message.trim(), result.reply, true);
+        saveExchange(message.trim(), result, true);
       } catch (locationError) {
-        setStatus('');
         setError(
           locationError instanceof Error
             ? `${t('Your location could not be determined. Try again or search facilities in Pregnancy Info.')} ${locationError.message}`
@@ -326,11 +322,6 @@ export default function ChatScreen() {
 
     setIsSending(true);
     setError('');
-    setStatus(
-      isOnlineChatConfigured && !isUrgent
-        ? t('Connecting to online AI…')
-        : t('MamaBot is replying…'),
-    );
     try {
       const isSuggestedPrompt = message !== replyMessage;
       const localQuestion = isSuggestedPrompt
@@ -345,20 +336,12 @@ export default function ChatScreen() {
           }, isSuggestedPrompt);
           if (onlineResult.mode === 'online') {
             reply = onlineResult.reply;
-            setStatus(t('Online AI generated this reply using MamaBot guidance.'));
           } else if (onlineResult.mode === 'safety') {
             reply = onlineResult.reply;
-            setStatus(t('Safety-critical guidance was answered locally.'));
-          } else {
-              setStatus(t('Online AI could not reply; showing the saved on-device response.'));
           }
         } catch {
-          setStatus(t('Could not reach MamaBot; this answer used on-device guidance.'));
+          setError(t('Could not get a reply right now. Please try again.'));
         }
-      } else if (isUrgent) {
-        setStatus(t('Safety-critical guidance was answered locally.'));
-      } else {
-        setStatus('');
       }
 
       saveExchange(message.trim(), reply);
@@ -389,7 +372,6 @@ export default function ChatScreen() {
         data={messages}
         keyExtractor={(item) => item.id}
         contentInsetAdjustmentBehavior="automatic"
-        onContentSizeChange={() => listRef.current?.scrollToEnd({ animated: false })}
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={{
           padding: space.lg,
@@ -432,48 +414,105 @@ export default function ChatScreen() {
           </View>
         }
         ListFooterComponent={
-          data.chatMessages.length === 0 ? (
-            <View style={{ gap: space.sm, paddingTop: space.sm, paddingBottom: space.lg }}>
-              <Text style={{ color: theme.text, fontSize: typeScale.small, fontWeight: '800' }}>
-                {week ? t('Suggested for around week {week}', { week }) : t('Suggested for you')}
-              </Text>
-              <Text style={{ color: theme.muted, fontSize: typeScale.caption }}>
-                {t('Ask in your own words too — these are just ideas.')}
-              </Text>
-              <FlatList
-                horizontal
-                data={prompts}
-                keyExtractor={(prompt) => prompt.message}
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{ gap: space.sm, paddingRight: space.lg }}
-                renderItem={({ item: prompt }) => (
-                  <Pressable
-                    accessibilityRole="button"
-                    onPress={() => sendMessage(prompt.label, prompt.message)}
-                    style={({ pressed }) => ({
-                      maxWidth: 260,
-                      minHeight: 44,
+          data.chatMessages.length === 0 || isSending ? (
+            <View>
+              {data.chatMessages.length === 0 ? (
+                <View style={{ gap: space.sm, paddingTop: space.sm, paddingBottom: space.lg }}>
+                  <Text style={{ color: theme.text, fontSize: typeScale.small, fontWeight: '800' }}>
+                    {week ? t('Suggested for around week {week}', { week }) : t('Suggested for you')}
+                  </Text>
+                  <Text style={{ color: theme.muted, fontSize: typeScale.caption }}>
+                    {t('Ask in your own words too — these are just ideas.')}
+                  </Text>
+                  <FlatList
+                    horizontal
+                    data={prompts}
+                    keyExtractor={(prompt) => prompt.message}
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={{ gap: space.sm, paddingRight: space.lg }}
+                    renderItem={({ item: prompt }) => (
+                      <Pressable
+                        accessibilityRole="button"
+                        onPress={() => sendMessage(prompt.label, prompt.message)}
+                        style={({ pressed }) => ({
+                          maxWidth: 260,
+                          minHeight: 44,
+                          justifyContent: 'center',
+                          paddingHorizontal: space.md,
+                          paddingVertical: space.sm,
+                          borderRadius: radius.lg,
+                          borderCurve: 'continuous',
+                          borderWidth: 1,
+                          borderColor: theme.primarySoft,
+                          backgroundColor: theme.surface,
+                          opacity: pressed ? 0.76 : 1,
+                        })}>
+                        <Text
+                          style={{
+                            color: theme.primary,
+                            fontSize: typeScale.small,
+                            fontWeight: '700',
+                          }}>
+                          {prompt.label}
+                        </Text>
+                      </Pressable>
+                    )}
+                  />
+                </View>
+              ) : null}
+              {isSending ? (
+                <View
+                  accessibilityLiveRegion="polite"
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'flex-end',
+                    gap: space.sm,
+                    paddingTop: space.sm,
+                    paddingBottom: space.lg,
+                  }}>
+                  <View
+                    style={{
+                      width: 34,
+                      height: 34,
+                      alignItems: 'center',
                       justifyContent: 'center',
+                      overflow: 'hidden',
+                      borderRadius: radius.full,
+                      backgroundColor: theme.white,
+                      borderWidth: 1,
+                      borderColor: theme.line,
+                    }}>
+                    <Image
+                      source={motherBabyLogo}
+                      contentFit="contain"
+                      accessibilityLabel="MamaBot assistant"
+                      style={{ width: 30, height: 30 }}
+                    />
+                  </View>
+                  <View
+                    style={{
+                      minHeight: 44,
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      gap: space.sm,
                       paddingHorizontal: space.md,
                       paddingVertical: space.sm,
-                      borderRadius: radius.lg,
+                      borderTopLeftRadius: radius.sm,
+                      borderTopRightRadius: radius.lg,
+                      borderBottomLeftRadius: radius.lg,
+                      borderBottomRightRadius: radius.lg,
                       borderCurve: 'continuous',
-                      borderWidth: 1,
-                      borderColor: theme.primarySoft,
                       backgroundColor: theme.surface,
-                      opacity: pressed ? 0.76 : 1,
-                    })}>
-                    <Text
-                      style={{
-                        color: theme.primary,
-                        fontSize: typeScale.small,
-                        fontWeight: '700',
-                      }}>
-                      {prompt.label}
+                      borderWidth: 1,
+                      borderColor: theme.line,
+                    }}>
+                    <ActivityIndicator size="small" color={theme.primary} />
+                    <Text style={{ color: theme.muted, fontSize: typeScale.small }}>
+                      {t('MamaBot is replying…')}
                     </Text>
-                  </Pressable>
-                )}
-              />
+                  </View>
+                </View>
+              ) : null}
             </View>
           ) : undefined
         }
@@ -483,10 +522,11 @@ export default function ChatScreen() {
           return (
             <View
               style={{
-                flexDirection: isMama ? 'row' : 'row-reverse',
+                flexDirection: 'row',
+                justifyContent: isMama ? 'flex-start' : 'flex-end',
                 alignItems: 'flex-end',
                 gap: space.sm,
-                marginBottom: space.md,
+                marginBottom: space.sm,
               }}>
               {isMama ? (
                 <View
@@ -513,17 +553,7 @@ export default function ChatScreen() {
                 style={{
                   maxWidth: isMama ? '78%' : '88%',
                   flexShrink: 1,
-                  gap: space.xs,
                 }}>
-                <Text
-                  style={{
-                    alignSelf: isMama ? 'flex-start' : 'flex-end',
-                    color: isMama ? theme.primary : theme.muted,
-                    fontSize: typeScale.caption,
-                    fontWeight: '800',
-                  }}>
-                  {isMama ? 'MamaBot' : data.profile.name.trim() || t('You')}
-                </Text>
                 <View
                   style={{
                     paddingHorizontal: space.md,
@@ -543,20 +573,23 @@ export default function ChatScreen() {
                       text={item.text}
                       color={isMama ? theme.text : theme.white}
                     />
-                  {item.id !== 'welcome' ? (
-                    <Text
-                      style={{
-                        alignSelf: 'flex-end',
-                        color: isMama ? theme.muted : theme.white,
-                        fontSize: typeScale.caption,
-                        opacity: 0.82,
-                      }}>
-                      {new Date(item.createdAt).toLocaleTimeString(localeForLanguage(data.profile.language), {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                      })}
-                    </Text>
-                  ) : null}
+                    {item.id !== 'welcome' ? (
+                      <Text
+                        style={{
+                          alignSelf: 'flex-end',
+                          color: isMama ? theme.muted : theme.white,
+                          fontSize: typeScale.caption,
+                          opacity: 0.82,
+                        }}>
+                        {new Date(item.createdAt).toLocaleTimeString(
+                          localeForLanguage(data.profile.language),
+                          {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                          },
+                        )}
+                      </Text>
+                    ) : null}
                 </View>
               </View>
             </View>
@@ -571,23 +604,6 @@ export default function ChatScreen() {
           style={{ paddingHorizontal: space.lg, color: theme.danger, fontSize: typeScale.small }}>
           {error}
         </Text>
-      ) : null}
-      {status ? (
-        <View
-          accessibilityLiveRegion="polite"
-          style={{
-            minHeight: 34,
-            paddingHorizontal: space.lg,
-            paddingVertical: space.xs,
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: space.sm,
-          }}>
-          {isSending ? <ActivityIndicator size="small" color={theme.primary} /> : null}
-          <Text style={{ flex: 1, color: theme.muted, fontSize: typeScale.caption }}>
-            {status}
-          </Text>
-        </View>
       ) : null}
       <View
         style={{
@@ -620,6 +636,8 @@ export default function ChatScreen() {
             borderRadius: radius.full,
             borderCurve: 'continuous',
             backgroundColor: theme.surface,
+            borderWidth: 1,
+            borderColor: theme.line,
             color: theme.text,
             fontFamily: 'Nunito_400Regular',
             fontSize: typeScale.body,

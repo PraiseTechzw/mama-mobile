@@ -27,11 +27,13 @@ MamaBot is an Expo and React Native prototype for pregnancy information, reminde
 
 ## Visuals
 
-The images below are project illustrations, not screenshots of the running interface. App screenshots and a short screen recording will be added here when reviewed captures are available.
+The screenshots were captured from the Android development build using an empty demo profile. The floating gear in the chat screenshot is the Expo development-client control, not an app feature. The GIF crossfades between these two captured screens.
 
 <div align="center">
-  <img src="assets/illustrations/radiant-motherhood.png" alt="MamaBot illustration of a pregnant mother" width="280" />
-  <img src="assets/illustrations/prenatal-care-consultation.png" alt="Illustration of a prenatal care consultation" width="280" />
+  <img src="docs/screenshots/onboarding-preview.gif" alt="Animated preview of MamaBot onboarding" width="240" />
+  <br />
+  <img src="docs/screenshots/onboarding.png" alt="MamaBot language selection screen" width="220" />
+  <img src="docs/screenshots/onboarding-chat.png" alt="MamaBot first onboarding chat question" width="220" />
 </div>
 
 ## Getting started
