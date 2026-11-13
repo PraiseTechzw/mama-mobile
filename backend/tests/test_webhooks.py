@@ -109,6 +109,20 @@ class WebhookTests(unittest.TestCase):
         self.assertEqual(response.json["mode"], "offline")
         self.assertIn("Edza kudya", response.json["reply"])
 
+    def test_app_chat_api_can_force_language_for_suggested_prompts(self) -> None:
+        response = self.client.post(
+            "/api/chat",
+            json={
+                "message": "What foods should I eat?",
+                "language": "sn",
+                "use_online": False,
+                "force_language": True,
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("Edza kudya", response.json["reply"])
+
     def test_app_chat_api_uses_model_classification_for_catalog_lookup(self) -> None:
         app = create_app(
             {
@@ -120,7 +134,7 @@ class WebhookTests(unittest.TestCase):
             "/api/chat",
             json={
                 "message": "What foods should I eat?",
-                "language": "sn",
+                "language": "en",
                 "use_online": True,
             },
         )

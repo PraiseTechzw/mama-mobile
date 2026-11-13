@@ -111,6 +111,14 @@ def _normalize(message: str) -> str:
     return message.strip().casefold()
 
 
+def _find_language_prefix(message: str) -> tuple[str, str] | None:
+    for language in LANGUAGES:
+        for prefix in LANGUAGE_PREFIXES.get(language, ()):
+            if message.startswith(prefix):
+                return language, prefix
+    return None
+
+
 def _detect_language(message: str, preferred_language: str) -> str | None:
     normalized = " ".join(_TOKEN_PATTERN.findall(_normalize(message)))
     tokens = set(normalized.split())
@@ -145,16 +153,10 @@ def classify_question(
 ) -> tuple[str, str]:
     normalized = _normalize(message)
     preferred = preferred_language if preferred_language in LANGUAGES else "en"
-    explicit_language: str | None = None
-
-    for language in LANGUAGES:
-        for prefix in LANGUAGE_PREFIXES.get(language, ()):
-            if normalized.startswith(prefix):
-                explicit_language = language
-                normalized = normalized[len(prefix) :].strip()
-                break
-        if explicit_language:
-            break
+    prefix_match = _find_language_prefix(normalized)
+    explicit_language = prefix_match[0] if prefix_match else None
+    if prefix_match:
+        normalized = normalized[len(prefix_match[1]) :].strip()
 
     inferred_language = explicit_language or _detect_language(normalized, preferred)
     urgent_intent = next(intent for intent in INTENTS if intent.id == "urgent_symptoms")
@@ -302,6 +304,15 @@ def answer_question_with_mode(
         intent_id, language = online_classification
         if force_language:
             language = preferred_language
+        else:
+            prefix_match = _find_language_prefix(_normalize(message))
+            detected_language = (
+                prefix_match[0]
+                if prefix_match
+                else _detect_language(message, preferred_language)
+            )
+            if detected_language:
+                language = detected_language
         valid_intents = {intent.id for intent in INTENTS}
         if intent_id == "clarify" and language in LANGUAGES:
             if local_intent != "fallback":
