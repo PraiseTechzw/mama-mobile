@@ -129,7 +129,9 @@ export default function WelcomeScreen() {
               {
                 id: 'privacy',
                 author: 'mama' as const,
-                text: t('Your answers stay on this device. You can change them any time in Settings.'),
+                text: t(
+                  'Your profile stays on this device. If online classification is enabled, your question and recent chat are sent to Perplexity through OpenRouter, where the provider may process or retain them. Do not include names or contact details.',
+                ),
               },
             ]
           : []),

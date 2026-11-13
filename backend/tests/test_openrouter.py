@@ -9,14 +9,17 @@ from backend.mamabot.openrouter import classify_with_openrouter
 
 class OpenRouterTests(unittest.TestCase):
     def make_response(self, result: dict[str, object]):
+        intent_answer: dict[str, object] = {
+            "type": "choice",
+            "choice": result["intent_id"],
+        }
+        for field in ("confidence", "probabilities"):
+            if field in result:
+                intent_answer[field] = result[field]
         data = json.dumps(
             {
                 "answers": {
-                    "intent_id": {
-                        "type": "choice",
-                        "choice": result["intent_id"],
-                        "confidence": result["confidence"],
-                    },
+                    "intent_id": intent_answer,
                     "language": {
                         "type": "choice",
                         "choice": result["language"],
@@ -95,25 +98,12 @@ class OpenRouterTests(unittest.TestCase):
         )
 
         mocked_urlopen.return_value = self.make_response(
-            {"intent_id": "nutrition", "language": "en", "confidence": 0.94}
+            {
+                "intent_id": "nutrition",
+                "language": "en",
+                "probabilities": {"nutrition": 0.94},
+            }
         )
-        payload = {
-            "answers": {
-                "intent_id": {
-                    "type": "choice",
-                    "choice": "nutrition",
-                    "probabilities": {"nutrition": 0.94},
-                },
-                "language": {"type": "choice", "choice": "en"},
-            },
-        }
-        mocked_urlopen.return_value = self.make_response(
-            {"intent_id": "nutrition", "language": "en", "confidence": 0.94}
-        )
-        response_data = json.loads(mocked_urlopen.return_value.getvalue())
-        response_data["answers"]["intent_id"].pop("confidence")
-        response_data["answers"]["intent_id"]["probabilities"] = {"nutrition": 0.94}
-        mocked_urlopen.return_value = io.BytesIO(json.dumps(response_data).encode())
         self.assertEqual(
             classify_with_openrouter("question", "test-key", "provider/test-model"),
             ("nutrition", "en"),
@@ -133,8 +123,16 @@ class OpenRouterTests(unittest.TestCase):
     @patch("backend.mamabot.openrouter.urlopen")
     def test_http_error_logs_status_and_provider_message_without_question(self, mocked_urlopen) -> None:
         question = "private health question"
+        recent_message = "recent private detail"
         body = json.dumps(
-            {"error": {"message": "No endpoints found matching your data policy"}}
+            {
+                "error": {
+                    "message": (
+                        "No endpoints found matching your data policy: "
+                        f"{question}; {recent_message}"
+                    )
+                }
+            }
         ).encode()
         mocked_urlopen.side_effect = HTTPError(
             "https://openrouter.ai/api/alpha/decisions",
@@ -145,13 +143,23 @@ class OpenRouterTests(unittest.TestCase):
         )
 
         with self.assertLogs("backend.mamabot.openrouter", level="WARNING") as logs:
-            result = classify_with_openrouter(question, "test-key", "openrouter/free")
+            result = classify_with_openrouter(
+                question,
+                "test-key",
+                "perplexity/pplx-decider-v1.3:free",
+                context={
+                    "recent_messages": [
+                        {"author": "you", "text": recent_message},
+                    ],
+                },
+            )
 
         self.assertIsNone(result)
         message = "\n".join(logs.output)
         self.assertIn("HTTP 404", message)
         self.assertIn("No endpoints found matching your data policy", message)
         self.assertNotIn(question, message)
+        self.assertNotIn(recent_message, message)
 
 
 if __name__ == "__main__":

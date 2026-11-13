@@ -17,7 +17,7 @@ from backend.mamabot.language_sessions import (
     language_prompt,
     parse_language_selection,
 )
-from backend.mamabot.openrouter import DEFAULT_FREE_MODEL, classify_with_openrouter
+from backend.mamabot.openrouter import DEFAULT_CLASSIFICATION_MODEL, classify_with_openrouter
 
 
 load_dotenv(Path(__file__).resolve().parent / ".env")
@@ -78,7 +78,11 @@ def create_app(test_config: Mapping[str, object] | None = None) -> Flask:
         configured_model = str(app.config["OPENROUTER_MODEL"]).strip()
         if not api_key:
             return None
-        model = configured_model or DEFAULT_FREE_MODEL
+        model = (
+            configured_model
+            if configured_model and configured_model != "openrouter/free"
+            else DEFAULT_CLASSIFICATION_MODEL
+        )
 
         return lambda message: classify_with_openrouter(
             message,

@@ -118,11 +118,28 @@ def classify_with_openrouter(
         try:
             response_data = json.loads(error.read().decode("utf-8"))
             error_data = response_data.get("error", {})
-            detail = error_data.get("message", "") if isinstance(error_data, dict) else ""
+            detail = (
+                error_data.get("message", "")
+                if isinstance(error_data, dict)
+                else ""
+            )
+            if not isinstance(detail, str):
+                detail = ""
             detail = " ".join(detail.split())
-            detail = detail.replace(api_key, "[redacted]").replace(message, "[question redacted]")
+            sensitive_values = [api_key, message]
+            recent_messages = (context or {}).get("recent_messages", [])
+            if isinstance(recent_messages, list):
+                sensitive_values.extend(
+                    item["text"]
+                    for item in recent_messages
+                    if isinstance(item, Mapping)
+                    and isinstance(item.get("text"), str)
+                )
+            for value in sensitive_values:
+                if value:
+                    detail = detail.replace(value, "[redacted]")
             detail = detail[:240]
-        except (UnicodeDecodeError, json.JSONDecodeError, OSError):
+        except (AttributeError, TypeError, UnicodeDecodeError, json.JSONDecodeError, OSError):
             detail = ""
         LOGGER.warning(
             "OpenRouter Decisions classification rejected with HTTP %d%s; using local matching.",

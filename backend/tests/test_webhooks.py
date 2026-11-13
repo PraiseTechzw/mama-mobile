@@ -5,7 +5,7 @@ from unittest.mock import patch
 import psycopg
 
 from backend.app import create_app
-from backend.mamabot.openrouter import DEFAULT_FREE_MODEL
+from backend.mamabot.openrouter import DEFAULT_CLASSIFICATION_MODEL
 from backend.mamabot.language_sessions import LanguageSession
 from twilio.request_validator import RequestValidator
 
@@ -146,7 +146,7 @@ class WebhookTests(unittest.TestCase):
         self.assertEqual(classify.call_args.kwargs["context"], context)
 
     @patch("backend.app.classify_with_openrouter")
-    def test_app_chat_api_selects_free_router_when_model_is_unset(self, classify) -> None:
+    def test_app_chat_api_selects_default_model_when_model_is_unset(self, classify) -> None:
         classify.return_value = ("nutrition", "en")
         app = create_app(
             {
@@ -165,7 +165,31 @@ class WebhookTests(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json["mode"], "online")
-        self.assertEqual(classify.call_args.args[2], DEFAULT_FREE_MODEL)
+        self.assertEqual(classify.call_args.args[2], DEFAULT_CLASSIFICATION_MODEL)
+
+    @patch("backend.app.classify_with_openrouter")
+    def test_app_chat_api_migrates_legacy_free_router_model(self, classify) -> None:
+        classify.return_value = ("nutrition", "en")
+        app = create_app(
+            {
+                "TESTING": True,
+                "OPENROUTER_API_KEY": "test-key",
+                "OPENROUTER_MODEL": "openrouter/free",
+            }
+        )
+
+        response = app.test_client().post(
+            "/api/chat",
+            json={
+                "message": "What foods should I eat?",
+                "language": "en",
+                "use_online": True,
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json["mode"], "online")
+        self.assertEqual(classify.call_args.args[2], DEFAULT_CLASSIFICATION_MODEL)
 
     def test_app_chat_api_validates_payload(self) -> None:
         client = create_app({"TESTING": True}).test_client()

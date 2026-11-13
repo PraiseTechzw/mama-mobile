@@ -128,8 +128,10 @@ const translations: Record<Exclude<AppLanguage, 'en'>, Record<string, string>> =
     'When to seek help': 'Nguva yekutsvaga rubatsiro',
     'Ask MamaBot': 'Bvunza MamaBot',
     'Get pregnancy guidance': 'Wana mazano epamuviri',
-    'MamaBot works offline. Optional online AI sends your question to MamaBot’s service and OpenRouter. Do not include names or contact details. MamaBot is not a clinician.':
-      'MamaBot inoshanda isina internet. Kana ukasarudza AI iri online, mubvunzo wako unotumirwa kuseva yeMamaBot neOpenRouter. Usaisa zita rako kana mashoko ekukuzivisa. MamaBot haisi nyanzvi yezveutano.',
+    'MamaBot works offline. Optional online AI sends your question and recent chat to Perplexity through OpenRouter, where the provider may process or retain them. Do not include identifying information. MamaBot is not a clinician.':
+      'MamaBot inoshanda isina internet. AI yepamhepo inotumira mubvunzo wako nenhaurirano dzichangobva kuitika kuPerplexity kuburikidza neOpenRouter, uko mupi webasa anogona kuzvishandisa kana kuzvichengeta. Usaisa mashoko anokuzivisa. MamaBot haisi nyanzvi yezveutano.',
+    'Your profile stays on this device. If online classification is enabled, your question and recent chat are sent to Perplexity through OpenRouter, where the provider may process or retain them. Do not include names or contact details.':
+      'Ruzivo rweprofile yako runogara pafoni yako. Kana kupatsanurwa kwemubvunzo neAI yepamhepo kuchishandiswa, mubvunzo wako nenhaurirano dzichangobva kuitika zvinotumirwa kuPerplexity kuburikidza neOpenRouter; mupi webasa anogona kuzvishandisa kana kuzvichengeta. Usaisa mazita kana mashoko ekukuzivisa.',
     'In-app chat works offline. WhatsApp and SMS need mobile network access, and their messages are handled by those providers.':
       'Nhaurirano iri muapp ino inoshanda isina internet. WhatsApp neSMS zvinoda network yefoni, uye mashoko zvinopfuura kumakambani iwayo.',
     'Online AI is unavailable; this answer used on-device guidance.':

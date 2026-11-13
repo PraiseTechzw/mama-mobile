@@ -114,8 +114,10 @@ export const ndebeleTranslations: Record<string, string> = {
   'When to seek help': 'Isikhathi sokudinga usizo',
   'Ask MamaBot': 'Buza uMamaBot',
   'Get pregnancy guidance': 'Thola izeluleko ngokukhulelwa',
-  'MamaBot works offline. Optional online AI sends your question to MamaBot’s service and OpenRouter. Do not include names or contact details. MamaBot is not a clinician.':
-    'UMamaBot usebenza engelantanethi. Nxa ukhetha i-AI eku-inthanethi, umbuzo wakho uthunyelwa kuseva kaMamaBot le-OpenRouter. Ungafaki ibizo lakho kumbe imininingwane engakwazisa. UMamaBot kasisiyo ingcitshi yezempilakahle.',
+  'MamaBot works offline. Optional online AI sends your question and recent chat to Perplexity through OpenRouter, where the provider may process or retain them. Do not include identifying information. MamaBot is not a clinician.':
+    'UMamaBot usebenza engelantanethi. I-AI eku-inthanethi ithumela umbuzo wakho lengxoxo zakutshanje kuPerplexity ngeOpenRouter, lapho umnikezi angakusebenzisa kumbe akugcine. Ungafaki ulwazi olungakuchaza. UMamaBot kasisiyo ingcitshi yezempilakahle.',
+  'Your profile stays on this device. If online classification is enabled, your question and recent chat are sent to Perplexity through OpenRouter, where the provider may process or retain them. Do not include names or contact details.':
+    'Ulwazi lwephrofayela yakho luhlala efonini yakho. Nxa ukuhlukaniswa kombuzo nge-AI eku-inthanethi kuvuliwe, umbuzo wakho lengxoxo zakutshanje kuthunyelwa kuPerplexity ngeOpenRouter; umnikezi angakusebenzisa kumbe akugcine. Ungafaki amabizo kumbe imininingwane engakwazisa.',
   'In-app chat works offline. WhatsApp and SMS need mobile network access, and their messages are handled by those providers.':
     'Ingxoxo eku-app isebenza ingela-inthanethi. I-WhatsApp le-SMS kudinga inethiwekhi yefoni, lemilayezo iphathwa yizinkampani lezo.',
   'Chat on WhatsApp': 'Xoxa kuWhatsApp',
