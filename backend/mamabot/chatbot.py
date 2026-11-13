@@ -61,10 +61,20 @@ IntentClassifier = Callable[[str], tuple[str, str] | None]
 _TOKEN_PATTERN = re.compile(r"[a-z0-9]+")
 _BM25_K1 = 1.2
 _BM25_B = 0.75
+_STOP_WORDS = frozenset(
+    "a an and are as at be been but by can could did do does for from had has have he her "
+    "how i if in is it me my of on or our please she should so tell that the their them "
+    "there these they this to us was we were what when where which who why will with would "
+    "you your".split()
+)
 
 
 def _tokens(text: str) -> list[str]:
-    return _TOKEN_PATTERN.findall(text.casefold())
+    return [
+        token
+        for token in _TOKEN_PATTERN.findall(text.casefold())
+        if token not in _STOP_WORDS
+    ]
 
 
 _SEARCH_DOCUMENTS = [

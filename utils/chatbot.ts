@@ -24,7 +24,14 @@ function normalizeMessage(message: string) {
 }
 
 function tokenize(message: string) {
-  return message.toLowerCase().match(/[a-z0-9]+/g) ?? [];
+  const stopWords = new Set(
+    'a an and are as at be been but by can could did do does for from had has have he her how i if in is it me my of on or our please she should so tell that the their them there these they this to us was we were what when where which who why will with would you your'.split(
+      ' ',
+    ),
+  );
+  return (message.toLowerCase().match(/[a-z0-9]+/g) ?? []).filter(
+    (token) => !stopWords.has(token),
+  );
 }
 
 function termFrequencies(tokens: string[]) {
